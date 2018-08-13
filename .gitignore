@@ -1,5 +1,9 @@
-/build/
-/config/
-/dist/
-/*.js
-/test/unit/coverage/
+node_modules
+cache
+cache-loader
+dist
+.project
+dll
+build
+*.sh
+.idea
