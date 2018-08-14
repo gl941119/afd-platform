@@ -5,6 +5,7 @@ import App from './App'
 import filters from './filters';
 import './utils/mint';
 import './assets/css/reset.css';
+import i18n from './i18n/i18n';
 
 
 Object.keys(filters).forEach(key => {
@@ -17,5 +18,6 @@ new Vue({
     el: '#app',
     router,
     store,
+    i18n,
     render: h => h(App),
 })

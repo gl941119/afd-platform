@@ -33,10 +33,4 @@
         display: flex;
         flex-direction: column;
     }
-
-    .center {
-        height: 800px;
-        overflow-y: scroll;
-        flex: 1;
-    }
 </style>
