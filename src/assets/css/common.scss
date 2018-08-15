@@ -1,19 +1,16 @@
+@import './global.scss';
 /* 我的-cell */
 
-@import './global.scss';
 .mine_kind .mint-cell-wrapper .mint-cell-title {
     font-size: 12px;
 }
 
-.mine_last .mint-cell-wrapper .mint-cell-title {
-    font-size: 12px;
+// nav-left
+.nav .custom-mint-icon-arrowr {
+    font-size: 14px;
 }
 
-/* 个人信息-cell */
-
-.information_kind .mint-cell-wrapper .mint-cell-title {
-    font-size: 12px;
-}
+/* input */
 
 .mint-field-core {
     border: 1px solid rgba(151, 151, 151, 1);
@@ -23,6 +20,7 @@
     margin-bottom: pxTorem(15px);
 }
 
+//revenue -ischecked
 .mint-navbar .mint-tab-item.is-selected {
     border-bottom: 0;
 }

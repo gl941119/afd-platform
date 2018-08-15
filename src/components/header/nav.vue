@@ -1,8 +1,6 @@
 <template>
     <div class="nav">
-        <router-link v-if="linkName"
-                     class="nav-link"
-                     :to="{name: linkName}">
+        <router-link v-if="linkName" class="nav-link" :to="{name: linkName}">
             <i class="custom-mint-icon-arrowr"></i>
         </router-link>
         <div class="nav-text">{{title}}</div>
@@ -18,21 +16,25 @@
     }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/css/global.scss';
-.nav {
-    height: pxTorem(44px);
-    padding: 0 14px;
-    @include content-flex();
-    &-link {
-        height: 100%;
-        padding: 0 10px;
-        margin-left: -14px;
-        @include content-flex(center);
+    @import '../../assets/css/global.scss';
+    .nav {
+        height: 44px;
+        padding: 0 14px;
+        @include content-flex();
+        background: #ffffff;
+        margin-bottom: 10px;
+        &-link {
+            height: 100%;
+            padding: 0 10px;
+            margin-left: -14px;
+            color: #979797;
+            @include content-flex(center);
+        }
+        &-text {
+            flex: auto;
+            text-align: center;
+            font-size: 16px;
+            color: rgba(51, 51, 51, 1);
+        }
     }
-    &-text {
-        flex: auto;
-        text-align: center;
-        font-size: 16px;
-    }
-}
 </style>

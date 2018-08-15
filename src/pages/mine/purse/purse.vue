@@ -1,10 +1,6 @@
 <template>
     <div class="purse">
-        <mt-header title="钱包" class="purse_header">
-            <router-link to="/mine" slot="left">
-                <mt-button icon="back" class="purse_header_button"></mt-button>
-            </router-link>
-        </mt-header>
+        <header-nav linkName="mine" title="钱包"></header-nav>
         <div class="purse_balance">
             <div class="purse_balance_box">
                 <p class="purse_balance_box_info">余额</p>
@@ -36,7 +32,7 @@
             return {
                 purseAddress: '',
                 disabled: false,
-                balance: '',
+                balance: '0',
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
             }
         },
@@ -106,15 +102,6 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        &_header {
-            background: #ffffff;
-            color: #333333;
-            font-size: 16px;
-            margin-bottom: pxTorem(10px);
-            &_button {
-                color: #F3F3F3;
-            }
-        }
         &_balance {
             background: #ffffff;
             @include remCalc(padding, 10px, 18px, 0);

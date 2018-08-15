@@ -1,5 +1,6 @@
 <template>
     <div class="information">
+        <header-nav linkName="mine" title="个人信息"></header-nav>
         <mt-cell class="information_kind" @click.native="active" title="头像" is-link>
         </mt-cell>
         <mt-cell class="information_kind" @click.native="openInfo(1)" title="昵称" is-link>
@@ -44,7 +45,7 @@
     </div>
 </template>
 <script>
-    import Cache from '../../../utils/cache.js'
+    import Cache from '../../../utils/cache.js';
     export default {
         data() {
             return {
