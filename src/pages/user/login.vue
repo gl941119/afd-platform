@@ -24,13 +24,18 @@
 <script>
     import validateFun from '../../utils/validate.js';
     import Request from '../../utils/require';
+    import Cache from '../../utils/cache';
     export default {
         data() {
             return {
                 username: '',
                 password: '',
-                validateKey: undefined,
+                validateKey: ' ',
             }
+        },
+        created() {
+            Cache.setSession('show_footer', '0');
+            this.$store.commit('setShowFooter', '0');
         },
         computed: {
             isSelected() {
@@ -47,6 +52,7 @@
                     data: {
                         email: validateFun.encrypt(this.username),
                         password: validateFun.encrypt(this.password),
+                        validateCode: '!!##**',
                         validateKey: this.validateKey,
                     },
                     type: 'post',
