@@ -6,14 +6,14 @@
             </router-link>
         </mt-header>
         <div class="invite_title">
-            <div>受邀用户</div>
-            <div>加入时间</div>
-            <div>获取AFDT</div>
+            <div class="invite_title_info">受邀用户</div>
+            <div class="invite_title_info">加入时间</div>
+            <div class="invite_title_info">获取AFDT</div>
         </div>
-        <div></div>
     </div>
 </template>
 <script>
+    import Cache from '../../../utils/cache.js'
     export default {
         data() {
             return {
@@ -21,7 +21,11 @@
                 earnings: [],
                 withdrawals: [],
             }
-        }
+        },
+        created() {
+            Cache.setSession('show_footer', '0');
+            this.$store.commit('setShowFooter', '0');
+        },
     }
 </script>
 <style lang="scss" scoped>
@@ -35,7 +39,9 @@
             background: #ffffff;
             color: #333333;
             font-size: 16px;
+            /*no*/
             margin-bottom: 10px;
+            /*no*/
             &_button {
                 color: #F3F3F3;
             }
@@ -46,9 +52,12 @@
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid #D8D8D8;
+            /*no*/
             background: #ffffff;
-            height: 40px;
             text-align: center;
+            &_info {
+                width: 100%;
+            }
         }
     }
 </style>
