@@ -2,11 +2,14 @@
     <div class="project">
         <div class="project-header">
             <div class="project-input">
-                <input class="project-input-item" type="text">
+                <input @focus="inputFocus" v-model="inputValue" class="project-input-item" type="text">
                 <i class="project-input-icon custom-mint-icon-sousuo"></i>
             </div>
         </div>
         <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
+        <div v-if="noData" class="project-result">
+            <div>搜索不到相关信息</div>
+        </div>
     </div>
 </template>
 <script>
@@ -21,6 +24,9 @@
                 advertItemDatas: [],
                 totalAdvertItemDatas: [],
                 conceptId: this.$route.query.id,
+                inputValue: this.$route.query.value,
+                pageTotal: 0,
+                noData: false,
             }
         },
         mounted() {
@@ -44,7 +50,7 @@
                         // console.log('QueryAdvertInfo_>', res);
                         this.advertItemDatas = res.data;
                         if (this.advertItemDatas && this.advertItemDatas.length === 0) {
-                            this.$toast('没有数据了')
+                            this.noData = true;
                             resolve();
                         } else {
                             this.totalAdvertItemDatas.push(...this.advertItemDatas);
@@ -65,11 +71,21 @@
                         type: 'get'
                     }).then(res => {
                         // console.log('QueryAdvertInfoForPage>', res);
-                        this.advertDatas = res.data;
+                            this.advertDatas = res.data;
+                        if (res.data && res.data.length === 0) {
+                            this.noData = true;
+                            resolve();
+                        } else {
+                            this.totalAdvertItemDatas.push(...this.advertDatas);
+                            resolve();
+                        }
                         this.pageTotal = res.total;
                         resolve();
                     })
                 });
+            },
+            inputFocus() {
+                this.$router.push({ name: 'search' })
             },
         }
     }
@@ -78,6 +94,8 @@
     @import '../../assets/css/global.scss';
     .project {
         width: 100%;
+        background: #FAFAFA;
+        padding-bottom: 50px;
         &-header {
             height: 44px;
             @include content-flex(center);
@@ -96,6 +114,10 @@
                 left: 8px;
                 color: #8E8E93;
             }
+        }
+        &-result {
+            height: calc(100vh - 50px - 44px);
+            @include content-flex(center);
         }
     }
 </style>
