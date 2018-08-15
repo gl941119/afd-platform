@@ -9,7 +9,7 @@
         <div>
             <mt-cell class="mine_kind" title="钱包" to="/purse" is-link>
             </mt-cell>
-            <mt-cell class="mine_kind" title="广告收益" to="//github.com" is-link>
+            <mt-cell class="mine_kind" title="广告收益" to="/revenue" is-link>
             </mt-cell>
             <mt-cell class="mine_kind" title="邀请用户" to="//github.com" is-link>
             </mt-cell>
