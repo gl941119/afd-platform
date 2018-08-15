@@ -5,7 +5,8 @@ import router from '@/router'
 import store from '@/store'
 import App from './App'
 import filters from './filters';
-import FastClick from 'fastclick'
+import FastClick from 'fastclick';
+import Cache from './utils/cache';
 import './utils/mint';
 import './assets/css/reset.css';
 import './assets/css/common.scss';
@@ -28,6 +29,27 @@ if ('addEventListener' in document) {
         FastClick.attach(document.body);
     }, false);
 }
+
+router.beforeEach((to, from, next) => {
+    let token = store.state.token;
+
+    if (to.matched.some(record => record.meta.showFooter)) {
+        Cache.setSession('show_footer', '1');
+        store.commit('setShowFooter', '1');
+    } else {
+        Cache.setSession('show_footer', '0');
+        store.commit('setShowFooter', '0');
+    }
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!token) {
+            next({name: 'index'})
+        } else {
+            next();
+        }
+    } else {
+        next()
+    }
+})
 
 Vue.config.productionTip = false;
 /* eslint-disable no-new */

@@ -38,6 +38,7 @@ export default new Router({
         {
             path: '/index',
             name: 'index',
+            meta: { showFooter: true }, // 显示footer
             component: IndexCom
         },
         {
@@ -53,16 +54,19 @@ export default new Router({
         {
             path: '/project',
             name: 'project',
+            meta: { showFooter: true }, // 显示footer
             component: Project
         },
         {
             path: '/crowdfunding',
             name: 'crowdfunding',
+            meta: { showFooter: true }, // 显示footer
             component: Crowdfunding
         },
         {
             path: '/mine',
             name: 'mine',
+            meta: { showFooter: true }, // 显示footer
             component: Mine,
 
         },
