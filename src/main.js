@@ -8,7 +8,7 @@ import filters from './filters';
 import FastClick from 'fastclick'
 import './utils/mint';
 import './assets/css/reset.css';
-import './assets/css/common.css';
+import './assets/css/common.scss';
 import i18n from './i18n/i18n';
 
 // component

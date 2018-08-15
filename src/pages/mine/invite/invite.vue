@@ -29,6 +29,7 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../../../assets/css/global.scss';
     .invite {
         background: #fafafa;
         overflow-y: scroll;
@@ -39,20 +40,17 @@
             background: #ffffff;
             color: #333333;
             font-size: 16px;
-            /*no*/
-            margin-bottom: 10px;
-            /*no*/
+            margin-bottom: pxTorem(10px);
             &_button {
                 color: #F3F3F3;
             }
         }
         &_title {
-            height: 40px;
+            height: pxTorem(40px);
             display: flex;
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid #D8D8D8;
-            /*no*/
             background: #ffffff;
             text-align: center;
             &_info {

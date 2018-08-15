@@ -1,26 +1,24 @@
 /* 我的-cell */
 
+@import './global.scss';
 .mine_kind .mint-cell-wrapper .mint-cell-title {
     font-size: 12px;
-    /*no*/
 }
 
 .mine_last .mint-cell-wrapper .mint-cell-title {
     font-size: 12px;
-    /*no*/
 }
 
 /* 个人信息-cell */
 
 .information_kind .mint-cell-wrapper .mint-cell-title {
     font-size: 12px;
-    /*no*/
 }
 
 .mint-field-core {
     border: 1px solid rgba(151, 151, 151, 1);
-    width: 220px;
-    height: 33px;
-    padding-left: 10px;
-    margin-bottom: 15px;
+    width: pxTorem(220px);
+    height: pxTorem(33px);
+    padding-left: pxTorem(10px);
+    margin-bottom: pxTorem(15px);
 }

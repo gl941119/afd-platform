@@ -31,6 +31,7 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../../assets/css/global.scss';
     .mine {
         background: #fafafa;
         overflow-y: scroll;
@@ -38,55 +39,47 @@
         display: flex;
         flex-direction: column;
         &_info {
-            height: 106px;
-            line-height: 106px;
-            margin-left: 10px;
-            /*no*/
+            height: pxTorem(106px);
+            line-height: pxTorem(106px);
+            margin-left: pxTorem(10px);
             &_img {
                 background: #d8d8d8;
-                width: 44px;
-                height: 44px;
+                width: pxTorem(44px);
+                height: pxTorem(44px);
                 border-radius: 50%;
                 display: inline-block;
-                margin-right: 13px;
-                /*no*/
+                margin-right: pxTorem(13px);
                 vertical-align: middle;
             }
             &_nickname {
                 font-size: 12px;
-                /*no*/
                 color: #333333;
             }
         }
         &_top {
-            height: 106px;
-            margin-bottom: 10px;
-            /*no*/
+            height: pxTorem(106px);
+            margin-bottom: pxTorem(10px);
         }
         &_kind {
             font-size: 12px !important;
             color: rgba(51, 51, 51, 1);
             border-bottom: 1px solid #e6e6e6;
-            /*no*/
         }
         .mine_kind:last-child {
             border: 0;
         }
         &_last {
-            margin: 10px 0;
-            /*no*/
+            @include remCalc(margin, 10px, 0);
         }
         &_buttonBox {
             background: #ffffff;
-            padding: 20px 30px 0px;
-            /*no*/
+            @include remCalc(padding, 20px, 30px, 0);
             flex: 1;
             &_button {
                 background: #f3f3f3;
                 margin: 0 auto;
                 color: #333333;
                 font-size: 12px;
-                /*no*/
             }
         }
     }
