@@ -1,25 +1,23 @@
 $browser-default-font-size: 37.5px;
+$base-size: 37.5;
 @function pxTorem($px) {
     //$px为需要转换的字号
     @return $px / $browser-default-font-size * 1rem;
 }
 
 @function strip-units($number) {
-    @return $number / ($number * 0 + 1);
+    @return ($number / ($number * 0 + 1)) / $base-size;
 }
+
+/**
+ * height: pxTorem(44px);
+ * @include remCalc(margin, 10, 20);
+ * @include remCalc(margin, 10px, 20px);
+ */
 
 @mixin remCalc($property, $values...) {
     $max: length($values); //返回$values列表的长度值
-    $pxValues: '';
     $remValues: '';
-    @for $i from 1 through $max {
-        $value: strip-units(nth($values, $i)); //返回$values列表中的第$i个值，并将单位值去掉
-        $browser-default-font-size: strip-units($browser-default-font-size);
-        $pxValues: #{$pxValues + $value * $browser-default-font-size}px;
-        @if $i < $max {
-            $pxValues: #{$pxValues + " "};
-        }
-    }
     @for $i from 1 through $max {
         $value: strip-units(nth($values, $i));
         $remValues: #{$remValues + $value}rem;
@@ -27,7 +25,6 @@ $browser-default-font-size: 37.5px;
             $remValues: #{$remValues + " "};
         }
     }
-    #{$property}: $pxValues;
     #{$property}: $remValues;
 }
 

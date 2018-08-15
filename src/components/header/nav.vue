@@ -20,7 +20,7 @@
 <style lang="scss" scoped>
 @import '../../assets/css/global.scss';
 .nav {
-    height: 44px;
+    height: pxTorem(44px);
     padding: 0 14px;
     @include content-flex();
     &-link {
