@@ -49,6 +49,7 @@
                 align-items: center;
                 flex-direction: column;
                 font-size: 10px;
+                /*no*/
                 color: #ACACAC;
                 &.router-link-active {
                     color: #009EC2;
