@@ -14,8 +14,10 @@ import i18n from './i18n/i18n';
 
 // component
 import HeaderNav from '@/components/header/nav';
+import AdvertItem from '@/components/index-com/advert-item';
 
 Vue.component(HeaderNav.name, HeaderNav);
+Vue.component(AdvertItem.name, AdvertItem);
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key]);
