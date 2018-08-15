@@ -1,10 +1,6 @@
 <template>
     <div class="revenue">
-        <mt-header title="广告收益" class="revenue_header">
-            <router-link to="/mine" slot="left">
-                <mt-button icon="back" class="revenue_header_button"></mt-button>
-            </router-link>
-        </mt-header>
+        <header-nav linkName="mine" title="广告收益"></header-nav>
         <mt-navbar class="revenue_tabbar" v-model="selected">
             <mt-tab-item id="1" class="revenue_tabbar_one">收益记录</mt-tab-item>
             <mt-tab-item id="2">体现记录</mt-tab-item>
@@ -90,15 +86,6 @@
     @import '../../../assets/css/global.scss';
     .revenue {
         background: #fafafa;
-        &_header {
-            background: #ffffff;
-            color: #333333;
-            font-size: 16px;
-            margin-bottom: pxTorem(10px);
-            &_button {
-                color: #F3F3F3;
-            }
-        }
         &_tabbar {
             display: flex;
             align-items: center;

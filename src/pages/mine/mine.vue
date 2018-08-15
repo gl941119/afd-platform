@@ -17,16 +17,44 @@
         <mt-cell class="mine_last" title="我的众筹" to="//github.com" is-link>
         </mt-cell>
         <div class="mine_buttonBox">
-            <mt-button class="mine_buttonBox_button" type="primary" size="large">退出登录</mt-button>
+            <mt-button class="mine_buttonBox_button" @click.native="logOut" type="primary" size="large">退出登录</mt-button>
         </div>
     </div>
 </template>
 <script>
+    import Cache from '../../utils/cache.js';
+    import Request from '../../utils/require';
     export default {
+        data() {
+            return {
+                token: this.$store.state.token || Cache.getSession('bier_token'),
+            };
+        },
         methods: {
-            purse() {
-                console.log(1)
-            }
+            logOut() {
+                Request({
+                    url: 'SignOut',
+                    type: 'get',
+                    data: { token: this.token }
+                }).then(res => {
+                    this.handleSignOut();
+                    this.$router.push({ name: 'index' });
+                })
+            },
+            handleSignOut() {
+                this.$store.commit('setUserId', undefined);
+                this.$store.commit('setUserName', undefined);
+                this.$store.commit('setUserNickName', undefined);
+                this.$store.commit('setToken', undefined);
+                this.$store.commit('setHeardUrl', undefined);
+                this.$store.commit('setInviteCode', '');
+                Cache.removeSession('bier_username');
+                Cache.removeSession('bier_token');
+                Cache.removeSession('bier_heardUrl');
+                Cache.removeSession('bier_userid');
+                Cache.removeSession('bier_inviteCode');
+                Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
+            },
         }
     }
 </script>

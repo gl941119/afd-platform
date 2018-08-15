@@ -1,5 +1,6 @@
 <template>
     <div class="auth">
+        <header-nav linkName="information" title="实名认证"></header-nav>
         <div class="auth_info">
             <mt-field class="auth_info_input" placeholder="姓名" v-model="name"></mt-field>
             <mt-field class="auth_info_input" placeholder="证件类型" v-model="idType"></mt-field>

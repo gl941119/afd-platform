@@ -1,10 +1,6 @@
 <template>
     <div class="invite">
-        <mt-header title="邀请用户" class="invite_header">
-            <router-link to="/mine" slot="left">
-                <mt-button icon="back" class="invite_header_button"></mt-button>
-            </router-link>
-        </mt-header>
+        <header-nav linkName="mine" title="邀请用户"></header-nav>
         <div class="invite_title">
             <div class="invite_title_info">受邀用户</div>
             <div class="invite_title_info">加入时间</div>
@@ -73,15 +69,6 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        &_header {
-            background: #ffffff;
-            color: #333333;
-            font-size: 16px;
-            margin-bottom: pxTorem(10px);
-            &_button {
-                color: #F3F3F3;
-            }
-        }
         &_title {
             height: pxTorem(40px);
             display: flex;
