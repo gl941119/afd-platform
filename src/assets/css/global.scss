@@ -65,3 +65,9 @@ $base-size: 37.5;
     color: #333;
     font-size: 12px;
 }
+.mint-msgbox-wrapper {
+    z-index: 2222!important;
+}
+.advert-item .mint-actionsheet {
+    z-index: 2220!important;
+}

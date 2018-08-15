@@ -76,10 +76,12 @@
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
     .share {
-        width: 100%;
-        height: 100%;
-        z-index: 999;
-        position: absolute;
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
         background: rgba(0, 0, 0, 0.5);
         display: flex;
         justify-content: center;
@@ -90,7 +92,6 @@
         width: pxTorem(320px);
         max-height: pxTorem(400px);
         background: #ffffff;
-        z-index: 99999;
         margin: 0 auto 36px;
         position: relative;
         padding: 35px 10px;
