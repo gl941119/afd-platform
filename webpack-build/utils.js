@@ -38,8 +38,12 @@ exports.cssLoaders = function (options) {
 
     // generate loader string to be used with extract text plugin
     function generateLoaders(loader, loaderOptions) {
-        const loaders = options.usePostCSS ? [MiniCssExtractPlugin.loader, cssLoader, postcssLoader, px2remLoader] : [MiniCssExtractPlugin.loader, cssLoader, px2remLoader]
-
+        let loaders;
+        if (options.extract) {
+            loaders = options.usePostCSS ? [MiniCssExtractPlugin.loader, cssLoader, postcssLoader, px2remLoader] : [MiniCssExtractPlugin.loader, cssLoader, px2remLoader]
+        } else {
+            loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
+        }
         if (loader) {
             loaders.push({
                 loader: loader + '-loader',

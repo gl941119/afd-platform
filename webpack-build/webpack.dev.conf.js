@@ -48,9 +48,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         // dev服务器自动打开浏览器。
         open: config.dev.autoOpenBrowser,
         // 当出现编译器错误或警告时，在浏览器中显示全屏遮罩层。默认情况下禁用。
-        overlay: config.dev.errorOverlay ?
-            { warnings: false, errors: true } :
-            false,
+        overlay: config.dev.errorOverlay ? { warnings: false, errors: true } : false,
         // 浏览器中访问的相对路径
         publicPath: config.dev.assetsPublicPath,
         // 代理配置
@@ -105,8 +103,7 @@ module.exports = new Promise((resolve, reject) => {
                         messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
                     },
                     onErrors: config.dev.notifyOnErrors ?
-                        utils.createNotifierCallback() :
-                        undefined
+                        utils.createNotifierCallback() : undefined
                 })
             )
             resolve(devWebpackConfig)
