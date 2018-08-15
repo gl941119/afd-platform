@@ -9,25 +9,24 @@ import Utils from './util.js';
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? config.url.localTestUrl : config.url.productUrl;
 
-let loadingInstance;
 let utils = new Utils();
 
 axios.interceptors.request.use(config => {
-    loadingInstance = Indicator.open({
+    Indicator.open({
         text: 'Loading...',
         spinnerType: 'fading-circle',
     });
     return config;
 }, err => {
-    loadingInstance.close();
+    Indicator.close();
     return Promise.reject(err);
 });
 
 axios.interceptors.response.use(data => {
-    loadingInstance.close();
+    Indicator.close();
     return data;
 }, err => {
-    loadingInstance.close();
+    Indicator.close();
     return Promise.reject(err);
 });
 
@@ -121,9 +120,7 @@ function requestHandle(params) {
                         // location.href = "/index";
                     }*/
                     reject(res.data);
-                    Toast.error({
-                        message: utils.judgeLanguage(utils.getCurrLanguage(store), message),
-                    });
+                    Toast(utils.judgeLanguage(utils.getCurrLanguage(store), message));
                 }
             },
             rej => {
