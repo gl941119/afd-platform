@@ -17,6 +17,9 @@
                 <mt-cell v-for="n in 4" :key="n" :title="'餐厅 ' + n" />
             </mt-tab-container-item>
         </mt-tab-container>
+        <div class="revenue_buttoneBox">
+            <mt-button class="revenue_buttoneBox_button" type="primary" size="large">提现</mt-button>
+        </div>
     </div>
 </template>
 <script>
@@ -57,6 +60,21 @@
             text-align: center;
             &_one {
                 border-right: 1px solid #D8D8D8;
+            }
+        }
+        &_buttoneBox {
+            padding: 0 73px;
+            width: 100%;
+            height: 50px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            box-shadow: 1px 0px 4px 0px rgba(195, 195, 195, 0.5);
+            &_button {
+                background: rgba(0, 158, 194, 1);
+                height: 35px;
+                width: 100%;
+                font-size: 14px;
             }
         }
     }

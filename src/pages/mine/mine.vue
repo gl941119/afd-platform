@@ -11,7 +11,7 @@
             </mt-cell>
             <mt-cell class="mine_kind" title="广告收益" to="/revenue" is-link>
             </mt-cell>
-            <mt-cell class="mine_kind" title="邀请用户" to="//github.com" is-link>
+            <mt-cell class="mine_kind" title="邀请用户" to="/invite" is-link>
             </mt-cell>
         </div>
         <mt-cell class="mine_last" title="我的众筹" to="//github.com" is-link>
