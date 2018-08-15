@@ -1,27 +1,19 @@
 <template>
     <div id="app">
-        <Header></Header>
         <router-view></router-view>
         <Footer></Footer>
     </div>
 </template>
 
 <script>
-    import Footer from './pages/footer';
-    import Header from './pages/header';
+    import Footer from '@/components/footer';
     export default {
         name: 'App',
         components: {
             Footer,
-            Header
         },
         data() {
-            return {
-
-            }
-        },
-        methods: {
-
+            return {}
         }
     }
 </script>

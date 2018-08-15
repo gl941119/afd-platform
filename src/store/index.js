@@ -5,10 +5,10 @@ import Cache from '../utils/cache';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	state: {
-		id: Cache.getSession('bier_userid'),
-		username: Cache.getSession('bier_username'),
-		usernickname: Cache.getSession('bier_usernickname'),
+    state: {
+        id: Cache.getSession('bier_userid'),
+        username: Cache.getSession('bier_username'),
+        usernickname: Cache.getSession('bier_usernickname'),
         token: Cache.getSession('bier_token'),
         dialogVisible: false, // share component visible
         conceptId: 0, // advert concept id
@@ -18,23 +18,25 @@ export default new Vuex.Store({
         change: false,
         bullsData: undefined,
         globalShow: Cache.getSession('globalShow') || 'show', // global share
-		slangChange: Cache.getLocal('bier_langChange') || 'zh',
+        slangChange: Cache.getLocal('bier_langChange') || 'zh',
         heardUrl: Cache.getSession('bier_heardUrl'),
         registerVisible: false,
-		inviteCode: '',
-	},
-	mutations: {
-		setUserId(state, val) {
-			state.id = val;
-		},
-		setUserName(state, val) {
-			state.username = val;
-		},
-		setUserNickName(state, val) {
-			state.usernickname = val;
-		},
-		setToken(state, val) {
-			state.token = val;
+        inviteCode: '',
+        // mobile add
+        showFooter: Cache.getSession('show_footer') || '1', // 是否显示底部导航 string-> '1'-> show '0'-> hide
+    },
+    mutations: {
+        setUserId(state, val) {
+            state.id = val;
+        },
+        setUserName(state, val) {
+            state.username = val;
+        },
+        setUserNickName(state, val) {
+            state.usernickname = val;
+        },
+        setToken(state, val) {
+            state.token = val;
         },
         setDialogVisible(state, val) {
             state.dialogVisible = val;
@@ -63,14 +65,18 @@ export default new Vuex.Store({
         setGlobalShow(state, val) {
             state.globalShow = val;
         },
-		setHeardUrl(state, val) {
-			state.heardUrl = val;
-		},
-		setLanguage(state, val) {
-			state.slangChange = val;
+        setHeardUrl(state, val) {
+            state.heardUrl = val;
+        },
+        setLanguage(state, val) {
+            state.slangChange = val;
         },
         setInviteCode(state, val) {
-			state.inviteCode = val;
+            state.inviteCode = val;
         },
-	},
+        // mobile add
+        setShowFooter(state, val) {
+            state.showFooter = val;
+        }
+    },
 });

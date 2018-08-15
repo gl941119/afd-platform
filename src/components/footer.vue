@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <div class="footer" v-if="isShow==='1'">
         <ul class="footer_item">
             <router-link tag="li" :to="{ name: 'index'}" class="footer_item_li">
                 <i class="custom-mint-icon-shouye"></i>
@@ -23,17 +23,21 @@
 <script>
     export default {
         data() {
-            return {
-
-            }
+            return {}
         },
-        methods: {
-
+        computed: {
+            isShow() {
+                return this.$store.state.showFooter;
+            }
         }
     }
 </script>
 <style lang="scss" scoped>
     .footer {
+        position: fixed;
+        width: 100vw;
+        bottom: 0;
+        left: 0;
         height: 50px;
         box-shadow: 1px 0px 4px 0px rgba(195, 195, 195, 0.5);
         &_item {

@@ -12,40 +12,48 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
-    {
-        path: '/index',
-        name: 'index',
-        component: Index
-    },
-    {
-        path: '/project',
-        name: 'project',
-        component: Project
-    },
-    {
-        path: '/crowdfunding',
-        name: 'crowdfunding',
-        component: Crowdfunding
-    },
-    {
-        path: '/mine',
-        name: 'mine',
-        component: Mine,
+        {
+            path: '/',
+            redirect: {
+                name: 'index'
+            },
+        },
+        {
+            path: '/index',
+            name: 'index',
+            component: Index
+        },
+        {
+            path: '/project',
+            name: 'project',
+            component: Project
+        },
+        {
+            path: '/crowdfunding',
+            name: 'crowdfunding',
+            component: Crowdfunding
+        },
+        {
+            path: '/mine',
+            name: 'mine',
+            component: Mine,
 
-    },
-    {
-        path: '/purse',
-        name: 'purse',
-        component: Purse
-    },
-    {
-        path: '/revenue',
-        name: 'revenue',
-        component: Revenue
-    },
-    {
-        path: '/invite',
-        name: 'invite',
-        component: Invite
-    }]
+        },
+        {
+            path: '/purse',
+            name: 'purse',
+            component: Purse
+        },
+        {
+            path: '/revenue',
+            name: 'revenue',
+            component: Revenue
+        },
+        {
+            path: '/invite',
+            name: 'invite',
+            component: Invite
+        },
+        { path: '*', redirect: '/' }
+    ]
 })
