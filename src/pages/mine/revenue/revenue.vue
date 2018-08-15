@@ -11,7 +11,7 @@
         </mt-navbar>
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
-                <mt-cell v-for="n in 10" :key="n" :title="'餐厅 ' + n" />
+                <mt-cell v-for="n in 20" :key="n" :title="'餐厅 ' + n" />
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
                 <mt-cell v-for="n in 4" :key="n" :title="'餐厅 ' + n" />
@@ -23,6 +23,7 @@
     </div>
 </template>
 <script>
+    import Cache from '../../../utils/cache.js'
     export default {
         data() {
             return {
@@ -30,21 +31,23 @@
                 earnings: [],
                 withdrawals: [],
             }
-        }
+        },
+        created() {
+            Cache.setSession('show_footer', '0');
+            this.$store.commit('setShowFooter', '0');
+        },
     }
 </script>
 <style lang="scss" scoped>
     .revenue {
         background: #fafafa;
-        overflow-y: scroll;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
         &_header {
             background: #ffffff;
             color: #333333;
             font-size: 16px;
+            /*no*/
             margin-bottom: 10px;
+            /*no*/
             &_button {
                 color: #F3F3F3;
             }
@@ -55,26 +58,33 @@
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid #D8D8D8;
+            /*no*/
             background: #ffffff;
             height: 40px;
             text-align: center;
             &_one {
                 border-right: 1px solid #D8D8D8;
+                /*no*/
             }
         }
         &_buttoneBox {
             padding: 0 73px;
+            /*no*/
             width: 100%;
             height: 50px;
             background: #ffffff;
             display: flex;
             align-items: center;
             box-shadow: 1px 0px 4px 0px rgba(195, 195, 195, 0.5);
+            /*no*/
+            position: fixed;
+            bottom: 0;
             &_button {
                 background: rgba(0, 158, 194, 1);
                 height: 35px;
                 width: 100%;
                 font-size: 14px;
+                /*no*/
             }
         }
     }

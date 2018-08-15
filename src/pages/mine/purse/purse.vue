@@ -29,7 +29,12 @@
     </div>
 </template>
 <script>
+    import Cache from '../../../utils/cache.js'
     export default {
+        created() {
+            Cache.setSession('show_footer', '0');
+            this.$store.commit('setShowFooter', '0');
+        },
         methods: {
 
         }
@@ -46,7 +51,9 @@
             background: #ffffff;
             color: #333333;
             font-size: 16px;
+            /*no*/
             margin-bottom: 10px;
+            /*no*/
             &_button {
                 color: #F3F3F3;
             }
@@ -54,17 +61,23 @@
         &_balance {
             background: #ffffff;
             padding: 10px 18px 0;
+            /*no*/
             flex: 1;
             &_box {
                 border: 1px solid #979797;
+                /*no*/
                 text-align: center;
                 font-size: 16px;
+                /*no*/
                 margin-bottom: 4px;
+                /*no*/
                 &_info {
                     margin: 25px 0 11px;
+                    /*no*/
                 }
                 &_button {
                     margin: 20px 0 16px;
+                    /*no*/
                     button {
                         width: 78px;
                         height: 24px;
@@ -73,6 +86,7 @@
                         background: rgba(243, 243, 243, 1);
                         color: #333333;
                         margin-right: 64px;
+                        /*no*/
                     }
                     &_right {
                         background: rgba(0, 158, 194, 1);
@@ -82,6 +96,7 @@
             &_notic {
                 >p {
                     font-size: 10px;
+                    /*no*/
                     color: #009EC2;
                 }
                 >p:first-child {
@@ -92,15 +107,20 @@
                 width: 100%;
                 height: 30px;
                 border: 1px solid rgba(151, 151, 151, 1);
+                /*no*/
                 padding-left: 10px;
+                /*no*/
                 margin: 10px 0 20px;
+                /*no*/
             }
             &_bind {
                 button {
                     width: 88px;
                     height: 24px;
                     border: 1px solid rgba(216, 216, 216, 1);
+                    /*no*/
                     font-size: 12px;
+                    /*no*/
                 }
                 button:last-child {
                     background: rgba(243, 243, 243, 1);

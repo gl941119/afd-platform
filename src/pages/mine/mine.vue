@@ -1,6 +1,6 @@
 <template>
     <div class="mine">
-        <mt-cell is-link class="mine_top">
+        <mt-cell is-link class="mine_top" to="/information">
             <div class="mine_info" slot="title">
                 <div class="mine_info_img"></div>
                 <span class="mine_info_nickname">昵称：</span>
