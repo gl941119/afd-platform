@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <custom-share></custom-share>
         <router-view></router-view>
         <Footer></Footer>
     </div>
@@ -7,10 +8,12 @@
 
 <script>
     import Footer from '@/components/footer';
+    import customShareCom from '@/components/index-com/custom-share';
     export default {
         name: 'App',
         components: {
             Footer,
+            'custom-share': customShareCom,
         },
         data() {
             return {}

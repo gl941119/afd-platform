@@ -8,7 +8,7 @@
                 <input @focus="inputFocus" class="search-input-item" type="text">
                 <i class="search-input-icon custom-mint-icon-sousuo"></i>
             </div>
-            <a class="search-share" href="javascript:;">
+            <a class="search-share" @click="showShare" href="javascript:;">
                 <i class="custom-mint-icon-fenxiang"></i>
             </a>
         </div>
@@ -19,6 +19,7 @@
     </div>
 </template>
 <script>
+    import Cache from '../../utils/cache';
     export default {
         name: 'IndexSearch',
         data() {
@@ -44,6 +45,17 @@
             },
             inputFocus() {
                 this.$router.push({ name: 'search' })
+            },
+            showShare() {
+                if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
+                    this.$messagebox.confirm(
+                        '请先登录，才能分享'
+                    ).then(() => {
+                        this.$router.push({ name: 'login' })
+                    }, () => {});;
+                    return;
+                }
+                this.$store.commit('setDialogVisible', true);
             }
         }
     }

@@ -18,15 +18,15 @@
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
     .nav {
-        height: 44px;
-        padding: 0 14px;
+        height: pxTorem(44px);
+        @include remCalc(padding, 0, 14px);
         @include content-flex();
         background: #ffffff;
-        margin-bottom: 10px;
+        margin-bottom: pxTorem(10px);
         &-link {
             height: 100%;
-            padding: 0 10px;
-            margin-left: -14px;
+            @include remCalc(padding, 0, 10px);
+            margin-left: pxTorem(-14px);
             color: #979797;
             @include content-flex(center);
         }
