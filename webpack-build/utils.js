@@ -29,20 +29,13 @@ exports.cssLoaders = function (options) {
         }
     }
 
-    const px2remLoader = {
-        loader: 'px2rem-loader',
-        options: {
-            remUnit: 37.5
-        }
-    }
-
     // generate loader string to be used with extract text plugin
     function generateLoaders(loader, loaderOptions) {
         let loaders;
         if (options.extract) {
-            loaders = options.usePostCSS ? [MiniCssExtractPlugin.loader, cssLoader, postcssLoader, px2remLoader] : [MiniCssExtractPlugin.loader, cssLoader, px2remLoader]
+            loaders = options.usePostCSS ? [MiniCssExtractPlugin.loader, cssLoader, postcssLoader] : [MiniCssExtractPlugin.loader, cssLoader]
         } else {
-            loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
+            loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
         }
         if (loader) {
             loaders.push({
