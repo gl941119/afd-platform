@@ -6,6 +6,7 @@ import App from './App'
 import filters from './filters';
 import './utils/mint';
 import './assets/css/reset.css';
+import './assets/css/common.css';
 import i18n from './i18n/i18n';
 
 
