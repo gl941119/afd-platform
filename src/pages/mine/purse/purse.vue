@@ -18,7 +18,7 @@
             </div>
             <input class="purse_balance_address" placeholder="输入ETH钱包地址" :disabled="disabled" v-model="purseAddress" />
             <div class="purse_balance_bind">
-                <mt-button v-if="disabled" @click.native="bind" plain>绑定地址</mt-button>
+                <mt-button v-if="!disabled" @click.native="bind" plain>绑定地址</mt-button>
                 <mt-button v-else plain>已绑定</mt-button>
             </div>
         </div>
@@ -89,7 +89,9 @@
                     data: { address: this.purseAddress, },
                     type: 'get',
                     flag: true,
-                }).then(res => { this.balance = res.data.balance; })
+                }).then(res => {
+                    this.balance = res.data.balance;
+                })
             }
         }
     }

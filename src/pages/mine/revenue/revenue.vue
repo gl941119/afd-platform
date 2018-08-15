@@ -3,7 +3,7 @@
         <header-nav linkName="mine" title="广告收益"></header-nav>
         <mt-navbar class="revenue_tabbar" v-model="selected">
             <mt-tab-item id="1" class="revenue_tabbar_one">收益记录</mt-tab-item>
-            <mt-tab-item id="2">体现记录</mt-tab-item>
+            <mt-tab-item id="2">提现记录</mt-tab-item>
         </mt-navbar>
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
@@ -21,7 +21,12 @@
                         {{item.createTime}}
                     </div>
                     <div class="revenue_title_info">{{item.money}} AFDT</div>
-                    <div class="revenue_title_info">{{item.status}}</div>
+                    <div class="revenue_title_info">
+                        <span v-if="item.status==1">转账成功</span>
+                        <span v-if="item.status==2">待转账（审核通过）</span>
+                        <span v-if="item.status==3">待审核</span>
+                        <span v-if="item.status==4">审核不通过</span>
+                    </div>
                 </div>
             </mt-tab-container-item>
         </mt-tab-container>

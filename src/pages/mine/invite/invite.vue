@@ -9,10 +9,10 @@
         <div class="invite_title" v-for="(item, index) in inviteData" :key="index">
             <div class="invite_title_info">
                 <span v-if="item.nickname">{{item.nickname}}</span>
-                <span v-else>{{item.email}}</span>
+                <span v-else>{{item.email | emails}}</span>
             </div>
-            <div class="invite_title_info">{{item.timer}}</div>
-            <div class="invite_title_info">{{item.getAfd}}</div>
+            <div class="invite_title_info">{{item.createTime}}</div>
+            <div class="invite_title_info">{{item.earnings}}</div>
         </div>
     </div>
 </template>
@@ -30,6 +30,12 @@
             Cache.setSession('show_footer', '0');
             this.$store.commit('setShowFooter', '0');
         },
+        filters: {
+            emails: function (value) {
+                var reg = /(.{3}).+(@.+)/g;
+                if (value) return value.replace(reg, "$1****$2");
+            }
+        },
         mounted() {
             this.queryCode();
         },
@@ -44,7 +50,6 @@
                     // this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
                     // this.imageQr = 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
                     this.queryInviteData(res.data.inviteCode);
-                    console.log(res);
                 })
             },
             queryInviteData(inviteCode) {
@@ -53,7 +58,6 @@
                     data: { page: 1, pageSize: 30, inviteCode: inviteCode, },
                     type: 'get'
                 }).then(res => {
-                    console.log(res)
                     this.inviteData = res.data;
                     // this.total = res.total;
                 })
