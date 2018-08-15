@@ -34,6 +34,7 @@
 </script>
 <style lang="scss" scoped>
     .footer {
+        background: #fff;
         position: fixed;
         width: 100vw;
         bottom: 0;

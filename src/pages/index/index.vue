@@ -1,21 +1,52 @@
 <template>
-    <div>
+    <div class="index">
         <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
+        <header-nav></header-nav>
+        <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
     </div>
 </template>
 <script>
-    import customCarouselCom from '@/components/index-com/custom-carousel';
+    import CustomCarousel from '@/components/index-com/custom-carousel';
+    import HeaderNav from '@/components/index-com/header-nav';
     import Request from '../../utils/require.js';
+    import Config from '../../utils/config.js';
     export default {
         data() {
             return {
                 swiperImgs: [],
+                page: Config.pageStart,
+                pageSize: Config.pageSize,
+                advertItemDatas: [],
+                totalAdvertItemDatas: [],
             }
         },
         mounted() {
-            this.findAdvertisement()
+            this.findAdvertisement();
+            this.getAdvertInfo();
         },
         methods: {
+            getAdvertInfo(page = this.page, pageSize = this.pageSize) {
+                return new Promise((resolve, reject) => {
+                    Request({
+                        url: 'QueryAdvertInfo',
+                        data: {
+                            page,
+                            pageSize,
+                        },
+                        type: 'get'
+                    }).then(res => {
+                        console.log('QueryAdvertInfo_>', res);
+                        this.advertItemDatas = res.data;
+                        if (this.advertItemDatas && this.advertItemDatas.length === 0) {
+                            this.$toast('没有数据了')
+                            resolve();
+                        } else {
+                            this.totalAdvertItemDatas.push(...this.advertItemDatas);
+                            resolve();
+                        }
+                    })
+                });
+            },
             // carousel image from server
             findAdvertisement() {
                 return new Promise((resolve, reject) => {
@@ -25,7 +56,7 @@
                         type: 'get',
                     }).then(res => {
                         this.swiperImgs = this.handleCarouselData(res.data);
-                        console.log('this.swiperImgs->', this.swiperImgs);
+                        // console.log('this.swiperImgs->', this.swiperImgs);
                         resolve();
                     })
                 })
@@ -35,7 +66,14 @@
             }
         },
         components: {
-            'custom-carousel': customCarouselCom,
+            CustomCarousel,
+            HeaderNav,
         }
     }
 </script>
+<style lang="scss" scoped>
+    .index {
+        background: #FAFAFA;
+        padding-bottom: 50px;
+    }
+</style>
