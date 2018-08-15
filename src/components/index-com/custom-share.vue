@@ -7,7 +7,7 @@
             </p>
             <input class="show-share-title" id="show-share-title" :value="copyValue" style="opacity: 0;" />
             <div class="show-share-btn">
-                <mt-button class="show-share-btn-text" data-clipboard-target="#show-share-title" type="primary" @click="clickCopy()">点我复制</mt-button>
+                <mt-button class="show-share-btn-text" data-clipboard-target="#show-share-title" size="small" type="primary" @click="clickCopy()">点我复制</mt-button>
             </div>
         </div>
     </div>
