@@ -1,8 +1,8 @@
 <template>
-    <div class="share" v-if="dialogVisible">
+    <div class="share" @click="close" v-if="dialogVisible">
         <div id="thisDiv" class="show-share">
             <p class="show-share-title">
-                分享
+                被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，邀请人得33AFDT 被邀请人得66AFDT，每日挖币，再享分红！
                 <br/>http://www.afdchain.com
             </p>
             <input class="show-share-title" id="show-share-title" :value="copyValue" style="opacity: 0;" />
@@ -49,6 +49,9 @@
             this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
         },
         methods: {
+            close() {
+                this.$store.commit('setDialogVisible', false);
+            },
             clickCopy() {
                 let clipboard = new Clipboard('.show-share-btn-text');
                 clipboard.on('success', e => {
@@ -71,6 +74,7 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../../assets/css/global.scss';
     .share {
         width: 100%;
         height: 100%;
@@ -83,13 +87,14 @@
     }
 
     .show-share {
-        width: 320px;
-        max-height: 400px;
+        width: pxTorem(320px);
+        max-height: pxTorem(400px);
         background: #ffffff;
         z-index: 99999;
         margin: 0 auto 36px;
         position: relative;
         padding: 35px 10px;
+        @include remCalc(padding, 35px, 10px);
         &-title {
             color: #FF9500;
             font-size: 20px;
@@ -97,12 +102,12 @@
             text-align: center;
         }
         &-btn {
-            padding: 10px 20px;
+            @include remCalc(padding, 10px, 20px);
             /*background: #fff;*/
             &-text {
                 display: block;
                 margin: 0 auto;
-                width: 116px;
+                width: pxTorem(116px);
                 background: #FF9500;
                 border: none;
                 color: #fff;
