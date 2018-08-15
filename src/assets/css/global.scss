@@ -1,0 +1,58 @@
+$browser-default-font-size: 37.5px;
+@function pxTorem($px) {
+    //$px为需要转换的字号
+    @return $px / $browser-default-font-size * 1rem;
+}
+
+@function strip-units($number) {
+    @return $number / ($number * 0 + 1);
+}
+
+@mixin remCalc($property, $values...) {
+    $max: length($values); //返回$values列表的长度值
+    $pxValues: '';
+    $remValues: '';
+    @for $i from 1 through $max {
+        $value: strip-units(nth($values, $i)); //返回$values列表中的第$i个值，并将单位值去掉
+        $browser-default-font-size: strip-units($browser-default-font-size);
+        $pxValues: #{$pxValues + $value * $browser-default-font-size}px;
+        @if $i < $max {
+            $pxValues: #{$pxValues + " "};
+        }
+    }
+    @for $i from 1 through $max {
+        $value: strip-units(nth($values, $i));
+        $remValues: #{$remValues + $value}rem;
+        @if $i < $max {
+            $remValues: #{$remValues + " "};
+        }
+    }
+    #{$property}: $pxValues;
+    #{$property}: $remValues;
+}
+
+@mixin content-flex($dir: flex-start, $center: center) {
+    display: flex;
+    justify-content: $dir;
+    align-items: $center;
+}
+
+// sigle line hide
+@mixin text-ellipsis {
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// multiple line hide
+@mixin multi-line-hide($line: 2) {
+    display: -webkit-box;
+    display: -moz-box;
+    overflow: hidden;
+    -webkit-line-clamp: $line;
+    -moz-line-clamp: $line;
+    text-overflow: ellipsis;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+}
