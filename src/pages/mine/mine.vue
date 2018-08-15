@@ -2,7 +2,9 @@
     <div class="mine">
         <mt-cell is-link class="mine_top" to="/information">
             <div class="mine_info" slot="title">
-                <div class="mine_info_img"></div>
+                <div class="mine_info_img">
+                    <img slot="icon" :src="headUrl">
+                </div>
                 <span class="mine_info_nickname">昵称：{{nickname}}</span>
             </div>
         </mt-cell>
@@ -28,6 +30,7 @@
         data() {
             return {
                 token: this.$store.state.token || Cache.getSession('bier_token'),
+                headUrl: this.$store.state.heardUrl || Cache.getSession('bier_heardUrl'),
                 nickname: this.$store.state.usernickname || this.$store.state.username,
             };
         },
@@ -71,18 +74,25 @@
             height: pxTorem(106px);
             line-height: pxTorem(106px);
             margin-left: pxTorem(10px);
+            position: relative;
             &_img {
-                background: #d8d8d8;
                 width: pxTorem(44px);
                 height: pxTorem(44px);
-                border-radius: 50%;
-                display: inline-block;
-                margin-right: pxTorem(13px);
-                vertical-align: middle;
+                img {
+                    width: pxTorem(44px);
+                    height: pxTorem(44px);
+                    border-radius: 50%;
+                    display: inline-block;
+                    margin-right: pxTorem(13px);
+                    vertical-align: middle;
+                }
             }
             &_nickname {
                 font-size: 12px;
                 color: #333333;
+                position: absolute;
+                top: 0;
+                left: 58px;
             }
         }
         &_top {
