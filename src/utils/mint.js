@@ -13,6 +13,7 @@ import {
     Navbar,
     TabContainer,
     TabContainerItem,
+    Actionsheet,
 } from 'mint-ui';
 
 Vue.component(Tabbar.name, Tabbar);
@@ -26,6 +27,7 @@ Vue.component(Cell.name, Cell);
 Vue.component(Navbar.name, Navbar);
 Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
+Vue.component(Actionsheet.name, Actionsheet);
 
 Vue.prototype.$messagebox = MessageBox;
 Vue.prototype.$toast = Toast;
