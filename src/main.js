@@ -9,6 +9,10 @@ import './assets/css/reset.css';
 import './assets/css/common.css';
 import i18n from './i18n/i18n';
 
+// component
+import HeaderNav from '@/components/header/nav';
+
+Vue.component(HeaderNav.name, HeaderNav);
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key]);

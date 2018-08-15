@@ -1,12 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/pages/index/index'
-import Project from '@/pages/project/project'
-import Crowdfunding from '@/pages/crowdfunding/crowdfunding'
-import Mine from '@/pages/mine/mine'
-import Purse from '@/pages/mine/purse/purse'
-import Revenue from '@/pages/mine/revenue/revenue'
-import Invite from '@/pages/mine/invite/invite'
+const IndexCom = () =>
+    import ('@/pages/index/index');
+// user
+const LoginCom = () =>
+    import ('@/pages/user/login');
+
+const Project = () =>
+    import ('@/pages/project/project')
+const Crowdfunding = () =>
+    import ('@/pages/crowdfunding/crowdfunding')
+const Mine = () =>
+    import ('@/pages/mine/mine')
+const Purse = () =>
+    import ('@/pages/mine/purse/purse')
+const Revenue = () =>
+    import ('@/pages/mine/revenue/revenue')
+const Invite = () =>
+    import ('@/pages/mine/invite/invite')
 
 Vue.use(Router)
 
@@ -21,7 +32,12 @@ export default new Router({
         {
             path: '/index',
             name: 'index',
-            component: Index
+            component: IndexCom
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginCom,
         },
         {
             path: '/project',
