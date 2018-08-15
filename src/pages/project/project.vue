@@ -20,13 +20,18 @@
                 pageSize: Config.pageSize,
                 advertItemDatas: [],
                 totalAdvertItemDatas: [],
+                conceptId: this.$route.query.id,
             }
         },
         mounted() {
-            this.getAdvertInfo();
+            if (this.conceptId) {
+                this.getAdvertInfo(this.conceptId)
+            } else {
+                this.getAdvertInfoInit();
+            }
         },
         methods: {
-            getAdvertInfo(page = this.page, pageSize = this.pageSize) {
+            getAdvertInfoInit(page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
                     Request({
                         url: 'QueryAdvertInfo',
@@ -45,6 +50,24 @@
                             this.totalAdvertItemDatas.push(...this.advertItemDatas);
                             resolve();
                         }
+                    })
+                });
+            },
+            getAdvertInfo(conceptId = 0, page = this.page, pageSize = this.pageSize) {
+                return new Promise((resolve, reject) => {
+                    Request({
+                        url: 'QueryAdvertInfoForPage',
+                        data: {
+                            page,
+                            pageSize,
+                            conceptId,
+                        },
+                        type: 'get'
+                    }).then(res => {
+                        // console.log('QueryAdvertInfoForPage>', res);
+                        this.advertDatas = res.data;
+                        this.pageTotal = res.total;
+                        resolve();
                     })
                 });
             },
