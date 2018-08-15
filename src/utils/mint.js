@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import {
+    Tabbar,
+    TabItem,
     Swipe,
     SwipeItem,
     Toast,
@@ -9,6 +11,9 @@ import {
     Header,
     Cell
 } from 'mint-ui';
+
+Vue.component(Tabbar.name, Tabbar);
+Vue.component(TabItem.name, TabItem);
 
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
