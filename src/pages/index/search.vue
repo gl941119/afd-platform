@@ -55,14 +55,13 @@
                 });
             },
             clearHistory(){
-                console.log('object');
                 this.searchHistory = [];
                 Cache.removeLocal('searchHistory');
             },
             searchProject(concept) {
                 this.inputSearch = concept.name;
                 this.handleHistory(concept);
-                this.$router.push({ name: 'project', query: { id: concept.id } })
+                this.$router.push({ name: 'project', query: { id: concept.id, value: concept.name } })
             },
             handleHistory(concept) {
                 let index = this.searchHistory.findIndex(item => item.id === concept.id);
