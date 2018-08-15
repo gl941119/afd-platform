@@ -14,6 +14,7 @@ import {
     TabContainer,
     TabContainerItem,
     Actionsheet,
+    Field,
 } from 'mint-ui';
 
 Vue.component(Tabbar.name, Tabbar);
@@ -28,6 +29,7 @@ Vue.component(Navbar.name, Navbar);
 Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Actionsheet.name, Actionsheet);
+Vue.component(Field.name, Field);
 
 Vue.prototype.$messagebox = MessageBox;
 Vue.prototype.$toast = Toast;
