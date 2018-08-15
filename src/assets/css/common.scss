@@ -22,3 +22,7 @@
     padding-left: pxTorem(10px);
     margin-bottom: pxTorem(15px);
 }
+
+.mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 0;
+}

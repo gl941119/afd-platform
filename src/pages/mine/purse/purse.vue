@@ -8,7 +8,7 @@
         <div class="purse_balance">
             <div class="purse_balance_box">
                 <p class="purse_balance_box_info">余额</p>
-                <p>88888AFDT</p>
+                <p>{{balance}}</p>
                 <div class="purse_balance_box_button">
                     <mt-button type="primary" size="small" class="purse_balance_box_button_left">充值</mt-button>
                     <mt-button type="primary" size="small" class="purse_balance_box_button_right">提现</mt-button>
@@ -20,23 +20,81 @@
                 <p>2、如果您需要投放广告，则需要从本地址向平台充值以便核对；</p>
                 <p>3、不能绑定交易所的钱包地址</p>
             </div>
-            <input class="purse_balance_address" placeholder="输入ETH钱包地址" />
+            <input class="purse_balance_address" placeholder="输入ETH钱包地址" :disabled="disabled" v-model="purseAddress" />
             <div class="purse_balance_bind">
-                <mt-button plain>绑定状态</mt-button>
-                <mt-button plain>已绑定</mt-button>
+                <mt-button v-if="disabled" @click.native="bind" plain>绑定地址</mt-button>
+                <mt-button v-else plain>已绑定</mt-button>
             </div>
         </div>
     </div>
 </template>
 <script>
     import Cache from '../../../utils/cache.js'
+    import Request from '../../../utils/require.js';
     export default {
+        data() {
+            return {
+                purseAddress: '',
+                disabled: false,
+                balance: '',
+                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+            }
+        },
         created() {
             Cache.setSession('show_footer', '0');
             this.$store.commit('setShowFooter', '0');
         },
+        mounted() {
+            this.queryWallet();
+        },
         methods: {
-
+            bind() {
+                var str = this.purseAddress;
+                var value = /^0x.{40}$/.test(str);
+                if (value) {
+                    Request({
+                        url: 'QueryBindWalletAddress',
+                        data: { id: this.accountId, walletAddress: this.purseAddress },
+                        type: 'post',
+                        flag: true,
+                    }).then(res => {
+                        this.$toast({
+                            message: this.$t('messageNotice.bindSuccess'),
+                            position: 'center',
+                            duration: 5000
+                        });
+                        this.queryWallet();
+                    })
+                } else {
+                    this.$toast({
+                        message: this.$t('messageNotice.walltLimit'),
+                        position: 'center',
+                        duration: 5000
+                    });
+                }
+            },
+            queryWallet() {
+                Request({
+                    url: 'QueryWalletAddress',
+                    data: { accountId: this.accountId, },
+                    type: 'get',
+                    flag: true,
+                }).then(res => {
+                    this.purseAddress = res.data.walletAddress;
+                    if (res.data.walletAddress) {
+                        this.disabled = true;
+                        this.QueryBalance();
+                    }
+                }).catch(e => { if (e.data && e.data.islogin) { this.$router.push({ name: 'index' }); } })
+            },
+            QueryBalance() {
+                Request({
+                    url: 'QueryBalance',
+                    data: { address: this.purseAddress, },
+                    type: 'get',
+                    flag: true,
+                }).then(res => { this.balance = res.data.balance; })
+            }
         }
     }
 </script>
