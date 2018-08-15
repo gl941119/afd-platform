@@ -4,6 +4,7 @@ import Index from '@/pages/index/index'
 import Project from '@/pages/project/project'
 import Crowdfunding from '@/pages/crowdfunding/crowdfunding'
 import Mine from '@/pages/mine/mine'
+import Purse from '@/pages/mine/purse/purse'
 
 Vue.use(Router)
 
@@ -27,6 +28,12 @@ export default new Router({
     {
         path: '/mine',
         name: 'mine',
-        component: Mine
+        component: Mine,
+
+    },
+    {
+        path: '/purse',
+        name: 'purse',
+        component: Purse
     }]
 })
