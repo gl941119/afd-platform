@@ -41,6 +41,7 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../../../assets/css/global.scss';
     .purse {
         background: #fafafa;
         overflow-y: scroll;
@@ -51,42 +52,33 @@
             background: #ffffff;
             color: #333333;
             font-size: 16px;
-            /*no*/
-            margin-bottom: 10px;
-            /*no*/
+            margin-bottom: pxTorem(10px);
             &_button {
                 color: #F3F3F3;
             }
         }
         &_balance {
             background: #ffffff;
-            padding: 10px 18px 0;
-            /*no*/
+            @include remCalc(padding, 10px, 18px, 0);
             flex: 1;
             &_box {
                 border: 1px solid #979797;
-                /*no*/
                 text-align: center;
                 font-size: 16px;
-                /*no*/
-                margin-bottom: 4px;
-                /*no*/
+                margin-bottom: pxTorem(4px);
                 &_info {
-                    margin: 25px 0 11px;
-                    /*no*/
+                    @include remCalc(margin, 25px, 0, 11px);
                 }
                 &_button {
-                    margin: 20px 0 16px;
-                    /*no*/
+                    @include remCalc(margin, 20px, 0, 16px);
                     button {
-                        width: 78px;
-                        height: 24px;
+                        width: pxTorem(78px);
+                        height: pxTorem(24px);
                     }
                     &_left {
                         background: rgba(243, 243, 243, 1);
                         color: #333333;
-                        margin-right: 64px;
-                        /*no*/
+                        margin-right: pxTorem(64px);
                     }
                     &_right {
                         background: rgba(0, 158, 194, 1);
@@ -96,7 +88,6 @@
             &_notic {
                 >p {
                     font-size: 10px;
-                    /*no*/
                     color: #009EC2;
                 }
                 >p:first-child {
@@ -105,22 +96,17 @@
             }
             &_address {
                 width: 100%;
-                height: 30px;
+                height: pxTorem(30px);
                 border: 1px solid rgba(151, 151, 151, 1);
-                /*no*/
-                padding-left: 10px;
-                /*no*/
-                margin: 10px 0 20px;
-                /*no*/
+                padding-left: pxTorem(10px);
+                @include remCalc(margin, 10px, 0, 20px);
             }
             &_bind {
                 button {
-                    width: 88px;
-                    height: 24px;
+                    width: pxTorem(88px);
+                    height: pxTorem(24px);
                     border: 1px solid rgba(216, 216, 216, 1);
-                    /*no*/
                     font-size: 12px;
-                    /*no*/
                 }
                 button:last-child {
                     background: rgba(243, 243, 243, 1);

@@ -39,52 +39,46 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../../../assets/css/global.scss';
     .revenue {
         background: #fafafa;
         &_header {
             background: #ffffff;
             color: #333333;
             font-size: 16px;
-            /*no*/
-            margin-bottom: 10px;
-            /*no*/
+            margin-bottom: pxTorem(10px);
             &_button {
                 color: #F3F3F3;
             }
         }
         &_tabbar {
-            height: 40px;
+            height: pxTorem(40px);
             display: flex;
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid #D8D8D8;
-            /*no*/
             background: #ffffff;
-            height: 40px;
+            height: pxTorem(40px);
             text-align: center;
             &_one {
                 border-right: 1px solid #D8D8D8;
-                /*no*/
             }
         }
         &_buttoneBox {
-            padding: 0 73px;
-            /*no*/
+            @include remCalc(padding, 0, 73px);
             width: 100%;
-            height: 50px;
+            height: pxTorem(50px);
             background: #ffffff;
             display: flex;
             align-items: center;
             box-shadow: 1px 0px 4px 0px rgba(195, 195, 195, 0.5);
-            /*no*/
             position: fixed;
             bottom: 0;
             &_button {
                 background: rgba(0, 158, 194, 1);
-                height: 35px;
+                height: pxTorem(35px);
                 width: 100%;
                 font-size: 14px;
-                /*no*/
             }
         }
     }
