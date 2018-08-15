@@ -2,8 +2,6 @@ import Vue from 'vue';
 import {
     Tabbar,
     TabItem,
-    Swipe,
-    SwipeItem,
     Toast,
     MessageBox,
     Indicator,
@@ -14,14 +12,14 @@ import {
     TabContainer,
     TabContainerItem,
     Actionsheet,
+    Radio,
+    Popup,
     Field,
 } from 'mint-ui';
 
 Vue.component(Tabbar.name, Tabbar);
 Vue.component(TabItem.name, TabItem);
 
-Vue.component(Swipe.name, Swipe);
-Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Button.name, Button);
 Vue.component(Header.name, Header);
 Vue.component(Cell.name, Cell);
@@ -29,6 +27,8 @@ Vue.component(Navbar.name, Navbar);
 Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Actionsheet.name, Actionsheet);
+Vue.component(Radio.name, Radio);
+Vue.component(Popup.name, Popup);
 Vue.component(Field.name, Field);
 
 Vue.prototype.$messagebox = MessageBox;

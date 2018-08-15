@@ -30,9 +30,6 @@
         data() {
             return {}
         },
-        mounted() {
-            console.log('advert-data_>', this.advertDatas);
-        },
     }
 </script>
 <style lang="scss" scoped>
