@@ -16,6 +16,8 @@ const Purse = () =>
     import ('@/pages/mine/purse/purse')
 const Information = () =>
     import ('@/pages/mine/information/information')
+const Authentication = () =>
+    import ('@/pages/mine/information/authentication')
 const Revenue = () =>
     import ('@/pages/mine/revenue/revenue')
 const Invite = () =>
@@ -61,6 +63,11 @@ export default new Router({
             path: '/information',
             name: 'information',
             component: Information
+        },
+        {
+            path: '/authentication',
+            name: 'authentication',
+            component: Authentication
         },
         {
             path: '/purse',
