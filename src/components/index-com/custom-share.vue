@@ -1,0 +1,122 @@
+<template>
+    <div class="share" v-if="dialogVisible">
+        <div id="thisDiv" class="show-share">
+            <p class="show-share-title">
+                分享
+                <br/>http://www.afdchain.com
+            </p>
+            <input class="show-share-title" id="show-share-title" :value="copyValue" style="opacity: 0;" />
+            <div class="show-share-btn">
+                <mt-button class="show-share-btn-text" data-clipboard-target="#show-share-title" type="primary" @click="clickCopy()">点我复制</mt-button>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    import Request from '../../utils/require.js';
+    import Cache from '../../utils/cache';
+    import Clipboard from 'clipboard';
+    export default {
+        data() {
+            return {
+                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+                token: this.$store.state.token || Cache.getSession("bier_token"),
+                copyValue: '',
+                language: ' 被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，填邀请码注册就送66AFDT ，每邀请一位再送33AFDT，每日挖币，再享分红！',
+            }
+        },
+        computed: {
+            dialogVisible: {
+                get() {
+                    return this.$store.state.dialogVisible;
+                },
+                set() {
+                    this.$store.commit('setDialogVisible', false);
+                }
+            },
+            inviteCode: {
+                get() {
+                    let code = this.$store.state.inviteCode || Cache.getSession("bier_inviteCode");
+                    return code;
+                },
+                set() {
+
+                }
+            },
+
+        },
+        mounted() {
+            this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
+        },
+        methods: {
+            clickCopy() {
+                let clipboard = new Clipboard('.show-share-btn-text');
+                clipboard.on('success', e => {
+                    this.$toast({
+                        message: '复制成功',
+                        position: 'top',
+                        duration: 5000
+                    });
+                    // 释放内存
+                    clipboard.destroy()
+                })
+                clipboard.on('error', e => {
+                    // 不支持复制
+                    this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 });
+                    // 释放内存
+                    clipboard.destroy()
+                })
+            },
+        }
+    }
+</script>
+<style lang="scss" scoped>
+    .share {
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .show-share {
+        width: 320px;
+        max-height: 400px;
+        background: #ffffff;
+        z-index: 99999;
+        margin: 0 auto 36px;
+        position: relative;
+        padding: 35px 10px;
+        &-title {
+            color: #FF9500;
+            font-size: 20px;
+            line-height: 30px;
+            text-align: center;
+        }
+        &-btn {
+            padding: 10px 20px;
+            /*background: #fff;*/
+            &-text {
+                display: block;
+                margin: 0 auto;
+                width: 116px;
+                background: #FF9500;
+                border: none;
+                color: #fff;
+                box-shadow: 0px 2px 4px 0px #955700;
+                &:hover,
+                &:active,
+                &:focus {
+                    background: #FF9500;
+                    color: #fff;
+                }
+                &:active {
+                    background: #FCA529;
+                }
+            }
+        }
+    }
+</style>
