@@ -15,6 +15,7 @@ import {
     Radio,
     Popup,
     Field,
+    Badge,
 } from 'mint-ui';
 
 Vue.component(Tabbar.name, Tabbar);
@@ -30,6 +31,7 @@ Vue.component(Actionsheet.name, Actionsheet);
 Vue.component(Radio.name, Radio);
 Vue.component(Popup.name, Popup);
 Vue.component(Field.name, Field);
+Vue.component(Badge.name, Badge);
 
 Vue.prototype.$messagebox = MessageBox;
 Vue.prototype.$toast = Toast;
