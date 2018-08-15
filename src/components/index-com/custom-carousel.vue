@@ -3,11 +3,11 @@
         <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
             <swiper-slide v-for="img in swiperImgs" :key="img.id">
                 <a :href="img.advertUrl" target="_blank">
-                    <img :src="img.banner">
+                    <img class="gallery-top-img" :src="img.banner">
                 </a>
             </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
-        <div class="swiper-pagination"></div>
     </div>
 </template>
 
@@ -49,5 +49,8 @@
         width: 100%;
         overflow: hidden;
         margin: 0 auto;
+        &-img {
+            max-width: 100vw;
+        }
     }
 </style>
