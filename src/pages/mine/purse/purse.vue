@@ -6,14 +6,32 @@
             </router-link>
         </mt-header>
         <div class="purse_balance">
-            <div class="purse_balance_box"></div>
+            <div class="purse_balance_box">
+                <p class="purse_balance_box_info">余额</p>
+                <p>88888AFDT</p>
+                <div class="purse_balance_box_button">
+                    <mt-button type="primary" size="small" class="purse_balance_box_button_left">充值</mt-button>
+                    <mt-button type="primary" size="small" class="purse_balance_box_button_right">提现</mt-button>
+                </div>
+            </div>
+            <div class="purse_balance_notic">
+                <p>绑定您的钱包地址，用于提现在平台获得的广告收益、核对作为广告主的充 值记录、检查您的账户余额。这意味着：</p>
+                <p>1、ETH钱包地址将可以用于接收基于ERC20协议的平台代币DAFDT；</p>
+                <p>2、如果您需要投放广告，则需要从本地址向平台充值以便核对；</p>
+                <p>3、不能绑定交易所的钱包地址</p>
+            </div>
+            <input class="purse_balance_address" placeholder="输入ETH钱包地址" />
+            <div class="purse_balance_bind">
+                <mt-button plain>绑定状态</mt-button>
+                <mt-button plain>已绑定</mt-button>
+            </div>
         </div>
     </div>
 </template>
 <script>
     export default {
         methods: {
-            handleClose() {}
+
         }
     }
 </script>
@@ -36,7 +54,59 @@
         &_balance {
             background: #ffffff;
             padding: 10px 18px 0;
-            &_box {}
+            flex: 1;
+            &_box {
+                border: 1px solid #979797;
+                text-align: center;
+                font-size: 16px;
+                margin-bottom: 4px;
+                &_info {
+                    margin: 25px 0 11px;
+                }
+                &_button {
+                    margin: 20px 0 16px;
+                    button {
+                        width: 78px;
+                        height: 24px;
+                    }
+                    &_left {
+                        background: rgba(243, 243, 243, 1);
+                        color: #333333;
+                        margin-right: 64px;
+                    }
+                    &_right {
+                        background: rgba(0, 158, 194, 1);
+                    }
+                }
+            }
+            &_notic {
+                >p {
+                    font-size: 10px;
+                    color: #009EC2;
+                }
+                >p:first-child {
+                    color: #757575;
+                }
+            }
+            &_address {
+                width: 100%;
+                height: 30px;
+                border: 1px solid rgba(151, 151, 151, 1);
+                padding-left: 10px;
+                margin: 10px 0 20px;
+            }
+            &_bind {
+                button {
+                    width: 88px;
+                    height: 24px;
+                    border: 1px solid rgba(216, 216, 216, 1);
+                    font-size: 12px;
+                }
+                button:last-child {
+                    background: rgba(243, 243, 243, 1);
+                    border: 0;
+                }
+            }
         }
     }
 </style>
