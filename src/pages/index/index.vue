@@ -1,5 +1,6 @@
 <template>
     <div class="index">
+        <index-search></index-search>
         <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
         <header-nav></header-nav>
         <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
@@ -7,6 +8,7 @@
 </template>
 <script>
     import CustomCarousel from '@/components/index-com/custom-carousel';
+    import IndexSearch from '@/components/header/search';
     import HeaderNav from '@/components/index-com/header-nav';
     import Request from '../../utils/require.js';
     import Config from '../../utils/config.js';
@@ -35,7 +37,7 @@
                         },
                         type: 'get'
                     }).then(res => {
-                        console.log('QueryAdvertInfo_>', res);
+                        // console.log('QueryAdvertInfo_>', res);
                         this.advertItemDatas = res.data;
                         if (this.advertItemDatas && this.advertItemDatas.length === 0) {
                             this.$toast('没有数据了')
@@ -68,6 +70,7 @@
         components: {
             CustomCarousel,
             HeaderNav,
+            IndexSearch,
         }
     }
 </script>

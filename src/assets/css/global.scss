@@ -53,3 +53,10 @@ $base-size: 37.5;
     /*! autoprefixer: off */
     -webkit-box-orient: vertical;
 }
+
+// input
+%custom-input {
+    background: #F4F4F4;
+    border-radius:10px;
+    height:26px;
+}
