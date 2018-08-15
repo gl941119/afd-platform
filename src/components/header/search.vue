@@ -1,9 +1,11 @@
 <template>
     <div>
         <div class="search">
-            <a class="search-title" @click="popupVisible=true" href="javascript:;">{{title}} <i class="custom-mint-icon-xialaanniu"></i></a>
+            <a class="search-title" @click="popupVisible=true" href="javascript:;">{{title}}
+                <i class="custom-mint-icon-xialaanniu"></i>
+            </a>
             <div class="search-input">
-                <input class="search-input-item" type="text">
+                <input @focus="inputFocus" class="search-input-item" type="text">
                 <i class="search-input-icon custom-mint-icon-sousuo"></i>
             </div>
             <a class="search-share" href="javascript:;">
@@ -31,14 +33,17 @@
             }
         },
         watch: {
-            value(val){
+            value(val) {
                 this.popupVisible = false;
                 this.title = this.selTitle(val);
             }
         },
         methods: {
-            selTitle(lang){
+            selTitle(lang) {
                 return this.options.find(item => item.value === lang).label;
+            },
+            inputFocus() {
+                this.$router.push({ name: 'search' })
             }
         }
     }

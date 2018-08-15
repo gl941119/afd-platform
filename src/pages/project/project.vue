@@ -1,22 +1,21 @@
 <template>
-    <div class="index">
-        <index-search></index-search>
-        <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
-        <header-nav></header-nav>
+    <div class="project">
+        <div class="project-header">
+            <div class="project-input">
+                <input class="project-input-item" type="text">
+                <i class="project-input-icon custom-mint-icon-sousuo"></i>
+            </div>
+        </div>
         <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
     </div>
 </template>
 <script>
-    import CustomCarousel from '@/components/index-com/custom-carousel';
-    import IndexSearch from '@/components/header/search';
-    import HeaderNav from '@/components/index-com/header-nav';
     import Request from '../../utils/require.js';
     import Config from '../../utils/config.js';
     export default {
-        name: 'Index',
+        name: 'Project',
         data() {
             return {
-                swiperImgs: [],
                 page: Config.pageStart,
                 pageSize: Config.pageSize,
                 advertItemDatas: [],
@@ -24,7 +23,6 @@
             }
         },
         mounted() {
-            this.findAdvertisement();
             this.getAdvertInfo();
         },
         methods: {
@@ -50,34 +48,31 @@
                     })
                 });
             },
-            // carousel image from server
-            findAdvertisement() {
-                return new Promise((resolve, reject) => {
-                    Request({
-                        url: 'FindAdvertisement',
-                        data: { advertType: '1' },
-                        type: 'get',
-                    }).then(res => {
-                        this.swiperImgs = this.handleCarouselData(res.data);
-                        // console.log('this.swiperImgs->', this.swiperImgs);
-                        resolve();
-                    })
-                })
-            },
-            handleCarouselData(data) {
-                return data.filter(item => item.advertPosition === 1).sort((a, b) => a.advertSort - b.advertSort)
-            }
-        },
-        components: {
-            CustomCarousel,
-            HeaderNav,
-            IndexSearch,
         }
     }
 </script>
 <style lang="scss" scoped>
-    .index {
-        background: #FAFAFA;
-        padding-bottom: 50px;
+    @import '../../assets/css/global.scss';
+    .project {
+        width: 100%;
+        &-header {
+            height: 44px;
+            @include content-flex(center);
+        }
+        &-input {
+            position: relative;
+            width: pxTorem(312px);
+            &-item {
+                width: 100%;
+                @extend %custom-input;
+                padding-left: 36px;
+            }
+            &-icon {
+                position: absolute;
+                top: 4px;
+                left: 8px;
+                color: #8E8E93;
+            }
+        }
     }
 </style>

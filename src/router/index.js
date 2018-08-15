@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const IndexCom = () =>
     import ('@/pages/index/index');
+const SearchCom = () =>
+    import ('@/pages/index/search')
 // user
 const LoginCom = () =>
     import ('@/pages/user/login');
@@ -37,6 +39,11 @@ export default new Router({
             path: '/index',
             name: 'index',
             component: IndexCom
+        },
+        {
+            path: '/search',
+            name: 'search',
+            component: SearchCom
         },
         {
             path: '/login',
