@@ -4,11 +4,11 @@
             <i class="custom-mint-icon-custom-activity"></i>
             <span>精彩活动</span>
         </div>
-        <div class="header-item">
+        <div @click="advertIncome" class="header-item">
             <i class="custom-mint-icon-guanggao"></i>
             <span>广告收益</span>
         </div>
-        <div class="header-item">
+        <div @click="inviteIncome" class="header-item">
             <i class="custom-mint-icon-yaoqing"></i>
             <span>邀请收益</span>
         </div>
@@ -19,10 +19,35 @@
     </div>
 </template>
 <script>
+import Cache from '../../utils/cache.js';
     export default {
         name: 'HeaderNav',
         data() {
             return {}
+        },
+        methods: {
+            advertIncome() {
+                if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
+                    this.$messagebox.confirm(
+                        '请先登录，再查看收益'
+                    ).then(() => {
+                        this.$router.push({ name: 'login' })
+                    }, () => {});
+                    return;
+                }
+                this.$router.push({name:'revenue'})
+            },
+            inviteIncome() {
+                if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
+                    this.$messagebox.confirm(
+                        '请先登录，才能邀请好友'
+                    ).then(() => {
+                        this.$router.push({ name: 'login' })
+                    }, () => {});
+                    return;
+                }
+                this.$router.push({name:'invite'})
+            },
         }
     }
 </script>

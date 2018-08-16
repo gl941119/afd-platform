@@ -13,14 +13,15 @@
                 <i class="custom-mint-icon-zhongchou"></i>
                 众筹
             </router-link>
-            <router-link tag="li" :to="{ name: 'mine'}" class="footer_item_li">
+            <li @click="goToMine" class="footer_item_li" :class="{'mine-active': mineActive}">
                 <i class="custom-mint-icon-wodedangxuan"></i>
                 我的
-            </router-link>
+            </li>
         </ul>
     </div>
 </template>
 <script>
+    import Cache from '../utils/cache.js';
     export default {
         data() {
             return {}
@@ -28,6 +29,22 @@
         computed: {
             isShow() {
                 return this.$store.state.showFooter;
+            },
+            mineActive() {
+                return this.$route.name === 'mine';
+            }
+        },
+        methods: {
+            goToMine() {
+                if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
+                    this.$messagebox.confirm(
+                        '请先登录，再去查看'
+                    ).then(() => {
+                        this.$router.push({ name: 'login' })
+                    }, () => {});
+                    return;
+                }
+                this.$router.push({ name: 'mine' })
             }
         }
     }
@@ -57,6 +74,9 @@
                 /*no*/
                 color: #ACACAC;
                 &.router-link-active {
+                    color: #009EC2;
+                }
+                &.mine-active {
                     color: #009EC2;
                 }
             }
