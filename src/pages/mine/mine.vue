@@ -16,7 +16,7 @@
             <mt-cell class="mine_kind" title="邀请用户" to="/invite" is-link>
             </mt-cell>
         </div>
-        <mt-cell class="mine_last" title="我的众筹" to="//github.com" is-link>
+        <mt-cell class="mine_last" title="我的众筹" is-link>
         </mt-cell>
         <div class="mine_buttonBox">
             <mt-button class="mine_buttonBox_button" @click.native="logOut" type="primary" size="large">退出登录</mt-button>

@@ -1,17 +1,17 @@
 <template>
     <div class="information">
         <header-nav linkName="mine" title="个人信息"></header-nav>
-        <mt-cell class="information_kind" @click.native="active" title="头像" is-link>
+        <mt-cell class="information_kind" title="头像" is-link>
         </mt-cell>
-        <mt-cell class="information_kind" @click.native="openInfo(1)" title="昵称" is-link>
+        <mt-cell class="information_kind" title="昵称" is-link>
         </mt-cell>
-        <mt-cell class="information_kind" @click.native="openInfo(2)" title="登录密码" is-link>
+        <mt-cell class="information_kind" title="登录密码" is-link>
         </mt-cell>
-        <mt-cell class="information_kind" @click.native="openInfo(3)" title="交易密码" is-link>
+        <mt-cell class="information_kind" title="交易密码" is-link>
         </mt-cell>
         <mt-cell class="information_kind" title="绑定Telegram" is-link>
         </mt-cell>
-        <mt-cell class="information_kind" title="实名认证" to="/authentication" is-link>
+        <mt-cell class="information_kind" title="实名认证" is-link>
         </mt-cell>
         <mt-actionsheet :actions="actions" v-model="sheetVisible">
         </mt-actionsheet>
