@@ -35,23 +35,24 @@ async function ajaxRequest(url = '', data = {}, type = 'POST', isJson = false) {
     url = ajaxURL[url];
     let token = store.state.token || Cache.getSession('bier_token');
     let lang = store.state.slangChange || i18n.locale;
-	if(lang == 'en'){
-		lang = lang.toUpperCase();
-	}
+    if (lang == 'en') {
+        lang = lang.toUpperCase();
+    }
     if (type === 'GET') {
-        return token?axios.get(url, {
-            params: data,
-            headers: {
-            	token,
-            	lang,
-            },
-        }):
-        axios.get(url, {params: data,
-        	headers: {
-            	token,
-            	lang,
-            },
-        });
+        return token ? axios.get(url, {
+                params: data,
+                headers: {
+                    token,
+                    lang,
+                },
+            }) :
+            axios.get(url, {
+                params: data,
+                headers: {
+                    token,
+                    lang,
+                },
+            });
     } else if (type === 'POST') {
         if (isJson) {
             return token ? axios.post(url, data, {
@@ -69,23 +70,23 @@ async function ajaxRequest(url = '', data = {}, type = 'POST', isJson = false) {
                 });
         }
         return token ? axios.post(url, qs.stringify(data), {
-            headers: {token,lang},
-        }) : axios.post(url, qs.stringify(data),{
-        	headers: {lang},
+            headers: { token, lang },
+        }) : axios.post(url, qs.stringify(data), {
+            headers: { lang },
         });
-    }else if (type === 'PUT') {
-        return token?axios.put(url, data, {
-            headers: { token,lang},
-        }):
-        axios.put(url, data, {
-            headers: {token,lang},
-        });
+    } else if (type === 'PUT') {
+        return token ? axios.put(url, data, {
+                headers: { token, lang },
+            }) :
+            axios.put(url, data, {
+                headers: { token, lang },
+            });
     } else if (type === 'DELETE') {
-        return token?axios.delete(url, {
-            params: data,
-            headers: {token},
-        }):
-        axios.delete(url, {headers:{token},params: data});
+        return token ? axios.delete(url, {
+                params: data,
+                headers: { token },
+            }) :
+            axios.delete(url, { headers: { token }, params: data });
     }
 }
 
@@ -108,7 +109,7 @@ function requestHandle(params) {
                 if (success === 1) {
                     resolve(res.data);
                 } else {
-                   /* if (data && data.islogin) {
+                    if (data && data.islogin) {
                         store.commit('setUserId', undefined);
                         store.commit('setUserName', undefined);
                         store.commit('setUserNickName', undefined);
@@ -118,7 +119,7 @@ function requestHandle(params) {
                         Cache.removeSession('bier_userid');
                         Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
                         // location.href = "/index";
-                    }*/
+                    }
                     reject(res.data);
                     Toast(utils.judgeLanguage(utils.getCurrLanguage(store), message));
                 }

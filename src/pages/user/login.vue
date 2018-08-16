@@ -31,6 +31,7 @@
                 username: '',
                 password: '',
                 validateKey: ' ',
+                id: this.$store.state.id,
             }
         },
         created() {
@@ -61,8 +62,22 @@
                     this.handleLoginSucc(res.data);
                     this.queryCode(res.data.id);
                 }).catch(e => {
-                    // console.log('err',e); if (e.message === '1035') { this.createCode(); } })
+                    // console.log('err',e);
+                    if (e.message === '1035') {
+                        this.createCode();
+                    }
                 })
+            },
+            createCode() {
+                return new Promise((resolve, reject) => {
+                    Request({
+                        url: 'GetVerifyFromSer',
+                        type: 'get'
+                    }).then(res => {
+                        Object.assign(this, res.data);
+                        resolve();
+                    })
+                });
             },
             queryCode(value) {
                 Request({
@@ -78,15 +93,21 @@
                 let { id, email, nickname, token, phone, heardUrl, } = data;
                 this.$store.commit('setUserId', id);
                 this.$store.commit('setUserName', email);
-                this.$store.commit('setUserNickName', nickname);
-                this.$store.commit('setToken', token);
+                this.$store.commit('setUserNickName', nickname); // cookie 中不保存 token
+                token && this.$store.commit('setToken', token);
                 this.$store.commit('setHeardUrl', heardUrl);
+                var exp = new Date();
+                exp.setTime(exp.getTime() + 1000 * 60 * 10); //这里表示保存10分钟
+                document.cookie = "login_identify=" + id + ";expires=" + exp.toGMTString();
+                token && (document.cookie = 'login_token=' + token + ";expires=" + exp.toGMTString());
                 Cache.setSession('bier_userid', id);
                 Cache.setSession('bier_username', email);
-                Cache.setSession('bier_usernickname', nickname);
-                Cache.setSession('bier_token', token);
-                Cache.setSession('bier_heardUrl', heardUrl);
-                this.$router.push({ name: 'index' });
+                nickname && Cache.setSession('bier_usernickname', nickname);
+                token && Cache.setSession('bier_token', token);
+                heardUrl && Cache.setSession('bier_heardUrl', heardUrl);
+                this.$router.push({
+                    name: 'index'
+                });
             },
         }
     }

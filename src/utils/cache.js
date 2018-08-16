@@ -39,4 +39,24 @@ export default {
         if (!name) return;
         window.localStorage.removeItem(name);
     },
+    getCookie(name) {
+        var strCookie = document.cookie;
+        var arrCookie = strCookie.split("; ");
+        let login_identify;
+        for (var i = 0; i < arrCookie.length; i++) {
+            var arr = arrCookie[i].split("=");
+            if (arr[0] == name) {
+                login_identify = arr[1];
+                break;
+            }
+        }
+        return login_identify;
+    },
+    removeCookie(name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = this.getCookie(name);
+        if (cval != null)
+            document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    }
 };

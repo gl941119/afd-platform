@@ -6,10 +6,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        id: Cache.getSession('bier_userid'),
+        id: Cache.getSession('bier_userid') || Cache.getCookie('login_identify'),
         username: Cache.getSession('bier_username'),
         usernickname: Cache.getSession('bier_usernickname'),
-        token: Cache.getSession('bier_token'),
+        token: Cache.getSession('bier_token') || Cache.getCookie('login_token'),
         dialogVisible: false, // share component visible
         conceptId: 0, // advert concept id
         instantBuyVisible: false, // buy dialog visible

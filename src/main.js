@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
     }
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!token) {
-            next({name: 'index'})
+            next({ name: 'index' })
         } else {
             next();
         }

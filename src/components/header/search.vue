@@ -25,8 +25,8 @@
         data() {
             return {
                 popupVisible: false,
-                value: 'EN',
-                title: 'English',
+                value: 'zh',
+                title: '简体中文',
                 options: [
                     { label: 'English', value: 'EN' },
                     { label: '简体中文', value: 'zh' }

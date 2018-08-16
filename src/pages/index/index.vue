@@ -12,6 +12,7 @@
     import HeaderNav from '@/components/index-com/header-nav';
     import Request from '../../utils/require.js';
     import Config from '../../utils/config.js';
+    import Cache from '../../utils/cache';
     export default {
         name: 'Index',
         data() {
@@ -21,13 +22,61 @@
                 pageSize: Config.pageSize,
                 advertItemDatas: [],
                 totalAdvertItemDatas: [],
+                id: this.$store.state.id,
             }
         },
         mounted() {
-            this.findAdvertisement();
-            this.getAdvertInfo();
+            Promise.all([this.findAdvertisement(), this.getAdvertInfo()]).then(() => {
+                var token = Cache.getSession('bier_token');
+                var id = Cache.getSession('bier_userid');
+                !token && !id && this.getUserInfo();
+            });
+
         },
         methods: {
+            queryCode(value) {
+                Request({
+                    url: 'QueryInviteCode',
+                    data: { accountId: value, },
+                    type: 'get'
+                }).then(res => {
+                    this.$store.commit('setInviteCode', res.data.inviteCode);
+                    Cache.setSession('bier_inviteCode', res.data.inviteCode);
+                })
+            },
+            handleLoginSucc(data) {
+                let { id, email, nickname, token, phone, heardUrl, } = data;
+                this.$store.commit('setUserId', id);
+                this.$store.commit('setUserName', email);
+                this.$store.commit('setUserNickName', nickname); // cookie 中不保存 token
+                token && this.$store.commit('setToken', token);
+                this.$store.commit('setHeardUrl', heardUrl);
+                var exp = new Date();
+                exp.setTime(exp.getTime() + 1000 * 60 * 10); //这里表示保存10分钟
+                document.cookie = "login_identify=" + id + ";expires=" + exp.toGMTString();
+                token && (document.cookie = 'login_token=' + token + ";expires=" + exp.toGMTString());
+                Cache.setSession('bier_userid', id);
+                Cache.setSession('bier_username', email);
+                nickname && Cache.setSession('bier_usernickname', nickname);
+                token && Cache.setSession('bier_token', token);
+                heardUrl && Cache.setSession('bier_heardUrl', heardUrl);
+                this.$router.push({ name: 'index' });
+            },
+            getUserInfo() {
+                var id = Cache.getCookie('login_identify');
+                var token = Cache.getCookie('login_token');
+                token && id && Request({
+                    url: 'GetUserInfoById',
+                    type: 'get',
+                    data: { id }
+                }).then(res => {
+                    console.log('GetUserInfoById_>', res);
+                    this.handleLoginSucc(res.data);
+                    this.$store.commit('setToken', token);
+                    Cache.setSession('bier_token', token);
+                    this.queryCode(id);
+                }).catch(console.error)
+            },
             getAdvertInfo(page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
                     Request({
