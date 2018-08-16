@@ -2,8 +2,8 @@
     <div class="revenue">
         <header-nav linkName="mine" title="广告收益"></header-nav>
         <mt-navbar class="revenue_tabbar" v-model="selected">
-            <mt-tab-item id="1" class="revenue_tabbar_one">收益记录</mt-tab-item>
-            <mt-tab-item id="2">提现记录</mt-tab-item>
+            <mt-tab-item id="1" class="revenue_tabbar_one">提现记录</mt-tab-item>
+            <mt-tab-item id="2">收益记录</mt-tab-item>
         </mt-navbar>
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
