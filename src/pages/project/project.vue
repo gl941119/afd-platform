@@ -6,9 +6,12 @@
                 <i class="project-input-icon custom-mint-icon-sousuo"></i>
             </div>
         </div>
+        <div v-if="noData" class="project-result">
+            <div>搜索不到相关信息</div>
+        </div>
         <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="projectLoadmore">
             <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
-            <div slot="bottom" class="project-bottom">
+            <div v-show="!noData" slot="bottom" class="project-bottom">
                 <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
                 <span v-show="bottomStatus === 'loading'">
                     <mt-spinner type="snake"></mt-spinner>
@@ -16,9 +19,6 @@
                 <span v-show="allLoaded">没有更多数据了</span>
             </div>
         </mt-loadmore>
-        <!-- <div v-if="noData" class="project-result">
-            <div>搜索不到相关信息</div>
-        </div> -->
     </div>
 </template>
 <script>
@@ -90,14 +90,14 @@
                         // console.log('QueryAdvertInfoForPage>', res);
                         this.advertDatas = res.data;
                         if (res.data && res.data.length === 0) {
-                            this.noData = true;
+                            this.page === 1 && (this.noData = true);
+                            this.allLoaded = true;
                             resolve();
                         } else {
                             this.totalAdvertItemDatas.push(...this.advertDatas);
                             resolve();
                         }
                         this.pageTotal = res.total;
-                        resolve();
                     })
                 });
             },
