@@ -8,7 +8,7 @@ const url = {
 
 export default {
     url,
-    pageSize: 30, // 一页的数量
+    pageSize: 20, // 一页的数量
     pageStart: 1,
     TelegramBot: 'AFDchain_bot',
     headPortrait: [

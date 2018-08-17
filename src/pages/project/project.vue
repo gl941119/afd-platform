@@ -1,15 +1,24 @@
 <template>
-    <div class="project">
+    <div class="project" ref="projectWrapper" :style="{ height: wrapperHeight + 'px' }">
         <div class="project-header">
             <div class="project-input">
                 <input @focus="inputFocus" v-model="inputValue" class="project-input-item" type="text">
                 <i class="project-input-icon custom-mint-icon-sousuo"></i>
             </div>
         </div>
-        <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
-        <div v-if="noData" class="project-result">
+        <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="projectLoadmore">
+            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
+            <div slot="bottom" class="project-bottom">
+                <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
+                <span v-show="bottomStatus === 'loading'">
+                    <mt-spinner type="snake"></mt-spinner>
+                </span>
+                <span v-show="allLoaded">没有更多数据了</span>
+            </div>
+        </mt-loadmore>
+        <!-- <div v-if="noData" class="project-result">
             <div>搜索不到相关信息</div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -27,13 +36,20 @@
                 inputValue: this.$route.query.value,
                 pageTotal: 0,
                 noData: false,
+                allLoaded: false,
+                bottomStatus: '',
+                wrapperHeight: 0
             }
         },
         mounted() {
             if (this.conceptId) {
-                this.getAdvertInfo(this.conceptId)
+                this.getAdvertInfo(this.conceptId).then(() => {
+                    this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
+                })
             } else {
-                this.getAdvertInfoInit();
+                this.getAdvertInfoInit().then(() => {
+                    this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
+                })
             }
         },
         methods: {
@@ -50,7 +66,7 @@
                         // console.log('QueryAdvertInfo_>', res);
                         this.advertItemDatas = res.data;
                         if (this.advertItemDatas && this.advertItemDatas.length === 0) {
-                            this.noData = true;
+                            this.allLoaded = true;
                             resolve();
                         } else {
                             this.totalAdvertItemDatas.push(...this.advertItemDatas);
@@ -59,6 +75,7 @@
                     })
                 });
             },
+            // 通过ID 筛选
             getAdvertInfo(conceptId = 0, page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
                     Request({
@@ -71,7 +88,7 @@
                         type: 'get'
                     }).then(res => {
                         // console.log('QueryAdvertInfoForPage>', res);
-                            this.advertDatas = res.data;
+                        this.advertDatas = res.data;
                         if (res.data && res.data.length === 0) {
                             this.noData = true;
                             resolve();
@@ -87,6 +104,21 @@
             inputFocus() {
                 this.$router.push({ name: 'search' })
             },
+            learnMoreItem() {
+                this.page++;
+                if (this.conceptId) {
+                    this.getAdvertInfo(this.conceptId, this.page).then(() => {
+                        this.$refs.projectLoadmore.onBottomLoaded();
+                    })
+                } else {
+                    this.getAdvertInfoInit(this.page).then(() => {
+                        this.$refs.projectLoadmore.onBottomLoaded();
+                    })
+                }
+            },
+            handleBottomChange(status) {
+                this.bottomStatus = status;
+            },
         }
     }
 </script>
@@ -96,6 +128,7 @@
         width: 100%;
         background: #FAFAFA;
         padding-bottom: 50px;
+        overflow: auto;
         &-header {
             height: 44px;
             @include content-flex(center);
@@ -118,6 +151,9 @@
         &-result {
             height: calc(100vh - 50px - 44px);
             @include content-flex(center);
+        }
+        &-bottom {
+            @extend %load-more;
         }
     }
 </style>
