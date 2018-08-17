@@ -1,6 +1,6 @@
 <template>
     <div class="share" @click="close" v-if="dialogVisible">
-        <div id="thisDiv" class="show-share">
+        <div id="thisDiv" class="show-share" @click.stop>
             <p class="show-share-title">
                 被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，邀请人得33AFDT 被邀请人得66AFDT，每日挖币，再享分红！
                 <br/>http://www.afdchain.com
