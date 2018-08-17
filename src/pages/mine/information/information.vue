@@ -7,7 +7,7 @@
         </mt-cell>
         <mt-cell class="information_kind" @click.native="openInfo(2)" title="登录密码" is-link>
         </mt-cell>
-        <mt-cell class="information_kind" @click.native="openInfo(3)" title="交易密码" is-link>
+        <mt-cell class="information_kind" @click.native="openTradepassword()" title="交易密码" is-link>
         </mt-cell>
         <mt-cell class="information_kind" title="绑定Telegram" is-link>
         </mt-cell>
@@ -19,26 +19,58 @@
             <div class="popup_box" @click.stop>
                 <div class="popup_box_nickname" v-if="nicknameShow">
                     <p class="popup_box_nickname_title">新的昵称</p>
-                    <mt-field class="popup_box_nickname_input" v-model="nicknameValue"></mt-field>
-                    <mt-button class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
+                    <mt-field disableClear=true class="popup_box_nickname_input" v-model="nicknameValue"></mt-field>
+                    <mt-button @click.native="changeNickName" class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
                 </div>
                 <div class="popup_box_nickname passwordBox" v-if="loginPasswordShow">
                     <p class="popup_box_nickname_title">重设登录密码</p>
-                    <mt-field class="popup_box_nickname_input" placeholder="原密码" v-model="oldPassword"></mt-field>
-                    <mt-field class="popup_box_nickname_input" placeholder="新密码" v-model="password"></mt-field>
-                    <mt-field class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="oncePassword"></mt-field>
-                    <mt-field class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="emailCode"></mt-field>
-                    <p class="popup_box_nickname_code">获取邮箱验证码</p>
-                    <mt-button class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="原密码" v-model="oldPassword"></mt-field>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="新密码" v-model="password"></mt-field>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="oncePassword"></mt-field>
+                    <mt-field disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="passwordCode"></mt-field>
+                    <div class="popup_box_nickname_codebox">
+                        <button class="popup_box_nickname_codebox_code" :class="{'gray':emailCode}" :disabled="emailCode" @click="getCode(3)">获取邮箱验证码</button>
+                    </div>
+                    <mt-button @click.native="changePassword" class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
                 </div>
-                <div class="popup_box_nickname passwordBox" v-if="tradePasswordShow">
+            </div>
+        </div>
+        <mt-popup v-model="popupVisible">
+            <div class="information_popupVisible">
+                <div class="information_popupVisible_title">提示</div>
+                <div>
+                    <p>(1）密码长度必须介于8到16个字符之间。</p>
+                    <p>(2）密码只能包含英文字母（A-Z）、数字字符（0-9）以及标点符号。</p>
+                    <p>(3）密码至少包含1个英文字母和1个数字字符。</p>
+                    <p>(4）密码不能与账号相同。</p>
+                </div>
+                <div class="information_popupVisible_buttonbox">
+                    <mt-button class="information_popupVisible_buttonbox_button" type="primary" @click.native="popupVisible = false">确认</mt-button>
+                </div>
+            </div>
+        </mt-popup>
+        <div class="popup" v-if="proups" @click="openTradepassword">
+            <div class="popup_box" @click.stop>
+                <div class="popup_box_nickname passwordBox" v-if="!existTradePassword">
+                    <p class="popup_box_nickname_title">设置交易密码</p>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="输入交易密码" v-model="oldTradepassword"></mt-field>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入交易密码" v-model="onceTradepassword"></mt-field>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
+                    <div class="popup_box_nickname_codebox">
+                        <button class="popup_box_nickname_codebox_code" :class="{'gray':emailCodes}" :disabled="emailCodes" @click="getCode(4)">获取邮箱验证码</button>
+                    </div>
+                    <mt-button @click.native="setTradePassword" class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
+                </div>
+                <div class="popup_box_nickname passwordBox" v-if="existTradePassword">
                     <p class="popup_box_nickname_title">重设交易密码</p>
-                    <mt-field class="popup_box_nickname_input" placeholder="原密码" v-model="oldTradepassword"></mt-field>
-                    <mt-field class="popup_box_nickname_input" placeholder="新密码" v-model="tradepassword"></mt-field>
-                    <mt-field class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="onceTradepassword"></mt-field>
-                    <mt-field class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="emailCode"></mt-field>
-                    <p class="popup_box_nickname_code">获取邮箱验证码</p>
-                    <mt-button class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="原密码" v-model="oldTradepassword"></mt-field>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="新密码" v-model="tradepassword"></mt-field>
+                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="onceTradepassword"></mt-field>
+                    <mt-field disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
+                    <div class="popup_box_nickname_codebox">
+                        <button class="popup_box_nickname_codebox_code" :class="{'gray':emailCodes}" :disabled="emailCodes" @click="getCode(4)">获取邮箱验证码</button>
+                    </div>
+                    <mt-button @click.native="changeTradePassword" class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
                 </div>
             </div>
         </div>
@@ -46,44 +78,92 @@
 </template>
 <script>
     import Cache from '../../../utils/cache.js';
+    import Request from '../../../utils/require.js';
+    import validateFun from '../../../utils/validate.js';
+    import Utils from '../../../utils/util';
     export default {
         data() {
             return {
+                utils: new Utils(),
                 actions: [{ name: '从相册中选择', method: this.album }],
                 sheetVisible: false,
-                proup: false,
+                proup: false, //昵称-登录密码蒙版
+                proups: false, //交易密码蒙版
                 nicknameShow: false, //昵称
-                nicknameValue: '',
+                nicknameValue: this.$store.state.usernickname || Cache.getSession('bier_usernickname'),
+                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+                token: this.$store.state.token || Cache.getSession('bier_token'),
                 loginPasswordShow: false, //登录密码
                 oldPassword: '',
                 password: '',
                 oncePassword: '',
-                emailCode: '',
-                tradePasswordShow: false, //交易密码
+                passwordCode: '',
+                emailCode: false,
+                existTradePassword: false, //交易密码
                 oldTradepassword: '',
                 tradepassword: '',
                 onceTradepassword: '',
+                tradepasswordCode: '',
+                emailCodes: false,
+                popupVisible: false, //密码规则
             }
         },
         created() {
             Cache.setSession('show_footer', '0');
             this.$store.commit('setShowFooter', '0');
         },
+        mounted() {
+            this.info();
+        },
         methods: {
+            info() {
+                Request({
+                    url: 'QuerySettings',
+                    type: 'get',
+                }).then(res => {
+                    // this.authStatus = res.data.authStatus;
+                    // if (res.data.authStatus == 0 || res.data.authStatus == 2) { this.authStatusShow = true; }
+                    // if (res.data.authStatus == 3) {
+                    //     this.editShow = true;
+                    //     this.authStatusShow = false;
+                    // }
+                    // if (res.data.authStatus == 1) { this.authStatusShow = false; } this.noPassReason = res.data.noPassReason;
+                    // this.bindEmail = res.data.Email;
+                    // this.existEmail = res.data.existEmail;
+                    // this.existPassword = res.data.existPassword;
+                    this.existTradePassword = res.data.existTradePassword;
+                    // this.isBindTelegram = res.data.isBindTelegram;
+                    // this.existImg = res.data.nickname;
+                    // this.existNickname = res.data.heardUrl;
+                })
+            },
+            cancle() {
+                this.oldPassword = '';
+                this.password = '';
+                this.oncePassword = '';
+                this.tradePassword = '';
+                this.oldTradePassword = '';
+                this.newTradePassword = '';
+                this.onceTradePassword = '';
+                this.emailCode = '';
+            },
             active() { //选择相册-show
                 this.sheetVisible = !this.sheetVisible;
             },
-            album() {
+            album() { //相册的回调
                 console.log('打开相册');
             },
-            proupShow() { //蒙版
+            mask() { //昵称-登录密码蒙版
                 this.proup = !this.proup;
             },
             openInfo(value) {
-                this.proupShow();
+                this.mask();
                 this.kinds(value);
             },
-            kinds(value) {
+            openTradepassword() { //交易密码蒙版
+                this.proups = !this.proups;
+            },
+            kinds(value) { //根据value打开-昵称、登录密码
                 switch (value) {
                 case 1:
                     this.nicknameShow = !this.nicknameShow; //nickname-show
@@ -91,15 +171,188 @@
                 case 2:
                     this.loginPasswordShow = !this.loginPasswordShow; //loginPassword-show
                     break;
-                case 3:
-                    this.tradePasswordShow = !this.tradePasswordShow; //tradepassword-show
-                    break;
                 default:
                     this.nicknameShow = false; //nickname-show
                     this.loginPasswordShow = false; //loginPassword-show
-                    this.tradePasswordShow = false; //tradepassword-show
                     break;
                 }
+            },
+            changeNickName() { //修改昵称
+                if (this.nicknameValue.length <= 8) {
+                    Request({
+                        url: 'QueryAccountSettings',
+                        data: { id: this.accountId, nickname: this.nicknameValue, },
+                        type: 'post',
+                        flag: true
+                    }).then(res => {
+                        this.$store.commit('setUserNickName', this.nicknameValue);
+                        Cache.setSession('bier_usernickname', this.nicknameValue);
+                        this.$toast({
+                            message: '修改成功',
+                            position: 'top',
+                            duration: 5000
+                        });
+                        this.mask();
+                    }).catch(e => {
+                        console.error('changenickname error_ > ', e);
+                    })
+                } else {
+                    this.$toast({
+                        message: '请输入8位以内昵称',
+                        position: 'top',
+                        duration: 5000
+                    });
+                }
+
+            },
+            getCode(value) { //获取邮箱验证码 4-交易密码 3-登录密码
+                Request({
+                    url: 'QueryPasswordCode',
+                    data: { codeType: value, },
+                }).then(res => {
+                    this.$toast({
+                        message: this.utils.judgeLanguage(this.$store.state.slangChange || this.$i18n.locale, res.message),
+                        position: 'top',
+                        duration: 5000
+                    });
+                    let timerEmail = setInterval(() => {
+                        let num = 300;
+                        if (value == 3) {
+                            this.emailCode = true;
+                        } else {
+                            this.emailCodes = true;
+                        }
+                        num--;
+                        if (num < 1) {
+                            clearInterval(timerEmail);
+                            if (value == 3) {
+                                this.emailCode = false;
+                            } else {
+                                this.emailCodes = false;
+                            }
+                            num = 300;
+                        }
+                    }, 1000);
+
+                })
+            },
+            setTradePassword() { //设置交易密码
+                var str = this.tradepassword;
+                var value = /^.*?[\d]+.*$/.test(str) && /^.*?[A-Za-z]/.test(str) && /^.{8,16}$/.test(str) && str !== this.username;
+                if (value) {
+                    if (this.tradepassword === this.onceTradepassword)
+                    {
+                        Request({
+                            url: 'SetTradePassword',
+                            data: {
+                                verificationCode: this.tradepasswordCode,
+                                password: validateFun.encrypt(this.tradepassword),
+                            },
+                            type: 'post',
+                            flag: true
+                        }).then(res => {
+                            this.$toast({
+                                message: '修改成功',
+                                position: 'top',
+                                duration: 5000
+                            });
+                            this.info();
+                            this.cancle();
+                            this.openTradepassword();
+                        })
+                    } else {
+                        this.$toast({
+                            message: '两次输入密码不一致',
+                            position: 'top',
+                            duration: 5000
+                        });
+                    }
+                } else {
+                    this.popupVisible = true;
+                }
+            },
+            changeTradePassword() { //修改交易密码
+                var str = this.tradepassword;
+                var value = /^.*?[\d]+.*$/.test(str) && /^.*?[A-Za-z]/.test(str) && /^.{8,16}$/.test(str) && str !== this.username;
+                if (value) {
+                    if (this.tradepassword === this.onceTradepassword) {
+                        Request({
+                            url: 'QueryAccountSettings',
+                            data: {
+                                id: this.accountId,
+                                tradePassword: validateFun.encrypt(this.tradepassword),
+                                oldTradePassword: validateFun.encrypt(this.oldTradepassword),
+                                verificationCode: this.tradepasswordCode,
+                            },
+                            type: 'post',
+                            flag: true
+                        }).then(res => {
+                            this.$toast({
+                                message: '修改成功',
+                                position: 'top',
+                                duration: 5000
+                            });
+                            this.info();
+                            this.cancle();
+                            this.openTradepassword();
+                        })
+                    } else {
+                        this.$toast({
+                            message: '两次输入密码不一致',
+                            position: 'top',
+                            duration: 5000
+                        });
+                    }
+                } else {
+                    this.popupVisible = true;
+                }
+            },
+            changePassword() {
+                var str = this.password;
+                var value = /^.*?[\d]+.*$/.test(str) && /^.*?[A-Za-z]/.test(str) && /^.{8,16}$/.test(str) && str !== this.username && str === this.oncePassword;
+                if (value) {
+                    Request({
+                        url: 'QueryAccountSettings',
+                        data: {
+                            id: this.accountId,
+                            oldPassword: validateFun.encrypt(this.oldPassword),
+                            password: validateFun.encrypt(this.password),
+                            verificationCode: this.passwordCode,
+                        },
+                        type: 'post',
+                        flag: true
+                    }).then(res => {
+                        this.out();
+                    })
+                } else {
+                    this.popupVisible = true;
+                }
+            },
+            out() {
+                Request({
+                    url: 'SignOut',
+                    type: 'get',
+                    data: { token: this.token }
+                }).then(res => {
+                    this.handleSignOut();
+                    this.$router.push({ name: 'index' });
+                })
+            },
+            handleSignOut() {
+                this.$store.commit('setUserId', undefined);
+                this.$store.commit('setUserName', undefined);
+                this.$store.commit('setUserNickName', undefined);
+                this.$store.commit('setToken', undefined);
+                this.$store.commit('setHeardUrl', undefined);
+                this.$store.commit('setInviteCode', '');
+                Cache.removeCookie('login_identify');
+                Cache.removeCookie('login_token');
+                Cache.removeSession('bier_username');
+                Cache.removeSession('bier_token');
+                Cache.removeSession('bier_userid');
+                Cache.removeSession('bier_userid');
+                Cache.removeSession('bier_inviteCode');
+                Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
             },
         }
     }
@@ -112,6 +365,27 @@
         &_kind {
             color: rgba(51, 51, 51, 1);
             border-bottom: 1px solid #e6e6e6;
+        }
+        &_popupVisible {
+            padding: pxTorem(5px);
+            &_title {
+                font-size: 16px;
+                text-align: center;
+                margin-bottom: pxTorem(5px);
+            }
+            &_buttonbox {
+                display: flex;
+                justify-content: center;
+                margin-top: pxTorem(5px);
+                &_button {
+                    width: pxTorem(60px);
+                    height: pxTorem(30px);
+                    background: rgba(0, 158, 194, 1);
+                    border-radius: 4px;
+                    color: #ffffff;
+                    font-size: 14px;
+                }
+            }
         }
         .popup {
             width: 100%;
@@ -144,11 +418,18 @@
                         font-size: 16px;
                         margin: 0 auto;
                     }
-                    &_code {
-                        color: #009ec2;
-                        font-size: 12px;
+                    &_codebox {
+                        @include remCalc(padding, 0, 10px);
                         text-align: right;
-                        margin-bottom: pxTorem(20px);
+                        &_code {
+                            color: #009ec2;
+                            font-size: 12px;
+                            margin-bottom: pxTorem(20px);
+                            background: transparent;
+                        }
+                    }
+                    .gray {
+                        color: rgba(174, 174, 174, 1);
                     }
                 }
             }
