@@ -1,9 +1,18 @@
 <template>
-    <div class="index">
+    <div class="index" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
         <index-search></index-search>
         <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
         <header-nav></header-nav>
-        <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
+        <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
+            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
+            <div slot="bottom" class="index-bottom">
+                <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
+                <span v-show="bottomStatus === 'loading'">
+                    <mt-spinner type="snake"></mt-spinner>
+                </span>
+                <span v-show="allLoaded">没有更多数据了</span>
+            </div>
+        </mt-loadmore>
     </div>
 </template>
 <script>
@@ -23,10 +32,14 @@
                 advertItemDatas: [],
                 totalAdvertItemDatas: [],
                 id: this.$store.state.id,
+                allLoaded: false,
+                bottomStatus: '',
+                wrapperHeight: 0
             }
         },
         mounted() {
             Promise.all([this.findAdvertisement(), this.getAdvertInfo()]).then(() => {
+                this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
                 var token = Cache.getSession('bier_token');
                 var id = Cache.getSession('bier_userid');
                 !token && !id && this.getUserInfo();
@@ -90,7 +103,7 @@
                         // console.log('QueryAdvertInfo_>', res);
                         this.advertItemDatas = res.data;
                         if (this.advertItemDatas && this.advertItemDatas.length === 0) {
-                            this.$toast('没有数据了')
+                            this.allLoaded = true;
                             resolve();
                         } else {
                             this.totalAdvertItemDatas.push(...this.advertItemDatas);
@@ -98,6 +111,15 @@
                         }
                     })
                 });
+            },
+            learnMoreItem() {
+                this.page++;
+                this.getAdvertInfo(this.page).then(() => {
+                    this.$refs.loadmore.onBottomLoaded();
+                })
+            },
+            handleBottomChange(status) {
+                this.bottomStatus = status;
             },
             // carousel image from server
             findAdvertisement() {
@@ -125,8 +147,13 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../../assets/css/global.scss';
     .index {
         background: #FAFAFA;
         padding-bottom: 50px;
+        overflow: auto;
+        &-bottom {
+            @extend %load-more;
+        }
     }
 </style>

@@ -6,6 +6,8 @@ import {
     MessageBox,
     Indicator,
     Button,
+    Loadmore,
+    Spinner,
     Header,
     Cell,
     Navbar,
@@ -20,7 +22,8 @@ import {
 
 Vue.component(Tabbar.name, Tabbar);
 Vue.component(TabItem.name, TabItem);
-
+Vue.component(Loadmore.name, Loadmore);
+Vue.component(Spinner.name, Spinner);
 Vue.component(Button.name, Button);
 Vue.component(Header.name, Header);
 Vue.component(Cell.name, Cell);
