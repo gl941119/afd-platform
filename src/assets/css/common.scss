@@ -4,6 +4,13 @@
 .mint-cell-wrapper .mint-cell-title {
     font-size: 12px;
 }
+// cell-line
+.mint-cell-wrapper{
+    background-image: none;
+}
+.mint-cell:last-child {
+    background-image: none;
+}
 
 // nav-left
 .nav .custom-mint-icon-arrowr {

@@ -15,8 +15,8 @@
                 <mt-button :class="{'blue_button':isSelected }" @click.native="login()" :disabled="!isSelected" class="login_buttonBox_button" type="primary" size="large">登录</mt-button>
             </div>
             <div class="login_notic">
-                <span>忘记密码？</span>
-                <span>新用户注册</span>
+                <a href="javascript:;" @click="$router.push({name: 'forget'})">忘记密码？</a>
+                <a href="javascript:;" @click="$router.push({name: 'register'})">新用户注册</a>
             </div>
         </div>
     </div>
@@ -118,6 +118,7 @@
         &_info {
             @include remCalc(padding, 100px, 58px);
             &_box {
+                @include remCalc(margin, 10px, 0);
                 border-bottom: 1px solid #d8d8d8;
                 width: 100%;
                 display: flex;
@@ -150,9 +151,11 @@
         }
         &_notic {
             font-size: 11px;
-            color: rgba(0, 158, 194, 1);
             display: flex;
             justify-content: space-between;
+            a {
+                color: rgba(0, 158, 194, 1);
+            }
         }
     }
 </style>

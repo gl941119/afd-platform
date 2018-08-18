@@ -21,7 +21,7 @@
 <script>
 import Cache from '../../utils/cache.js';
     export default {
-        name: 'HeaderNav',
+        name: 'TopNav',
         data() {
             return {}
         },
