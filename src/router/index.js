@@ -6,7 +6,11 @@ const SearchCom = () =>
     import ('@/pages/index/search')
 // user
 const LoginCom = () =>
-    import ('@/pages/user/login');
+    import('@/pages/user/login');
+const RegisterCom = () =>
+    import ('@/pages/user/register');
+const ForgetPwdCom = () =>
+    import ('@/pages/user/forget-pwd');
 
 const Project = () =>
     import ('@/pages/project/project')
@@ -50,6 +54,16 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: LoginCom,
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: RegisterCom,
+        },
+        {
+            path: '/forget',
+            name: 'forget',
+            component: ForgetPwdCom,
         },
         {
             path: '/project',
