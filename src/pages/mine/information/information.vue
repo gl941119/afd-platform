@@ -11,7 +11,7 @@
         </mt-cell>
         <mt-cell class="information_kind" title="绑定Telegram" is-link>
         </mt-cell>
-        <mt-cell class="information_kind" to="/authentication" title="实名认证" is-link>
+        <mt-cell class="information_kind" @click.native="authentication()" title="实名认证" is-link>
         </mt-cell>
         <mt-actionsheet :actions="actions" v-model="sheetVisible">
         </mt-actionsheet>
@@ -106,6 +106,7 @@
                 tradepasswordCode: '',
                 emailCodes: false,
                 popupVisible: false, //密码规则
+                authStatus:'',
             }
         },
         mounted() {
@@ -117,7 +118,8 @@
                     url: 'QuerySettings',
                     type: 'get',
                 }).then(res => {
-                    // this.authStatus = res.data.authStatus;
+                    this.authStatus = res.data.authStatus;
+                    this.existTradePassword = res.data.existTradePassword;
                     // if (res.data.authStatus == 0 || res.data.authStatus == 2) { this.authStatusShow = true; }
                     // if (res.data.authStatus == 3) {
                     //     this.editShow = true;
@@ -127,11 +129,21 @@
                     // this.bindEmail = res.data.Email;
                     // this.existEmail = res.data.existEmail;
                     // this.existPassword = res.data.existPassword;
-                    this.existTradePassword = res.data.existTradePassword;
                     // this.isBindTelegram = res.data.isBindTelegram;
                     // this.existImg = res.data.nickname;
                     // this.existNickname = res.data.heardUrl;
                 })
+            },
+            authentication(){
+                if(this.authStatus == 0){
+                    this.$router.push({
+                        name:'authentication'
+                    })
+                }else{
+                    this.$router.push({
+                        name:'authImg'
+                    })
+                }
             },
             cancle() {
                 this.oldPassword = '';
