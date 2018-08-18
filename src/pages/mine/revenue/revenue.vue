@@ -10,7 +10,7 @@
                 <div class="revenue_notic" v-if="oneTotalFlowDatas.length===0">
                     <div>暂无数据</div>
                 </div>
-                <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="inviteLoadmore">
+                <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="revenueLoadmore">
                     <div class="revenue_title" v-for="(item, index) in oneTotalFlowDatas" :key="index">
                         <div class="revenue_title_info">
                             {{item.createTime}}
@@ -31,7 +31,7 @@
                 <div class="revenue_notic" v-if="totalFlowDatas.length===0">
                     <div>暂无数据</div>
                 </div>
-                <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="inviteLoadmore">
+                <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="revenueLoadmore">
                     <div class="revenue_title" v-for="(item, index) in totalFlowDatas" :key="index">
                         <div class="revenue_title_info">
                             {{item.createTime}}
@@ -80,10 +80,11 @@
             }
         },
         mounted() {
-            Promise.all([this.BasicInformation(),this.revenueDatas]).then(() => {});
+            Promise.all([this.BasicInformation(),this.revenueDatas()]).then(() => {});
         },
         watch: {
             selected() {
+                this.page = 1;
                 this.revenueDatas();
             }
         },
@@ -95,14 +96,12 @@
                     type: 'get'
                 }).then(res => {
                     this.id = res.data.id;
-
-                    this.revenueDatas();
                 })
             },
             learnMoreItem() {
                 this.page++;
                 this.revenueDatas(this.page).then(() => {
-                    this.$refs.inviteLoadmore.onBottomLoaded();
+                    this.$refs.revenueLoadmore.onBottomLoaded();
                 })
             },
             handleBottomChange(status) {
