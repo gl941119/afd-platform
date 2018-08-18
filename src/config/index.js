@@ -29,6 +29,7 @@ export default {
     PostWithdraw: 'blockchainadvert/account/withdraw', //提现
     /*图片上传*/
     Upload: 'blockchainadvert/common/upload-file',
+    UploadImg:'blockchainadvert/common/uploadImageWithWatermark',
     /*我发起的众筹*/
     QueryMyNewCrowdfunding: 'blockchainadvert/crowd-funding/initiate',
     /*钱包地址的绑定*/

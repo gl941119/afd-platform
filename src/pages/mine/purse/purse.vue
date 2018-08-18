@@ -36,10 +36,6 @@
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
             }
         },
-        created() {
-            Cache.setSession('show_footer', '0');
-            this.$store.commit('setShowFooter', '0');
-        },
         mounted() {
             this.queryWallet();
         },

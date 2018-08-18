@@ -19,15 +19,15 @@
             <div class="popup_box" @click.stop>
                 <div class="popup_box_nickname" v-if="nicknameShow">
                     <p class="popup_box_nickname_title">新的昵称</p>
-                    <mt-field disableClear=true class="popup_box_nickname_input" v-model="nicknameValue"></mt-field>
+                    <mt-field :disableClear=true class="popup_box_nickname_input" v-model="nicknameValue"></mt-field>
                     <mt-button @click.native="changeNickName" class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
                 </div>
                 <div class="popup_box_nickname passwordBox" v-if="loginPasswordShow">
                     <p class="popup_box_nickname_title">重设登录密码</p>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="原密码" v-model="oldPassword"></mt-field>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="新密码" v-model="password"></mt-field>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="oncePassword"></mt-field>
-                    <mt-field disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="passwordCode"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="原密码" v-model="oldPassword"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="新密码" v-model="password"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="oncePassword"></mt-field>
+                    <mt-field :disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="passwordCode"></mt-field>
                     <div class="popup_box_nickname_codebox">
                         <button class="popup_box_nickname_codebox_code" :class="{'gray':emailCode}" :disabled="emailCode" @click="getCode(3)">获取邮箱验证码</button>
                     </div>
@@ -53,9 +53,9 @@
             <div class="popup_box" @click.stop>
                 <div class="popup_box_nickname passwordBox" v-if="!existTradePassword">
                     <p class="popup_box_nickname_title">设置交易密码</p>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="输入交易密码" v-model="oldTradepassword"></mt-field>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入交易密码" v-model="onceTradepassword"></mt-field>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="输入交易密码" v-model="oldTradepassword"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入交易密码" v-model="onceTradepassword"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
                     <div class="popup_box_nickname_codebox">
                         <button class="popup_box_nickname_codebox_code" :class="{'gray':emailCodes}" :disabled="emailCodes" @click="getCode(4)">获取邮箱验证码</button>
                     </div>
@@ -63,10 +63,10 @@
                 </div>
                 <div class="popup_box_nickname passwordBox" v-if="existTradePassword">
                     <p class="popup_box_nickname_title">重设交易密码</p>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="原密码" v-model="oldTradepassword"></mt-field>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="新密码" v-model="tradepassword"></mt-field>
-                    <mt-field disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="onceTradepassword"></mt-field>
-                    <mt-field disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="原密码" v-model="oldTradepassword"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="新密码" v-model="tradepassword"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入新密码" v-model="onceTradepassword"></mt-field>
+                    <mt-field :disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
                     <div class="popup_box_nickname_codebox">
                         <button class="popup_box_nickname_codebox_code" :class="{'gray':emailCodes}" :disabled="emailCodes" @click="getCode(4)">获取邮箱验证码</button>
                     </div>
@@ -107,10 +107,6 @@
                 emailCodes: false,
                 popupVisible: false, //密码规则
             }
-        },
-        created() {
-            Cache.setSession('show_footer', '0');
-            this.$store.commit('setShowFooter', '0');
         },
         mounted() {
             this.info();

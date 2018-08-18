@@ -16,7 +16,8 @@ import i18n from './i18n/i18n';
 // component
 import HeaderNav from '@/components/header/nav';
 import AdvertItem from '@/components/index-com/advert-item';
-
+const VueUploadComponent = require('vue-upload-component');
+Vue.component('file-upload', VueUploadComponent);
 Vue.component(HeaderNav.name, HeaderNav);
 Vue.component(AdvertItem.name, AdvertItem);
 

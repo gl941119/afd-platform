@@ -24,6 +24,10 @@ export default new Vuex.Store({
         inviteCode: '',
         // mobile add
         showFooter: Cache.getSession('show_footer') || '1', // 是否显示底部导航 string-> '1'-> show '0'-> hide
+        authName:'',
+        authIdType:'',
+        authIdNum:'',
+        authCountry:'',
     },
     mutations: {
         setUserId(state, val) {
@@ -77,6 +81,19 @@ export default new Vuex.Store({
         // mobile add
         setShowFooter(state, val) {
             state.showFooter = val;
-        }
+        },
+        //auth
+        setAuthName(state, val) {
+            state.authName = val;
+        },
+        setAuthIdType(state, val) {
+            state.authIdType = val;
+        },
+        setAuthIdNum(state, val) {
+            state.authIdNum = val;
+        },
+        setAuthCountry(state, val) {
+            state.authCountry = val;
+        },
     },
 });
