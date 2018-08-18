@@ -38,7 +38,7 @@
 <script>
     import Request from '../../../utils/require.js';
     import Cache from '../../../utils/cache';
-    // import Config from '../../../utils/config.js';
+    import Config from '../../../utils/config.js';
     export default {
         data() {
             return {
@@ -47,11 +47,11 @@
                 idNum: this.$store.state.authIdNum,
                 country: this.$store.state.authCountry,
                 files: [],
-                // uploadImg: Config.UploadAuthImg,
-                // requestToken: {
-                //     token: this.$store.state.token ||
-                //         Cache.getSession('bier_token')
-                // },
+                uploadImg: Config.UploadAuthImg,
+                requestToken: {
+                    token: this.$store.state.token ||
+                        Cache.getSession('bier_token')
+                },
             }
         },
         methods: {
@@ -59,12 +59,11 @@
                 console.log(newfile.file)
                 var formData = new FormData();
                 formData.append("file", newfile.file);
-
                 Request({
                     url: 'UploadImg',
                     data: formData,
                     headers: {
-                        'Content-Type': 'multipart/form-data'
+                        'Content-Type': 'multipart/form-data',
                     }
                 }).then(res => {
                     console.log(res);
