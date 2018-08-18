@@ -108,10 +108,6 @@
                 popupVisible: false, //密码规则
             }
         },
-        created() {
-            Cache.setSession('show_footer', '0');
-            this.$store.commit('setShowFooter', '0');
-        },
         mounted() {
             this.info();
         },

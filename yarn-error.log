@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add webpack-cli -D
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Administrator\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\Administrator\AppData\Roaming\npm;C:\Users\Administrator\AppData\Local\Yarn\bin
@@ -14,103 +14,107 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: ENOENT: no such file or directory, copyfile 'C:\Users\Administrator\AppData\Local\Yarn\Cache\v1\npm-ansi-styles-1.1.0-eaecbf66cd706882760b2f4691582b8f55d7a7de\index.js' -> 'C:\workspace\afd-platform\node_modules\px2rem\node_modules\ansi-styles\index.js'
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\Administrator\AppData\Local\Yarn\Cache\v1\npm-fast-deep-equal-2.0.1-7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49\index.d.ts' -> 'C:\workspace\afd-platform\node_modules\schema-utils\node_modules\fast-deep-equal\index.d.ts'
 
 npm manifest: 
   {
-      "name": "afd-platform",
-      "version": "1.0.0",
-      "description": "A Vue.js project",
-      "author": "gaigai <gaigaiyang@bierinc.com>",
-      "private": true,
-      "scripts": {
-          "start": "npm run dev",
-          "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack-build/webpack.dev.conf.js",
-          "build": "cross-env NODE_ENV=production node webpack-build/build.js",
-          "dll": "cross-env NODE_ENV=production webpack --progress --config webpack-build/webpack.dll.conf.js",
-          "lint": "eslint --ext .js,.vue src --cache",
-          "test": "echo \"Error: no test specified\" && exit 1"
-      },
-      "dependencies": {
-          "axios": "^0.18.0",
-          "crypto-js": "^3.1.9-1",
-          "lib-flexible": "^0.3.2",
-          "mint-ui": "^2.2.13",
-          "vue": "^2.5.16",
-          "vue-i18n": "^8.0.0",
-          "vue-router": "^3.0.1",
-          "vuex": "^3.0.1"
-      },
-      "devDependencies": {
-          "add-asset-html-webpack-plugin": "^2.1.3",
-          "autoprefixer": "^8.6.0",
-          "babel-core": "^6.26.3",
-          "babel-eslint": "^8.2.3",
-          "babel-helper-vue-jsx-merge-props": "^2.0.3",
-          "babel-loader": "^7.1.4",
-          "babel-plugin-component": "^1.1.1",
-          "babel-plugin-dynamic-import-node": "^2.0.0",
-          "babel-plugin-syntax-dynamic-import": "^6.18.0",
-          "babel-plugin-syntax-jsx": "^6.18.0",
-          "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-          "babel-plugin-transform-runtime": "^6.23.0",
-          "babel-plugin-transform-vue-jsx": "^3.7.0",
-          "babel-preset-env": "^1.7.0",
-          "babel-preset-stage-2": "^6.24.1",
-          "cache-loader": "^1.2.2",
-          "chalk": "^2.4.1",
-          "copy-webpack-plugin": "^4.5.1",
-          "cross-env": "^5.2.0",
-          "css-loader": "^0.28.11",
-          "eslint": "^4.19.1",
-          "eslint-config-standard": "^11.0.0",
-          "eslint-friendly-formatter": "^4.0.1",
-          "eslint-loader": "^2.0.0",
-          "eslint-plugin-import": "^2.12.0",
-          "eslint-plugin-node": "^6.0.1",
-          "eslint-plugin-promise": "^3.8.0",
-          "eslint-plugin-standard": "^3.1.0",
-          "eslint-plugin-vue": "^4.5.0",
-          "file-loader": "^1.1.11",
-          "friendly-errors-webpack-plugin": "^1.7.0",
-          "happypack": "^5.0.0",
-          "html-webpack-plugin": "^3.2.0",
-          "mini-css-extract-plugin": "^0.4.0",
-          "node-notifier": "^5.2.1",
-          "node-sass": "^4.9.0",
-          "optimize-css-assets-webpack-plugin": "^4.0.2",
-          "ora": "^2.1.0",
-          "portfinder": "^1.0.13",
-          "postcss-import": "^11.1.0",
-          "postcss-load-config": "^1.2.0",
-          "postcss-loader": "^2.1.5",
-          "postcss-plugin": "^1.0.0",
-          "postcss-url": "^7.3.2",
-          "px2rem-loader": "^0.1.9",
-          "rimraf": "^2.6.2",
-          "sass-loader": "^7.0.1",
-          "semver": "^5.5.0",
-          "shelljs": "^0.8.2",
-          "uglifyjs-webpack-plugin": "^1.2.5",
-          "url-loader": "^1.0.1",
-          "vue-loader": "^15.2.4",
-          "vue-style-loader": "^4.1.0",
-          "vue-template-compiler": "^2.5.16",
-          "webpack": "^4.10.2",
-          "webpack-bundle-analyzer": "^2.13.1",
-          "webpack-cli": "3.0.1",
-          "webpack-dev-server": "^3.1.4",
-          "webpack-merge": "^4.1.2"
-      },
-      "engines": {
-          "node": ">= 6.0.0",
-          "npm": ">= 3.0.0"
-      },
-      "browserslist": [
-          "> 1%",
-          "last 2 versions",
-          "not ie <= 8"
-      ]
+    "name": "afd-platform",
+    "version": "1.0.0",
+    "description": "A Vue.js project",
+    "author": "gaigai <gaigaiyang@bierinc.com>",
+    "private": true,
+    "scripts": {
+      "start": "npm run dev",
+      "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack-build/webpack.dev.conf.js",
+      "build": "cross-env NODE_ENV=production node webpack-build/build.js",
+      "dll": "cross-env NODE_ENV=production webpack --progress --config webpack-build/webpack.dll.conf.js",
+      "lint": "eslint --ext .js,.vue src --cache",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+      "axios": "^0.18.0",
+      "babel-polyfill": "^6.26.0",
+      "clipboard": "^2.0.1",
+      "crypto-js": "^3.1.9-1",
+      "fastclick": "^1.0.6",
+      "lib-flexible": "^0.3.2",
+      "mint-ui": "^2.2.13",
+      "vue": "^2.5.16",
+      "vue-awesome-swiper": "^3.1.3",
+      "vue-i18n": "^8.0.0",
+      "vue-router": "^3.0.1",
+      "vuex": "^3.0.1"
+    },
+    "devDependencies": {
+      "add-asset-html-webpack-plugin": "^2.1.3",
+      "autoprefixer": "^8.6.0",
+      "babel-core": "^6.26.3",
+      "babel-eslint": "^8.2.3",
+      "babel-helper-vue-jsx-merge-props": "^2.0.3",
+      "babel-loader": "^7.1.4",
+      "babel-plugin-component": "^1.1.1",
+      "babel-plugin-dynamic-import-node": "^2.0.0",
+      "babel-plugin-syntax-dynamic-import": "^6.18.0",
+      "babel-plugin-syntax-jsx": "^6.18.0",
+      "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+      "babel-plugin-transform-runtime": "^6.23.0",
+      "babel-plugin-transform-vue-jsx": "^3.7.0",
+      "babel-preset-env": "^1.7.0",
+      "babel-preset-stage-2": "^6.24.1",
+      "cache-loader": "^1.2.2",
+      "chalk": "^2.4.1",
+      "copy-webpack-plugin": "^4.5.1",
+      "cross-env": "^5.2.0",
+      "css-loader": "^0.28.11",
+      "eslint": "^4.19.1",
+      "eslint-config-standard": "^11.0.0",
+      "eslint-friendly-formatter": "^4.0.1",
+      "eslint-loader": "^2.0.0",
+      "eslint-plugin-import": "^2.12.0",
+      "eslint-plugin-node": "^6.0.1",
+      "eslint-plugin-promise": "^3.8.0",
+      "eslint-plugin-standard": "^3.1.0",
+      "eslint-plugin-vue": "^4.5.0",
+      "file-loader": "^1.1.11",
+      "friendly-errors-webpack-plugin": "^1.7.0",
+      "happypack": "^5.0.0",
+      "html-webpack-plugin": "^3.2.0",
+      "mini-css-extract-plugin": "^0.4.0",
+      "node-notifier": "^5.2.1",
+      "node-sass": "^4.9.0",
+      "optimize-css-assets-webpack-plugin": "^4.0.2",
+      "ora": "^2.1.0",
+      "portfinder": "^1.0.13",
+      "postcss-import": "^11.1.0",
+      "postcss-load-config": "^1.2.0",
+      "postcss-loader": "^2.1.5",
+      "postcss-plugin": "^1.0.0",
+      "postcss-url": "^7.3.2",
+      "px2rem-loader": "^0.1.9",
+      "rimraf": "^2.6.2",
+      "sass-loader": "^7.0.1",
+      "semver": "^5.5.0",
+      "shelljs": "^0.8.2",
+      "uglifyjs-webpack-plugin": "^1.2.5",
+      "url-loader": "^1.0.1",
+      "vue-loader": "^15.2.4",
+      "vue-style-loader": "^4.1.0",
+      "vue-template-compiler": "^2.5.16",
+      "webpack": "^4.10.2",
+      "webpack-bundle-analyzer": "^2.13.1",
+      "webpack-cli": "3.0.1",
+      "webpack-dev-server": "^3.1.4",
+      "webpack-merge": "^4.1.2"
+    },
+    "engines": {
+      "node": ">= 6.0.0",
+      "npm": ">= 3.0.0"
+    },
+    "browserslist": [
+      "> 1%",
+      "last 2 versions",
+      "not ie <= 8"
+    ]
   }
 
 yarn manifest: 
@@ -472,6 +476,10 @@ Lockfile:
     version "0.0.7"
     resolved "https://registry.yarnpkg.com/ansi-html/-/ansi-html-0.0.7.tgz#813584021962a9e9e6fd039f940d12f56ca7859e"
   
+  ansi-regex@^0.2.0, ansi-regex@^0.2.1:
+    version "0.2.1"
+    resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-0.2.1.tgz#0d8e946967a3d8143f93e24e298525fc1b2235f9"
+  
   ansi-regex@^2.0.0:
     version "2.1.1"
     resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
@@ -479,6 +487,10 @@ Lockfile:
   ansi-regex@^3.0.0:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
+  
+  ansi-styles@^1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-1.1.0.tgz#eaecbf66cd706882760b2f4691582b8f55d7a7de"
   
   ansi-styles@^2.2.1:
     version "2.2.1"
@@ -1154,6 +1166,14 @@ Lockfile:
     dependencies:
       esutils "^2.0.2"
   
+  babel-polyfill@^6.26.0:
+    version "6.26.0"
+    resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
+    dependencies:
+      babel-runtime "^6.26.0"
+      core-js "^2.5.0"
+      regenerator-runtime "^0.10.5"
+  
   babel-preset-env@^1.7.0:
     version "1.7.0"
     resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.7.0.tgz#dea79fa4ebeb883cd35dab07e260c1c9c04df77a"
@@ -1613,6 +1633,16 @@ Lockfile:
       escape-string-regexp "^1.0.5"
       supports-color "^5.3.0"
   
+  chalk@~0.5.1:
+    version "0.5.1"
+    resolved "https://registry.yarnpkg.com/chalk/-/chalk-0.5.1.tgz#663b3a648b68b55d04690d49167aa837858f2174"
+    dependencies:
+      ansi-styles "^1.1.0"
+      escape-string-regexp "^1.0.0"
+      has-ansi "^0.1.0"
+      strip-ansi "^0.3.0"
+      supports-color "^0.2.0"
+  
   chardet@^0.4.0:
     version "0.4.2"
     resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
@@ -1695,6 +1725,14 @@ Lockfile:
   cli-width@^2.0.0:
     version "2.2.0"
     resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
+  
+  clipboard@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.1.tgz#a12481e1c13d8a50f5f036b0560fe5d16d74e46a"
+    dependencies:
+      good-listener "^1.2.2"
+      select "^1.1.2"
+      tiny-emitter "^2.0.0"
   
   cliui@^3.2.0:
     version "3.2.0"
@@ -1807,6 +1845,10 @@ Lockfile:
   commander@~2.13.0:
     version "2.13.0"
     resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
+  
+  commander@~2.6.0:
+    version "2.6.0"
+    resolved "https://registry.yarnpkg.com/commander/-/commander-2.6.0.tgz#9df7e52fb2a0cb0fb89058ee80c3104225f37e1d"
   
   commondir@^1.0.1:
     version "1.0.1"
@@ -2082,6 +2124,15 @@ Lockfile:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/css-what/-/css-what-2.1.0.tgz#9467d032c38cfaefb9f2d79501253062f87fa1bd"
   
+  css@~2.2.0:
+    version "2.2.3"
+    resolved "https://registry.yarnpkg.com/css/-/css-2.2.3.tgz#f861f4ba61e79bedc962aa548e5780fd95cbc6be"
+    dependencies:
+      inherits "^2.0.1"
+      source-map "^0.1.38"
+      source-map-resolve "^0.5.1"
+      urix "^0.1.0"
+  
   cssesc@^0.1.0:
     version "0.1.0"
     resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
@@ -2259,6 +2310,10 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   
+  delegate@^3.1.2:
+    version "3.2.0"
+    resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.2.0.tgz#b66b71c3158522e8ab5744f720d8ca0c2af59166"
+  
   delegates@^1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
@@ -2353,6 +2408,12 @@ Lockfile:
     dependencies:
       domelementtype "~1.1.1"
       entities "~1.1.1"
+  
+  dom7@^2.0.7:
+    version "2.0.7"
+    resolved "https://registry.yarnpkg.com/dom7/-/dom7-2.0.7.tgz#43940bff361cc0e5f38c349b055fd60c10309b89"
+    dependencies:
+      ssr-window "^1.0.0"
   
   domain-browser@^1.1.1:
     version "1.2.0"
@@ -2524,7 +2585,7 @@ Lockfile:
     version "1.0.3"
     resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   
-  escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
+  escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
     version "1.0.5"
     resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   
@@ -2865,6 +2926,10 @@ Lockfile:
     version "2.0.6"
     resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   
+  fastclick@^1.0.6:
+    version "1.0.6"
+    resolved "https://registry.yarnpkg.com/fastclick/-/fastclick-1.0.6.tgz#161625b27b1a5806405936bda9a2c1926d06be6a"
+  
   fastparse@^1.1.1:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
@@ -3048,6 +3113,14 @@ Lockfile:
       inherits "^2.0.1"
       readable-stream "^2.0.0"
   
+  fs-extra@~0.16.3:
+    version "0.16.5"
+    resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-0.16.5.tgz#1ad661fa6c86c9608cd1b49efc6fce834939a750"
+    dependencies:
+      graceful-fs "^3.0.5"
+      jsonfile "^2.0.0"
+      rimraf "^2.2.8"
+  
   fs-minipass@^1.2.5:
     version "1.2.5"
     resolved "https://registry.yarnpkg.com/fs-minipass/-/fs-minipass-1.2.5.tgz#06c277218454ec288df77ada54a03b8702aacb9d"
@@ -3228,7 +3301,19 @@ Lockfile:
       lodash "~4.17.10"
       minimatch "~3.0.2"
   
-  graceful-fs@^4.1.11, graceful-fs@^4.1.2:
+  good-listener@^1.2.2:
+    version "1.2.2"
+    resolved "https://registry.yarnpkg.com/good-listener/-/good-listener-1.2.2.tgz#d53b30cdf9313dffb7dc9a0d477096aa6d145c50"
+    dependencies:
+      delegate "^3.1.2"
+  
+  graceful-fs@^3.0.5:
+    version "3.0.11"
+    resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-3.0.11.tgz#7613c778a1afea62f25c630a086d7f3acbbdd818"
+    dependencies:
+      natives "^1.1.0"
+  
+  graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
     version "4.1.11"
     resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
   
@@ -3277,6 +3362,12 @@ Lockfile:
     dependencies:
       ajv "^5.1.0"
       har-schema "^2.0.0"
+  
+  has-ansi@^0.1.0:
+    version "0.1.0"
+    resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-0.1.0.tgz#84f265aae8c0e6a88a12d7022894b7568894c62e"
+    dependencies:
+      ansi-regex "^0.2.0"
   
   has-ansi@^2.0.0:
     version "2.0.0"
@@ -3967,6 +4058,12 @@ Lockfile:
     version "0.5.1"
     resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
   
+  jsonfile@^2.0.0:
+    version "2.4.0"
+    resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-2.4.0.tgz#3736a2b428b87bbda0cc83b53fa3d633a35c2ae8"
+    optionalDependencies:
+      graceful-fs "^4.1.6"
+  
   jsonify@~0.0.0:
     version "0.0.0"
     resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
@@ -4023,6 +4120,10 @@ Lockfile:
     dependencies:
       prelude-ls "~1.1.2"
       type-check "~0.3.2"
+  
+  lib-flexible@^0.3.2:
+    version "0.3.2"
+    resolved "https://registry.yarnpkg.com/lib-flexible/-/lib-flexible-0.3.2.tgz#06f5a74832314a2d35c12039bc9c3ca2daeaa426"
   
   load-json-file@^1.0.0:
     version "1.1.0"
@@ -4434,6 +4535,10 @@ Lockfile:
       regex-not "^1.0.0"
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
+  
+  natives@^1.1.0:
+    version "1.1.4"
+    resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.4.tgz#2f0f224fc9a7dd53407c7667c84cf8dbe773de58"
   
   natural-compare@^1.4.0:
     version "1.4.0"
@@ -5416,6 +5521,23 @@ Lockfile:
     version "2.1.1"
     resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   
+  px2rem-loader@^0.1.9:
+    version "0.1.9"
+    resolved "https://registry.yarnpkg.com/px2rem-loader/-/px2rem-loader-0.1.9.tgz#c8f2bf8be8b9a6b43a5f67d14b2febe1160e56a0"
+    dependencies:
+      loader-utils "^1.1.0"
+      px2rem "^0.5.0"
+  
+  px2rem@^0.5.0:
+    version "0.5.0"
+    resolved "https://registry.yarnpkg.com/px2rem/-/px2rem-0.5.0.tgz#24b3a6cf74d14adb4ed776f207871d9893e410e2"
+    dependencies:
+      chalk "~0.5.1"
+      commander "~2.6.0"
+      css "~2.2.0"
+      extend "~3.0.0"
+      fs-extra "~0.16.3"
+  
   q@^1.1.2:
     version "1.5.1"
     resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
@@ -5586,6 +5708,10 @@ Lockfile:
   regenerate@^1.2.1:
     version "1.4.0"
     resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
+  
+  regenerator-runtime@^0.10.5:
+    version "0.10.5"
+    resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
   
   regenerator-runtime@^0.11.0:
     version "0.11.1"
@@ -5883,6 +6009,10 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
   
+  select@^1.1.2:
+    version "1.1.2"
+    resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
+  
   selfsigned@^1.9.1:
     version "1.10.3"
     resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.3.tgz#d628ecf9e3735f84e8bafba936b3cf85bea43823"
@@ -6094,7 +6224,7 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
   
-  source-map-resolve@^0.5.0:
+  source-map-resolve@^0.5.0, source-map-resolve@^0.5.1:
     version "0.5.2"
     resolved "https://registry.yarnpkg.com/source-map-resolve/-/source-map-resolve-0.5.2.tgz#72e2cc34095543e43b2c62b2c4c10d4a9054f259"
     dependencies:
@@ -6117,6 +6247,12 @@ Lockfile:
   source-map@0.5.x, source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7:
     version "0.5.7"
     resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
+  
+  source-map@^0.1.38:
+    version "0.1.43"
+    resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.1.43.tgz#c24bc146ca517c1471f5dacbe2571b2b7f9e3346"
+    dependencies:
+      amdefine ">=0.0.4"
   
   source-map@^0.4.2:
     version "0.4.4"
@@ -6197,6 +6333,10 @@ Lockfile:
       ecc-jsbn "~0.1.1"
       jsbn "~0.1.0"
       tweetnacl "~0.14.0"
+  
+  ssr-window@^1.0.0, ssr-window@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-1.0.1.tgz#30752a6a4666e7767f0b7e6aa6fc2fdbd0d9b369"
   
   ssri@^5.2.4:
     version "5.3.0"
@@ -6290,6 +6430,12 @@ Lockfile:
     version "0.0.6"
     resolved "https://registry.yarnpkg.com/stringstream/-/stringstream-0.0.6.tgz#7880225b0d4ad10e30927d167a1d6f2fd3b33a72"
   
+  strip-ansi@^0.3.0:
+    version "0.3.0"
+    resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-0.3.0.tgz#25f48ea22ca79187f3174a4db8759347bb126220"
+    dependencies:
+      ansi-regex "^0.2.1"
+  
   strip-ansi@^3.0.0, strip-ansi@^3.0.1:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-3.0.1.tgz#6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
@@ -6326,6 +6472,10 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   
+  supports-color@^0.2.0:
+    version "0.2.0"
+    resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-0.2.0.tgz#d92de2694eb3f67323973d7ae3d8b55b4c22190a"
+  
   supports-color@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -6353,6 +6503,13 @@ Lockfile:
       mkdirp "~0.5.1"
       sax "~1.2.1"
       whet.extend "~0.9.9"
+  
+  swiper@^4.0.7:
+    version "4.3.5"
+    resolved "https://registry.yarnpkg.com/swiper/-/swiper-4.3.5.tgz#40369d4870e66cd10eb9862329af63b8a582aca1"
+    dependencies:
+      dom7 "^2.0.7"
+      ssr-window "^1.0.1"
   
   symbol-observable@1.0.1:
     version "1.0.1"
@@ -6417,6 +6574,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.10.tgz#1d28e3d2aadf1d5a5996c4e9f95601cd053480ae"
     dependencies:
       setimmediate "^1.0.4"
+  
+  tiny-emitter@^2.0.0:
+    version "2.0.2"
+    resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
   
   tmp@^0.0.33:
     version "0.0.33"
@@ -6707,6 +6868,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
     dependencies:
       indexof "0.0.1"
+  
+  vue-awesome-swiper@^3.1.3:
+    version "3.1.3"
+    resolved "https://registry.yarnpkg.com/vue-awesome-swiper/-/vue-awesome-swiper-3.1.3.tgz#05500b501ffb3fec9bf7eb9985bcf4ae8360ed9e"
+    dependencies:
+      object-assign "^4.1.1"
+      swiper "^4.0.7"
   
   vue-eslint-parser@^2.0.3:
     version "2.0.3"
