@@ -137,11 +137,11 @@
             authentication(){
                 if(this.authStatus == 0){
                     this.$router.push({
-                        name:'/authentication'
+                        name:'authentication'
                     })
                 }else{
                     this.$router.push({
-                        name:'/authImg'
+                        name:'authImg'
                     })
                 }
             },
