@@ -120,12 +120,6 @@
                 }).then(res => {
                     this.authStatus = res.data.authStatus;
                     this.existTradePassword = res.data.existTradePassword;
-                    // if (res.data.authStatus == 0 || res.data.authStatus == 2) { this.authStatusShow = true; }
-                    // if (res.data.authStatus == 3) {
-                    //     this.editShow = true;
-                    //     this.authStatusShow = false;
-                    // }
-                    // if (res.data.authStatus == 1) { this.authStatusShow = false; } this.noPassReason = res.data.noPassReason;
                     // this.bindEmail = res.data.Email;
                     // this.existEmail = res.data.existEmail;
                     // this.existPassword = res.data.existPassword;
@@ -159,6 +153,7 @@
                 this.sheetVisible = !this.sheetVisible;
             },
             album() { //相册的回调
+
                 console.log('打开相册');
             },
             mask() { //昵称-登录密码蒙版
