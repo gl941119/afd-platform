@@ -7,7 +7,9 @@
             </div>
         </div>
         <div v-if="noData" class="project-result">
-            <div class="project-result_box"><i class="custom-mint-icon-search"></i></div>
+            <div class="project-result_box">
+                <img src="../../assets/imgs/img/search.png">
+            </div>
             <div>搜索不到相关信息</div>
         </div>
         <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="projectLoadmore">
@@ -153,11 +155,12 @@
             height: calc(100vh - 50px - 44px);
             @include content-flex(center);
             flex-direction: column;
-            &_box{
-                margin-bottom: 20px;
+            &_box {
+                margin-bottom: 10px;
                 text-align: center;
-                i{
-                    font-size: 58px;
+                img {
+                    width: 88px;
+                    height: 59px;
                 }
             }
         }
