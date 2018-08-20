@@ -210,9 +210,11 @@
             openInfo(value) {
                 this.mask();
                 this.kinds(value);
+                this.cancle();
             },
             openTradepassword() { //交易密码蒙版
                 this.proups = !this.proups;
+                this.cancle();
             },
             kinds(value) { //根据value打开-昵称、登录密码
                 switch (value) {
