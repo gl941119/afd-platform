@@ -55,7 +55,7 @@
                     <p class="popup_box_nickname_title">设置交易密码</p>
                     <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="输入交易密码" v-model="oldTradepassword"></mt-field>
                     <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入交易密码" v-model="onceTradepassword"></mt-field>
-                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
+                    <mt-field :disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
                     <div class="popup_box_nickname_codebox">
                         <button class="popup_box_nickname_codebox_code" :class="{'gray':emailCodes}" :disabled="emailCodes" @click="getCode(4)">获取邮箱验证码</button>
                     </div>
@@ -137,7 +137,7 @@
         },
         watch: {
             edit(value) {
-                console.log('edit->', value);
+                // console.log('edit->', value);
                 if (value) {
                     this.$nextTick(function () {
                         console.log('value watch edit->', this.$refs.editImage);
@@ -190,7 +190,7 @@
                 this.oldPassword = '';
                 this.password = '';
                 this.oncePassword = '';
-                this.tradePassword = '';
+                this.tradepassword = '';
                 this.oldTradePassword = '';
                 this.newTradePassword = '';
                 this.onceTradePassword = '';
@@ -200,7 +200,7 @@
                 this.sheetVisible = !this.sheetVisible;
             },
             album() { //相册的回调
-                console.log('click->', this.$refs.upload.$children[0].$el);
+                // console.log('click->', this.$refs.upload.$children[0].$el);
                 this.$refs.upload.$children[0].$el.click();
             },
             mask() { //昵称-登录密码蒙版
