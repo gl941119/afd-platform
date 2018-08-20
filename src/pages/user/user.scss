@@ -1,0 +1,80 @@
+@import '../../assets/css/global.scss';
+.register {
+    width: 100vw;
+    &_info {
+        width: pxTorem(260px);
+        margin: 0 auto;
+        margin-top: pxTorem(120px);
+        &_box {
+            @include remCalc(margin, 20px, 0);
+            border-bottom: 1px solid #d8d8d8;
+            width: 100%;
+            font-size: 13px;
+            color: rgba(174, 174, 174, 1);
+            position: relative;
+            @include content-flex;
+            &_kind {
+                height: pxTorem(35px);
+                width: pxTorem(190px);
+                color: rgba(174, 174, 174, 1);
+                @include remCalc(padding, 0, 10px);
+            }
+            span.is-danger {
+                position: absolute;
+                bottom: -50%;
+                color: #ff3860;
+            }
+            &_buttonbox {
+                position: absolute;
+                right: 0;
+                top: 0;
+                &_button {
+                    padding: 2px;
+                    color: #AEAEAE;
+                    height: 24px;
+                    border-color: #979797;
+                    font-size: 13px;
+                }
+            }
+            &.verify {
+                input {
+                    padding-right: 45px;
+                }
+            }
+            &.invite {
+                position: relative;
+                span {
+                    color: #CFCFCF;
+                    position: absolute;
+                    right: 5px;
+                }
+                input {
+                    padding-right: 20px;
+                }
+            }
+        }
+    }
+    &-checkbox {
+        @include content-flex;
+        margin-bottom: pxTorem(20px);
+        label {
+            color: #CFCFCF;
+            margin-left: 5px;
+        }
+        a {
+            color: #469DBD;
+        }
+    }
+    &-bottom {
+        &-btn {
+            display: block;
+            width: 100%;
+            font-size: pxTorem(16px);
+            color: #333333;
+            &.btn-active {
+                background: #009EC2;
+                color: #fff;
+            }
+        }
+    }
+}

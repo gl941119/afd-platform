@@ -5,7 +5,7 @@
             <input style="display:none">
             <div class="register_info_box">
                 <label class="register_info_box_label">账号：</label>
-                <input type="text" v-validate="'required|email'"  name="email" v-model="register.email" class="register_info_box_kind" placeholder="请输入邮箱" autocomplete="off" />
+                <input type="text" v-validate="'required|email'" name="email" v-model="register.email" class="register_info_box_kind" placeholder="请输入邮箱" autocomplete="off" />
                 <span class="is-danger" v-show="errors.has('email')">{{errors.first('email')}}</span>
             </div>
             <div class="register_info_box verify">
@@ -14,7 +14,8 @@
                 <span class="is-danger" v-show="errors.has('verifyCode')">{{errors.first('verifyCode')}}</span>
                 <div class="register_info_box_buttonbox">
                     <mt-button v-if="disabled" @click.native="sendVerifyCode" plain size="small" class="register_info_box_buttonbox_button">获取验证码</mt-button>
-                    <mt-button v-else @click.native="sendVerifyCode" plain size="small" class="register_info_box_buttonbox_button">(<span>{{num}}</span>s)重试</mt-button>
+                    <mt-button v-else @click.native="sendVerifyCode" plain size="small" class="register_info_box_buttonbox_button">(
+                        <span>{{num}}</span>s)重试</mt-button>
                 </div>
             </div>
             <div class="register_info_box">
@@ -44,8 +45,8 @@
     </div>
 </template>
 <script>
-import Request from '../../utils/require.js';
-import Utils from '../../utils/util.js'
+    import Request from '../../utils/require.js';
+    import Utils from '../../utils/util.js'
     export default {
         data() {
             return {
@@ -94,7 +95,7 @@ import Utils from '../../utils/util.js'
                     inviteCode
                 } = this.register;
                 if (this.register.disclaimerChecked) {
-                    this.$validator.validateAll().then( valid => {
+                    this.$validator.validateAll().then(valid => {
                         if (valid) {
                             Request({
                                 url: 'Register',
@@ -117,91 +118,12 @@ import Utils from '../../utils/util.js'
                     this.$toast('请阅读用户协议')
                 }
             },
-            toLogin(){
-                this.$router.push({name: 'login'})
+            toLogin() {
+                this.$router.push({ name: 'login' })
             }
         }
     }
 </script>
 <style lang="scss" scoped>
-    @import '../../assets/css/global.scss';
-    .register {
-        width: 100vw;
-        &_info {
-            width: pxTorem(260px);
-            margin: 0 auto;
-            margin-top: pxTorem(120px);
-            &_box {
-                @include remCalc(margin, 20px, 0);
-                border-bottom: 1px solid #d8d8d8;
-                width: 100%;
-                font-size: 13px;
-                color: rgba(174, 174, 174, 1);
-                position: relative;
-                @include content-flex;
-                &_kind {
-                    height: pxTorem(35px);
-                    width: pxTorem(190px);
-                    color: rgba(174, 174, 174, 1);
-                    @include remCalc(padding, 0, 10px);
-                }
-                span.is-danger {
-                    position: absolute;
-                    bottom: -50%;
-                    color: #ff3860;
-                }
-                &_buttonbox {
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    &_button {
-                        padding: 2px;
-                        color: #AEAEAE;
-                        height: 24px;
-                        border-color: #979797;
-                        font-size: 13px;
-                    }
-                }
-                &.verify {
-                    input {
-                        padding-right: 45px;
-                    }
-                }
-                &.invite {
-                    position: relative;
-                    span {
-                        color: #CFCFCF;
-                        position: absolute;
-                        right: 5px;
-                    }
-                    input {
-                        padding-right: 20px;
-                    }
-                }
-            }
-        }
-        &-checkbox {
-            @include content-flex;
-            margin-bottom: pxTorem(20px);
-            label {
-                color: #CFCFCF;
-                margin-left: 5px;
-            }
-            a {
-                color: #469DBD;
-            }
-        }
-        &-bottom {
-            &-btn {
-                display: block;
-                width: 100%;
-                font-size: pxTorem(16px);
-                color: #333333;
-                &.btn-active {
-                    background: #009EC2;
-                    color: #fff;
-                }
-            }
-        }
-    }
+    @import './user.scss';
 </style>
