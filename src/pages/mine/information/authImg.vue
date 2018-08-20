@@ -46,10 +46,11 @@
             </div>
             <div class="authImg_box_popup" v-if="authStatusShow">
                 <div class="authImg_box_popup_box" @click.stop>
+                    <div v-if="authStatus == 1">身份认证提交资料已成功通过审核</div>
                     <div v-if="authStatus == 2">已提交认证，请等待审核结果</div>
                     <div v-if="authStatus == 3">认证失败，请重新认证</div>
                     <div class="authImg_box_popup_box_buttonbox">
-                        <mt-button v-if="authStatus == 2" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="confirm">确认</mt-button>
+                        <mt-button v-if="authStatus == 2 || authStatus == 1" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="confirm">确认</mt-button>
                         <mt-button v-if="authStatus == 3" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="recertification">重新认证</mt-button>
                     </div>
                 </div>
