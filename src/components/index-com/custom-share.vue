@@ -48,6 +48,11 @@
         mounted() {
             this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
         },
+        watch:{
+            inviteCode(val){
+                this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + val;
+            }
+        },
         methods: {
             close() {
                 this.$store.commit('setDialogVisible', false);
