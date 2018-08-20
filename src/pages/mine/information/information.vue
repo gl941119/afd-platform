@@ -53,7 +53,7 @@
             <div class="popup_box" @click.stop>
                 <div class="popup_box_nickname passwordBox" v-if="!existTradePassword">
                     <p class="popup_box_nickname_title">设置交易密码</p>
-                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="输入交易密码" v-model="oldTradepassword"></mt-field>
+                    <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="输入交易密码" v-model="tradepassword"></mt-field>
                     <mt-field :disableClear=true type="password" class="popup_box_nickname_input" placeholder="重新输入交易密码" v-model="onceTradepassword"></mt-field>
                     <mt-field :disableClear=true class="popup_box_nickname_input" placeholder="邮箱验证码" v-model="tradepasswordCode"></mt-field>
                     <div class="popup_box_nickname_codebox">
@@ -109,6 +109,7 @@
                 proups: false, //交易密码蒙版
                 nicknameShow: false, //昵称
                 nicknameValue: this.$store.state.usernickname || Cache.getSession('bier_usernickname'),
+                username: this.$store.state.username || Cache.getSession('bier_username'),
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
                 token: this.$store.state.token || Cache.getSession('bier_token'),
                 loginPasswordShow: false, //登录密码
@@ -191,9 +192,8 @@
                 this.password = '';
                 this.oncePassword = '';
                 this.tradepassword = '';
-                this.oldTradePassword = '';
-                this.newTradePassword = '';
-                this.onceTradePassword = '';
+                this.oldTradepassword = '';
+                this.onceTradepassword = '';
                 this.emailCode = '';
             },
             active() { //选择相册-show
