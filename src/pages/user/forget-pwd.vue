@@ -71,7 +71,7 @@
                             url: 'JudgeEmail',
                             data: { email: this.register.email },
                         }).then(res => {
-                            console.log('res->', res);
+                            // console.log('res->', res);
                             return Request({
                                 url: 'SendForgetPwdCode',
                                 data: {

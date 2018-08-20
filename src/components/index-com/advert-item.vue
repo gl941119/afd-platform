@@ -60,9 +60,10 @@
 <script>
     import Cache from '../../utils/cache.js';
     import Utils from '../../utils/util.js';
+    import Request from '../../utils/require.js';
     export default {
         name: 'AdvertItem',
-        props: ['advertDatas'],
+        props: ['advertDatas', 'conceptId'],
         data() {
             return {
                 popupVisible: false,
@@ -80,8 +81,22 @@
                 this.advertDatas.websiteResultList.forEach(item => {
                     item.name = item.websiteName;
                     item.method = function () {
-                        // console.log('method_>', item.websiteAddress);
-                        _self.utils.newWin(item.websiteAddress);
+                        // console.log('method_>', item, _self.advertDatas);
+                        Request({
+                            url: 'ClickAdvertToProfit',
+                            data: {
+                                advertId: _self.advertDatas.id,
+                                conceptId: _self.conceptId || 0,
+                                advertWebsiteId: item.id,
+                            },
+                            type: 'get'
+                        }).then(res => {
+                            // skip
+                            _self.utils.newWin(item.websiteAddress);
+                        }).catch(msg => {
+                            _self.$emit('update-data');
+                            this.$router.push({name: 'login'})
+                        })
                     }
                 });
                 this.actionsOptions = this.advertDatas.websiteResultList;

@@ -13,7 +13,7 @@
             <div>搜索不到相关信息</div>
         </div>
         <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="projectLoadmore">
-            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i"></advert-item>
+            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" :concept-id="conceptId" @update-data="init"></advert-item>
             <div v-show="!noData" slot="bottom" class="project-bottom">
                 <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
                 <span v-show="bottomStatus === 'loading'">
@@ -45,17 +45,20 @@
             }
         },
         mounted() {
-            if (this.conceptId) {
-                this.getAdvertInfo(this.conceptId).then(() => {
-                    this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
-                })
-            } else {
-                this.getAdvertInfoInit().then(() => {
-                    this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
-                })
-            }
+            this.init();
         },
         methods: {
+            init() {
+                if (this.conceptId) {
+                    this.getAdvertInfo(this.conceptId).then(() => {
+                        this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
+                    })
+                } else {
+                    this.getAdvertInfoInit().then(() => {
+                        this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
+                    })
+                }
+            },
             getAdvertInfoInit(page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
                     Request({
