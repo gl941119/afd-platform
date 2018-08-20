@@ -36,11 +36,14 @@
             <div class="register-checkbox">
                 <input v-model="register.disclaimerChecked" type="checkbox" name="userTerm" id="userTerm">
                 <label for="userTerm">我已同意</label>
-                <a href="javascript:;">AFDCHAIN用户协议</a>
+                <a @click="showUserTerm" href="javascript:;">AFDCHAIN用户协议</a>
             </div>
             <div class="register-bottom">
                 <mt-button @click.native="registerBtn" size="small" class="register-bottom-btn btn-active">注册</mt-button>
             </div>
+        </div>
+        <div class="register-fixed">
+
         </div>
     </div>
 </template>
@@ -120,10 +123,21 @@
             },
             toLogin() {
                 this.$router.push({ name: 'login' })
-            }
+            },
+            showUserTerm(){
+
+            },
         }
     }
 </script>
 <style lang="scss" scoped>
     @import './user.scss';
+    .register-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, .5)
+    }
 </style>

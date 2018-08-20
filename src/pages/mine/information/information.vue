@@ -74,6 +74,10 @@
                 </div>
             </div>
         </div>
+
+        <div>
+            <input type="file" name="hahh" id="hahhaahh">
+        </div>
     </div>
 </template>
 <script>
@@ -106,7 +110,7 @@
                 tradepasswordCode: '',
                 emailCodes: false,
                 popupVisible: false, //密码规则
-                authStatus:'',
+                authStatus: '',
             }
         },
         mounted() {
@@ -128,14 +132,14 @@
                     // this.existNickname = res.data.heardUrl;
                 })
             },
-            authentication(){
-                if(this.authStatus == 0){
+            authentication() {
+                if (this.authStatus == 0) {
                     this.$router.push({
-                        name:'authentication'
+                        name: 'authentication'
                     })
-                }else{
+                } else {
                     this.$router.push({
-                        name:'authImg'
+                        name: 'authImg'
                     })
                 }
             },
@@ -153,8 +157,7 @@
                 this.sheetVisible = !this.sheetVisible;
             },
             album() { //相册的回调
-
-                console.log('打开相册');
+                hahhaahh.click()
             },
             mask() { //昵称-登录密码蒙版
                 this.proup = !this.proup;
