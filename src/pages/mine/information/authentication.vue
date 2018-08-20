@@ -129,7 +129,7 @@
             }
             &_select {
                 border: 1px solid #979797;
-                width: 100%;
+                width: pxTorem(280px);
                 height: 0.88rem;
                 padding-left: 0.26667rem;
                 margin: 0 10px;

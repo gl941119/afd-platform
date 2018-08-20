@@ -36,20 +36,25 @@
             <div class="register-checkbox">
                 <input v-model="register.disclaimerChecked" type="checkbox" name="userTerm" id="userTerm">
                 <label for="userTerm">我已同意</label>
-                <a @click="showUserTerm" href="javascript:;">AFDCHAIN用户协议</a>
+                <a @click="showUserTerm(true)" href="javascript:;">AFDCHAIN用户协议</a>
             </div>
             <div class="register-bottom">
                 <mt-button @click.native="registerBtn" size="small" class="register-bottom-btn btn-active">注册</mt-button>
             </div>
         </div>
-        <div class="register-fixed">
-
+        <div class="register-fixed" v-if="registerTerm" @click="showUserTerm(false)">
+            <div class="register-fixed_font" @click.stop="showUserTerm(false)">
+                <i class="custom-mint-icon-cuo"></i>
+            </div>
+            <div class="register-fixed_content" v-html="content"></div>
         </div>
     </div>
 </template>
 <script>
     import Request from '../../utils/require.js';
     import Utils from '../../utils/util.js'
+    import userRegEn from './user-register-en.js';
+    import userRegZh from './user-register-ch.js';
     export default {
         data() {
             return {
@@ -63,7 +68,16 @@
                     passwordAgain: '',
                     inviteCode: '',
                     disclaimerChecked: true,
-                }
+                },
+                registerTerm: false,
+            }
+        },
+        computed: {
+            language() {
+                return this.$store.state.slangChange;
+            },
+            content() {
+                return this.language.toUpperCase() === 'EN' ? userRegEn : userRegZh;
             }
         },
         methods: {
@@ -124,8 +138,8 @@
             toLogin() {
                 this.$router.push({ name: 'login' })
             },
-            showUserTerm(){
-
+            showUserTerm(value) {
+                this.registerTerm = value;
             },
         }
     }
@@ -138,6 +152,16 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, .5)
+        background: rgba(0, 0, 0, .5);
+        z-index: 9999;
+        height: 100%; // position: relative;
+        &_font {
+            position: relative;
+            i {
+                position: absolute;
+                right: 42px;
+                top: 48px;
+            }
+        }
     }
 </style>
