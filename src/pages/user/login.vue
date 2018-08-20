@@ -106,7 +106,7 @@
                 token && Cache.setSession('bier_token', token);
                 heardUrl && Cache.setSession('bier_heardUrl', heardUrl);
                 this.$router.push({
-                    name: 'index'
+                    name: 'mine'
                 });
             },
         }
