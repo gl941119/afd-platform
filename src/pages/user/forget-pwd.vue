@@ -59,6 +59,11 @@
                 success: false,
             }
         },
+        computed: {
+            language(){
+                return this.$store.state.slangChange;
+            }
+        },
         methods: {
             sendVerifyCode() {
                 if (this.register.email) {

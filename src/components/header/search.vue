@@ -37,6 +37,9 @@
             value(val) {
                 this.popupVisible = false;
                 this.title = this.selTitle(val);
+                this.$store.commit('setLanguage', val);
+                Cache.setLocal('bier_langChange', val);
+                this.$validator.localize(val);
             }
         },
         methods: {
