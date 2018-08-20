@@ -206,6 +206,7 @@
             },
             mask() { //昵称-登录密码蒙版
                 this.proup = !this.proup;
+                this.cancle();
             },
             openInfo(value) {
                 this.mask();
