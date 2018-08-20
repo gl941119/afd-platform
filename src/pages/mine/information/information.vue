@@ -194,7 +194,8 @@
                 this.tradepassword = '';
                 this.oldTradepassword = '';
                 this.onceTradepassword = '';
-                this.emailCode = '';
+                this.passwordCode = "";
+                this.tradepasswordCode = "";
             },
             active() { //选择相册-show
                 this.sheetVisible = !this.sheetVisible;

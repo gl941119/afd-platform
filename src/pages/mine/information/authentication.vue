@@ -3,13 +3,13 @@
         <header-nav linkName="information" title="实名认证" class="auth_header"></header-nav>
         <div class="auth_boundary"></div>
         <div class="auth_info">
-            <mt-field :disableClear=true class="auth_info_input" placeholder="姓名" v-model="name"></mt-field>
+            <mt-field :disableClear=true class="auth_info_input" placeholder="姓名" v-model="name" ></mt-field>
             <div class="error" v-if="realNameShow">只能输入英文字母或汉字</div>
-            <select class="auth_info_select" v-model="idType">
+            <select class="auth_info_select" v-model="idType" >
                 <option class="auth_info_select_option" v-for="(item, index) in idTypeData" :key="index" :value="item.value">{{item.value}}</option>
             </select>
             <div class="error" v-if="cardTypeShow">请选择证件类型</div>
-            <mt-field :disableClear=true class="auth_info_input" placeholder="身份证号" v-model="idNum"></mt-field>
+            <mt-field :disableClear=true class="auth_info_input" placeholder="身份证号" v-model="idNum" ></mt-field>
             <div class="error" v-if="numType">请先选择证件类型</div>
             <div class="error" v-if="idCard">请输入正确的身份证/护照格式</div>
             <select class="auth_info_select" v-model="country">
