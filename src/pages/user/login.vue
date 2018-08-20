@@ -106,7 +106,7 @@
                 token && Cache.setSession('bier_token', token);
                 heardUrl && Cache.setSession('bier_heardUrl', heardUrl);
                 this.$router.push({
-                    name: 'index'
+                    name: 'mine'
                 });
             },
         }
@@ -131,6 +131,7 @@
                     flex: 1;
                     color: rgba(174, 174, 174, 1);
                     @include remCalc(padding, 0, 10px);
+                    background: transparent;
                 }
             }
         }

@@ -31,3 +31,27 @@
 .mint-navbar .mint-tab-item.is-selected {
     border-bottom: 0;
 }
+.register-fixed_content{
+    height: 100%;
+    padding: 44px 38px;
+    overflow: hidden;
+    .statement{
+        height: 100%;
+        overflow: hidden;
+        background: #ffffff;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        h3{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content{
+            overflow-y: scroll;
+            background: #ffffff;
+            flex: 1;
+        }
+    }
+}
