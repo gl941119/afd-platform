@@ -31,7 +31,7 @@ module.exports = {
     devtool: '#source-map',
     // 开启静态文件的Gzip压缩
     // 如果是true 的话  需要 npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    productionGzip: true,
     productionGzipExtensions: ['js', 'css'],
 
     // 打包完成显示包大小的状态分析

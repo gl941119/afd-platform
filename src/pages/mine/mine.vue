@@ -30,7 +30,7 @@
         data() {
             return {
                 token: this.$store.state.token || Cache.getSession('bier_token'),
-                headUrl: this.$store.state.heardUrl || Cache.getSession('bier_heardUrl'),
+                headUrl: this.$store.state.heardUrl,
                 nickname: this.$store.state.usernickname || this.$store.state.username,
             };
         },

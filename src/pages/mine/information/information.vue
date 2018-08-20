@@ -76,16 +76,16 @@
         </div>
 
         <div class="avatar">
-            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/png,image/gif,image/jpeg,image/webp" :headers="{token: token}" name="avatar" class="btn btn-primary" :post-action="uploadImg" :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile"
+            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/png,image/gif,image/jpeg,image/webp" name="avatar" class="btn btn-primary"  :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile"
                 ref="upload">
             </file-upload>
             <div class="avatar-edit" v-show="files.length && edit">
                 <div class="avatar-edit-image" v-if="files.length">
                     <img ref="editImage" :src="files[0].url" />
                 </div>
-                <div class="text-center p-4">
-                    <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">Cancel</button>
-                    <button type="submit" class="btn btn-primary" @click.prevent="editSave">Save</button>
+                <div class="avatar-edit-btn">
+                    <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">取消</button>
+                    <button type="submit" class="btn btn-primary" @click.prevent="editSave">保存</button>
                 </div>
             </div>
         </div>
@@ -97,7 +97,8 @@
     import validateFun from '../../../utils/validate.js';
     import Utils from '../../../utils/util';
     import Config from '../../../utils/config';
-    import Cropper from 'cropperjs'
+    import Cropper from 'cropperjs';
+    import axios from 'axios'
     export default {
         data() {
             return {
@@ -125,7 +126,7 @@
                 popupVisible: false, //密码规则
                 authStatus: '',
                 // avatar
-                uploadImg: Config.UploadAuthImg,
+                uploadImg: Config.UploadImg,
                 files: [],
                 edit: false,
                 cropper: false,
@@ -405,7 +406,6 @@
             },
             // avatar
             inputFile(newFile, oldFile, prevent) {
-                console.log('file->', this.files);
                 if (newFile && !oldFile) {
                     this.$nextTick(function () {
                         this.edit = true
@@ -431,8 +431,6 @@
                 }
             },
             editSave() {
-                console.log('save ---- file->', file);
-
                 this.edit = false
                 let oldFile = this.files[0]
                 let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
@@ -441,14 +439,36 @@
                     arr[i] = binStr.charCodeAt(i)
                 }
                 let file = new File([arr], oldFile.name, { type: oldFile.type });
-                console.log('save ---- file->', file);
-                this.$refs.upload.update(oldFile.id, {
-                    file,
-                    type: file.type,
-                    size: file.size,
-                    active: true,
-                })
+
+                var formData = new FormData();
+                formData.append("file", file);
+                axios({
+                    url: this.uploadImg,
+                    method: 'post',
+                    data: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        token: this.token,
+                    }
+                }).then(res => {
+                    this.selectImg(res.data.data);
+                }).catch(console.error)
             },
+            selectImg(url) {
+				Request({
+					url: 'QueryAccountSettings',
+					data: {
+						id: this.accountId,
+						headUrl: url,
+					},
+					type: 'post',
+					flag: true
+				}).then(res => {
+                    this.$store.commit('setHeardUrl', url);
+                    Cache.setSession('bier_heardUrl', url);
+                    this.$toast('修改成功');
+				})
+			},
         }
     }
 </script>
@@ -541,11 +561,23 @@
         bottom: 0;
         background: rgba(0, 0, 0, 0.5);
         .avatar-edit-image {
+            margin-top: pxTorem(100px);
             max-width: 100%;
             max-height: 60%;
             img {
                 max-width: 80%;
                 max-height: 50%;
+            }
+        }
+        .avatar-edit-btn {
+            margin-top: pxTorem(30px);
+            text-align: center;
+            button {
+                @extend %custom-btn;
+                &.btn-secondary {
+                    background: #999;
+                    margin-right: 30px;
+                }
             }
         }
     }
