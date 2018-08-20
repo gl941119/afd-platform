@@ -42,7 +42,7 @@
                 <mt-button @click.native="registerBtn" size="small" class="register-bottom-btn btn-active">注册</mt-button>
             </div>
         </div>
-        <div class="register-fixed" v-if="registerTerm" @click="showUserTerm(false)">
+        <div class="register-fixed" v-if="registerTerm">
             <div class="register-fixed_font" @click.stop="showUserTerm(false)">
                 <i class="custom-mint-icon-cuo"></i>
             </div>
