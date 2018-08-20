@@ -75,8 +75,19 @@
             </div>
         </div>
 
-        <div>
-            <input type="file" name="hahh" id="hahhaahh">
+        <div class="avatar">
+            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/png,image/gif,image/jpeg,image/webp" :headers="{token: token}" name="avatar" class="btn btn-primary" :post-action="uploadImg" :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile"
+                ref="upload">
+            </file-upload>
+            <div class="avatar-edit" v-show="files.length && edit">
+                <div class="avatar-edit-image" v-if="files.length">
+                    <img ref="editImage" :src="files[0].url" />
+                </div>
+                <div class="text-center p-4">
+                    <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">Cancel</button>
+                    <button type="submit" class="btn btn-primary" @click.prevent="editSave">Save</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -85,6 +96,8 @@
     import Request from '../../../utils/require.js';
     import validateFun from '../../../utils/validate.js';
     import Utils from '../../../utils/util';
+    import Config from '../../../utils/config';
+    import Cropper from 'cropperjs'
     export default {
         data() {
             return {
@@ -111,10 +124,39 @@
                 emailCodes: false,
                 popupVisible: false, //密码规则
                 authStatus: '',
+                // avatar
+                uploadImg: Config.UploadAuthImg,
+                files: [],
+                edit: false,
+                cropper: false,
             }
         },
         mounted() {
             this.info();
+        },
+        watch: {
+            edit(value) {
+                console.log('edit->', value);
+                if (value) {
+                    this.$nextTick(function () {
+                        console.log('value watch edit->', this.$refs.editImage);
+                        if (!this.$refs.editImage) {
+                            return
+                        }
+
+                        let cropper = new Cropper(this.$refs.editImage, {
+                            aspectRatio: 1 / 1,
+                            viewMode: 1,
+                        })
+                        this.cropper = cropper
+                    })
+                } else {
+                    if (this.cropper) {
+                        this.cropper.destroy()
+                        this.cropper = false
+                    }
+                }
+            }
         },
         methods: {
             info() {
@@ -157,7 +199,8 @@
                 this.sheetVisible = !this.sheetVisible;
             },
             album() { //相册的回调
-                hahhaahh.click()
+                console.log('click->', this.$refs.upload.$children[0].$el);
+                this.$refs.upload.$children[0].$el.click();
             },
             mask() { //昵称-登录密码蒙版
                 this.proup = !this.proup;
@@ -360,6 +403,52 @@
                 Cache.removeSession('bier_inviteCode');
                 Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
             },
+            // avatar
+            inputFile(newFile, oldFile, prevent) {
+                console.log('file->', this.files);
+                if (newFile && !oldFile) {
+                    this.$nextTick(function () {
+                        this.edit = true
+                    })
+                }
+                if (!newFile && oldFile) {
+                    this.edit = false
+                }
+            },
+            inputFilter(newFile, oldFile, prevent) {
+                if (newFile && !oldFile) {
+                    if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
+                        this.$toast('Your choice is not a picture')
+                        return prevent()
+                    }
+                }
+                if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+                    newFile.url = ''
+                    let URL = window.URL || window.webkitURL
+                    if (URL && URL.createObjectURL) {
+                        newFile.url = URL.createObjectURL(newFile.file)
+                    }
+                }
+            },
+            editSave() {
+                console.log('save ---- file->', file);
+
+                this.edit = false
+                let oldFile = this.files[0]
+                let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
+                let arr = new Uint8Array(binStr.length)
+                for (let i = 0; i < binStr.length; i++) {
+                    arr[i] = binStr.charCodeAt(i)
+                }
+                let file = new File([arr], oldFile.name, { type: oldFile.type });
+                console.log('save ---- file->', file);
+                this.$refs.upload.update(oldFile.id, {
+                    file,
+                    type: file.type,
+                    size: file.size,
+                    active: true,
+                })
+            },
         }
     }
 </script>
@@ -441,6 +530,22 @@
             }
             .passwordBox {
                 height: pxTorem(328px);
+            }
+        }
+    }
+    .avatar-edit {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        .avatar-edit-image {
+            max-width: 100%;
+            max-height: 60%;
+            img {
+                max-width: 80%;
+                max-height: 50%;
             }
         }
     }

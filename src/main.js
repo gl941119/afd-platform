@@ -11,6 +11,8 @@ import './utils/mint';
 import './assets/css/reset.css';
 import './assets/css/common.scss';
 import 'swiper/dist/css/swiper.css';
+
+import 'cropperjs/dist/cropper.min.css';
 import i18n from './i18n/i18n';
 import './utils/validation';
 
