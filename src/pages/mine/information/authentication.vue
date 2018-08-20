@@ -6,7 +6,7 @@
             <mt-field :disableClear=true class="auth_info_input" placeholder="姓名" v-model="name"></mt-field>
             <div class="error" v-if="realNameShow">只能输入英文字母或汉字</div>
             <select class="auth_info_select" v-model="idType">
-                <option v-for="(item, index) in idTypeData" :key="index" :value="item.value">{{item.value}}</option>
+                <option class="auth_info_select_option" v-for="(item, index) in idTypeData" :key="index" :value="item.value">{{item.value}}</option>
             </select>
             <div class="error" v-if="cardTypeShow">请选择证件类型</div>
             <mt-field :disableClear=true class="auth_info_input" placeholder="身份证号" v-model="idNum"></mt-field>
@@ -137,6 +137,11 @@
                 color: #888;
                 font-size: 16px;
                 padding-left: 5px;
+                &_option{
+                    border: 0;
+                    border-color: transparent;
+                    border-image: none;
+                }
             }
         }
         &_boundary {

@@ -131,6 +131,7 @@
                     flex: 1;
                     color: rgba(174, 174, 174, 1);
                     @include remCalc(padding, 0, 10px);
+                    background: transparent;
                 }
             }
         }
