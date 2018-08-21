@@ -20,11 +20,6 @@ function resolve(dir) {
 
 const webpackConfig = merge(baseWebpackConfig, {
     mode: 'production',
-    output: {
-        path: config.build.assetsRoot,
-        filename: utils.assetsPath('js/[name].[chunkhash].js'),
-        chunkFilename: utils.assetsPath('js/[name].[chunkhash].js')
-    },
     module: {
         rules: utils.styleLoaders({
             sourceMap: config.build.productionSourceMap,
@@ -32,6 +27,12 @@ const webpackConfig = merge(baseWebpackConfig, {
             usePostCSS: true
         })
     },
+    output: {
+        path: config.build.assetsRoot,
+        filename: utils.assetsPath('js/[name].[chunkhash].js'),
+        chunkFilename: utils.assetsPath('js/[name].[chunkhash].js')
+    },
+
     // 此选项控制是否以及如何生成source-map。cheap-module-eval-source-map is faster for development
     devtool: config.build.devtool,
     optimization: {
@@ -47,6 +48,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env': { NODE_ENV: '"production"' }
+        }),
         // css 提取
         new MiniCssExtractPlugin({
             filename: utils.assetsPath('css/[name].[hash].css'),

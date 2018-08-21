@@ -16,6 +16,8 @@ import 'cropperjs/dist/cropper.min.css';
 import i18n from './i18n/i18n';
 import './utils/validation';
 
+import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
+
 // component
 import HeaderNav from '@/components/header/nav';
 import AdvertItem from '@/components/index-com/advert-item';
@@ -23,6 +25,13 @@ const VueUploadComponent = require('vue-upload-component');
 Vue.component('file-upload', VueUploadComponent);
 Vue.component(HeaderNav.name, HeaderNav);
 Vue.component(AdvertItem.name, AdvertItem);
+
+// for development
+let vConsole;
+if (process.env.NODE_ENV === 'development') {
+    vConsole = new VConsole()
+    console.log('VConsole is cool');
+}
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key]);
