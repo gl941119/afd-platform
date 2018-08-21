@@ -128,10 +128,10 @@
                     url: 'QuerySettings',
                     type: 'get',
                 }).then(res => {
-                    // this.authStatus = res.data.authStatus;
-                    // if(res.data.authStatus != '0'){
-                    //     this.authStatusShow = true;
-                    // }
+                    this.authStatus = res.data.authStatus;
+                    if(res.data.authStatus != '0'){
+                        this.authStatusShow = true;
+                    }
                     // this.noPassReason = res.data.noPassReason;
                 })
             },
