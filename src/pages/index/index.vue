@@ -1,7 +1,9 @@
 <template>
     <div class="index" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-        <index-search></index-search>
-        <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
+        <div class="index-nav">
+            <index-search class="index-nav-search"></index-search>
+            <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
+        </div>
         <top-nav></top-nav>
         <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
             <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" @update-data="getAdvertInfo"></advert-item>
@@ -152,6 +154,14 @@
         background: #FAFAFA;
         padding-bottom: 50px;
         overflow: auto;
+        &-nav {
+            position: relative;
+            &-search {
+                position: absolute;
+                z-index: 2;
+                width: 100%;
+            }
+        }
         &-bottom {
             @extend %load-more;
         }

@@ -134,8 +134,13 @@
         width: 100%;
         background: #FAFAFA;
         padding-bottom: 50px;
+        padding-top: 35px;
         overflow: auto;
         &-header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
             height: 44px;
             @include content-flex(center);
         }
