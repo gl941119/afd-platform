@@ -45,12 +45,13 @@
     }
 
     .gallery-top {
-        height: pxTorem(119px);
         width: 100%;
         overflow: hidden;
         margin: 0 auto;
         &-img {
-            max-width: 100vw;
+            width: 100vw;
+            height: pxTorem(165px);
+            object-fit:cover;
         }
     }
 </style>

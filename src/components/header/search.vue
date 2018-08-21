@@ -71,7 +71,7 @@
         @include content-flex(space-between);
         &-title {
             line-height: 44px;
-            color: #000;
+            color: #fefefe;
             margin-left: -8px;
             transform: scale(0.8);
             font-size: 12px;
@@ -98,7 +98,7 @@
             line-height: 44px;
             padding: 0 8px;
             & i {
-                color: #969696;
+                color: #fefefe;
             }
         }
         &-popup {

@@ -5,7 +5,7 @@
                 <input v-model="inputSearch" placeholder="请选择概念进行搜索" disabled class="search-page-input-item" type="text">
                 <i class="search-page-input-icon custom-mint-icon-sousuo"></i>
             </div>
-            <router-link class="search-page-link" :to="{name: 'index'}">取消</router-link>
+            <a class="search-page-link" @click="$router.go(-1)" >取消</a>
         </div>
         <div class="search-page-concept">
             <p>项目概念</p>
