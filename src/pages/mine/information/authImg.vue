@@ -186,8 +186,10 @@
         }
         &_box {
             @include remCalc(padding, 0, 38px);
+            padding-top: pxTorem(55px);
             &_upload {
                 border: 1px solid rgba(151, 151, 151, 1);
+                clear: both;
                 margin-top: pxTorem(30px);
                 height: pxTorem(136px);
                 &_file {

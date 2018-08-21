@@ -1,18 +1,20 @@
 <template>
     <div class="information">
         <header-nav linkName="mine" title="个人信息"></header-nav>
-        <mt-cell class="information_kind" @click.native="active" title="头像" is-link>
-        </mt-cell>
-        <mt-cell class="information_kind" @click.native="openInfo(1)" title="昵称" is-link>
-        </mt-cell>
-        <mt-cell class="information_kind" @click.native="openInfo(2)" title="登录密码" is-link>
-        </mt-cell>
-        <mt-cell class="information_kind" @click.native="openTradepassword()" title="交易密码" is-link>
-        </mt-cell>
-        <mt-cell class="information_kind" title="绑定Telegram" is-link>
-        </mt-cell>
-        <mt-cell class="information_kind" @click.native="authentication()" title="实名认证" is-link>
-        </mt-cell>
+        <div class="information_kindBox">
+            <mt-cell class="information_kindBox_kind" @click.native="active" title="头像" is-link>
+            </mt-cell>
+            <mt-cell class="information_kindBox_kind" @click.native="openInfo(1)" title="昵称" is-link>
+            </mt-cell>
+            <mt-cell class="information_kindBox_kind" @click.native="openInfo(2)" title="登录密码" is-link>
+            </mt-cell>
+            <mt-cell class="information_kindBox_kind" @click.native="openTradepassword()" title="交易密码" is-link>
+            </mt-cell>
+            <mt-cell class="information_kindBox_kind" title="绑定Telegram" is-link>
+            </mt-cell>
+            <mt-cell class="information_kindBox_kind" @click.native="authentication()" title="实名认证" is-link>
+            </mt-cell>
+        </div>
         <mt-actionsheet :actions="actions" v-model="sheetVisible">
         </mt-actionsheet>
         <div class="popup" v-if="proup" @click="openInfo">
@@ -481,9 +483,12 @@
     .information {
         background: #fafafa;
         overflow-y: scroll;
-        &_kind {
-            color: rgba(51, 51, 51, 1);
-            border-bottom: 1px solid #e6e6e6;
+        &_kindBox{
+            margin-top: pxTorem(55px);
+            &_kind {
+                color: rgba(51, 51, 51, 1);
+                border-bottom: 1px solid #e6e6e6;
+            }
         }
         &_popupVisible {
             padding: pxTorem(5px);

@@ -115,9 +115,6 @@
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';
     .auth {
-        &_header {
-            margin: 0;
-        }
         &_info {
             @include remCalc(padding, 0, 38px);
             margin-top: pxTorem(50px);
@@ -148,6 +145,7 @@
             width: 100%;
             height: pxTorem(10px);
             background: rgba(250, 250, 250, 1);
+            margin-top: pxTorem(45px);
         }
         &_next {
             @include remCalc(padding, 0, 38px);
