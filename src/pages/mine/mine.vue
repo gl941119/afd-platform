@@ -30,7 +30,7 @@
         data() {
             return {
                 token: this.$store.state.token || Cache.getSession('bier_token'),
-                headUrl: this.$store.state.heardUrl,
+                headUrl: this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png',
                 nickname: this.$store.state.usernickname || this.$store.state.username,
             };
         },
