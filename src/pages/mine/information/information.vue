@@ -78,7 +78,7 @@
         </div>
 
         <div class="avatar">
-            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/png,image/gif,image/jpeg,image/webp" name="avatar" class="btn btn-primary" :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
+            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/*" name="avatar" class="btn btn-primary" :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
             </file-upload>
             <div class="avatar-edit" v-show="files.length && edit">
                 <div class="avatar-edit-image" v-if="files.length">

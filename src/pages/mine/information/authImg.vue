@@ -3,7 +3,7 @@
         <header-nav linkName="authentication" title="实名认证" class="authImg_header"></header-nav>
         <div class="authImg_box">
             <div class="authImg_box_upload">
-                <file-upload class="authImg_box_upload_file" ref="upload" name="1" :multiple="false" @input-file="getImg">
+                <file-upload class="authImg_box_upload_file" ref="upload" name="1" extensions="gif,jpg,jpeg,png,webp" accept="image/*" :multiple="false" @input-file="getImg">
                     <div v-if="imageBack" class="authImg_box_upload_file_img">
                         <img :src="imageBack" />
                     </div>
@@ -16,7 +16,7 @@
                 </file-upload>
             </div>
             <div class="authImg_box_upload">
-                <file-upload class="authImg_box_upload_file" ref="upload" name="2" :multiple="false" @input-file="getImgTwo">
+                <file-upload class="authImg_box_upload_file" ref="upload" name="2" extensions="gif,jpg,jpeg,png,webp" accept="image/*" :multiple="false" @input-file="getImgTwo">
                     <div v-if="imagePositive" class="authImg_box_upload_file_img">
                         <img :src="imagePositive" />
                     </div>
@@ -29,7 +29,7 @@
                 </file-upload>
             </div>
             <div class="authImg_box_upload">
-                <file-upload class="authImg_box_upload_file" ref="upload" name="3" :multiple="false" @input-file="getImgThree">
+                <file-upload class="authImg_box_upload_file" ref="upload" name="3" extensions="gif,jpg,jpeg,png,webp" accept="image/*" :multiple="false" @input-file="getImgThree">
                     <div v-if="imageHandheld" class="authImg_box_upload_file_img">
                         <img :src="imageHandheld" />
                     </div>
@@ -80,7 +80,7 @@
                 imagePositive: '',
                 imageHandheld: '',
                 authStatusShow: false,
-                authStatus: '0',
+                authStatus: '',
             }
         },
         mounted() {
