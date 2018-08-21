@@ -60,6 +60,8 @@
             clickCopy() {
                 let clipboard = new Clipboard('.show-share-btn-text');
                 clipboard.on('success', e => {
+                    console.log('clipboard success->', e);
+
                     this.$toast({
                         message: '复制成功',
                         position: 'top',
@@ -69,6 +71,7 @@
                     clipboard.destroy()
                 })
                 clipboard.on('error', e => {
+                    console.log('clipboard error->', e);
                     // 不支持复制
                     this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 });
                     // 释放内存

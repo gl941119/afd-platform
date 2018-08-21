@@ -5,7 +5,7 @@
             <img class="img" :src="headUrl">
         </div>
         <div class="avatar">
-            <file-upload extensions="gif,jpg,jpeg,png,webp" accept="image/*" name="avatar" class="btn btn-primary" :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
+            <file-upload extensions="gif,jpg,jpeg,png,webp" accept="image/*" v-model="files" name="avatar" class="btn btn-primary" :drop="!edit" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
                 <div class="btn_text">点击上传</div>
             </file-upload>
             <div class="avatar-edit" v-show="files.length && edit">
@@ -39,6 +39,30 @@
                 cropper: false,
             }
         },
+        watch: {
+            edit(value) {
+                // console.log('edit->', value);
+                if (value) {
+                    this.$nextTick(function () {
+                        console.log('value watch edit->', this.$refs.editImage);
+                        if (!this.$refs.editImage) {
+                            return
+                        }
+
+                        let cropper = new Cropper(this.$refs.editImage, {
+                            aspectRatio: 1 / 1,
+                            viewMode: 1,
+                        })
+                        this.cropper = cropper
+                    })
+                } else {
+                    if (this.cropper) {
+                        this.cropper.destroy()
+                        this.cropper = false
+                    }
+                }
+            }
+        },
         methods: {
             // avatar
             inputFile(newFile, oldFile, prevent) {
@@ -68,7 +92,7 @@
             },
             editSave() {
                 this.edit = false
-                let oldFile = this.files[0]
+                let oldFile = this.files[0];
                 let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
                 let arr = new Uint8Array(binStr.length)
                 for (let i = 0; i < binStr.length; i++) {

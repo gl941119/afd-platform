@@ -2,7 +2,7 @@
     <div class="information">
         <header-nav linkName="mine" title="个人信息"></header-nav>
         <div class="information_kindBox">
-            <mt-cell class="information_kindBox_kind" @click.native="active()" title="头像" is-link>
+            <mt-cell class="information_kindBox_kind" to="/headerUrl" title="头像" is-link>
             </mt-cell>
             <mt-cell class="information_kindBox_kind" @click.native="openInfo(1)" title="昵称" is-link>
             </mt-cell>
@@ -112,30 +112,6 @@
         },
         mounted() {
             this.info();
-        },
-        watch: {
-            edit(value) {
-                // console.log('edit->', value);
-                if (value) {
-                    this.$nextTick(function () {
-                        console.log('value watch edit->', this.$refs.editImage);
-                        if (!this.$refs.editImage) {
-                            return
-                        }
-
-                        let cropper = new Cropper(this.$refs.editImage, {
-                            aspectRatio: 1 / 1,
-                            viewMode: 1,
-                        })
-                        this.cropper = cropper
-                    })
-                } else {
-                    if (this.cropper) {
-                        this.cropper.destroy()
-                        this.cropper = false
-                    }
-                }
-            }
         },
         methods: {
             info() {

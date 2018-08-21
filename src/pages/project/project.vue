@@ -15,7 +15,7 @@
         <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="projectLoadmore">
             <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" :concept-id="conceptId" @update-data="init"></advert-item>
             <div v-show="!noData" slot="bottom" class="project-bottom">
-                <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
+                <!-- <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span> -->
                 <span v-show="bottomStatus === 'loading'">
                     <mt-spinner type="snake"></mt-spinner>
                 </span>
