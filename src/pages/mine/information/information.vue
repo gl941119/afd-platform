@@ -562,6 +562,9 @@
             }
         }
     }
+    .avatar{
+        background: #ffffff;
+    }
     .avatar-edit {
         position: fixed;
         top: 0;
