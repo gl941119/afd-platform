@@ -74,6 +74,7 @@
             return {
                 selected: '1',
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+                id:'',
                 flowDatas: [],
                 totalFlowDatas: [],
                 page: Config.pageStart,
@@ -126,7 +127,7 @@
                         data: {
                             incomeId: this.id,
                             page,
-                            pageSize,
+                            pageSize:200,
                             flowType: this.selected,
                         },
                         type: 'get'
