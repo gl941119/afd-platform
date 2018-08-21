@@ -15,8 +15,6 @@
             <mt-cell class="information_kindBox_kind" @click.native="authentication()" title="实名认证" is-link>
             </mt-cell>
         </div>
-        <mt-actionsheet :actions="actions" v-model="sheetVisible">
-        </mt-actionsheet>
         <div class="popup" v-if="proup" @click="openInfo">
             <div class="popup_box" @click.stop>
                 <div class="popup_box_nickname" v-if="nicknameShow">
@@ -76,20 +74,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="avatar">
-            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/*" name="avatar" class="btn btn-primary" :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
-            </file-upload>
-            <div class="avatar-edit" v-show="files.length && edit">
-                <div class="avatar-edit-image" v-if="files.length">
-                    <img ref="editImage" :src="files[0].url" />
-                </div>
-                <div class="avatar-edit-btn">
-                    <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">取消</button>
-                    <button type="submit" class="btn btn-primary" @click.prevent="editSave">保存</button>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -97,15 +81,12 @@
     import Request from '../../../utils/require.js';
     import validateFun from '../../../utils/validate.js';
     import Utils from '../../../utils/util';
-    import Config from '../../../utils/config';
     import Cropper from 'cropperjs';
     import axios from 'axios'
     export default {
         data() {
             return {
                 utils: new Utils(),
-                actions: [{ name: '从相册中选择', method: this.album }],
-                sheetVisible: false,
                 proup: false, //昵称-登录密码蒙版
                 proups: false, //交易密码蒙版
                 nicknameShow: false, //昵称
@@ -127,11 +108,6 @@
                 emailCodes: false,
                 popupVisible: false, //密码规则
                 authStatus: '',
-                // avatar
-                uploadImg: Config.UploadImg,
-                files: [],
-                edit: false,
-                cropper: false,
             }
         },
         mounted() {
@@ -198,13 +174,10 @@
                 this.passwordCode = "";
                 this.tradepasswordCode = "";
             },
-            active() { //选择相册-show
-                this.sheetVisible = !this.sheetVisible;
-            },
-            album() { //相册的回调
-                // console.log('click->', this.$refs.upload.$children[0].$el);
-                this.$refs.upload.$children[0].$el.click();
-            },
+            // album() { //相册的回调
+            //     // console.log('click->', this.$refs.upload.$children[0].$el);
+            //     this.$refs.upload.$children[0].$el.click();
+            // },
             mask() { //昵称-登录密码蒙版
                 this.proup = !this.proup;
                 this.cancle();
@@ -411,71 +384,6 @@
                 Cache.removeSession('bier_inviteCode');
                 Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
             },
-            // avatar
-            inputFile(newFile, oldFile, prevent) {
-                if (newFile && !oldFile) {
-                    this.$nextTick(function () {
-                        this.edit = true
-                    })
-                }
-                if (!newFile && oldFile) {
-                    this.edit = false
-                }
-            },
-            inputFilter(newFile, oldFile, prevent) {
-                if (newFile && !oldFile) {
-                    if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
-                        this.$toast('Your choice is not a picture')
-                        return prevent()
-                    }
-                }
-                if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
-                    newFile.url = ''
-                    let URL = window.URL || window.webkitURL
-                    if (URL && URL.createObjectURL) {
-                        newFile.url = URL.createObjectURL(newFile.file)
-                    }
-                }
-            },
-            editSave() {
-                this.edit = false
-                let oldFile = this.files[0]
-                let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
-                let arr = new Uint8Array(binStr.length)
-                for (let i = 0; i < binStr.length; i++) {
-                    arr[i] = binStr.charCodeAt(i)
-                }
-                let file = new File([arr], oldFile.name, { type: oldFile.type });
-
-                var formData = new FormData();
-                formData.append("file", file);
-                axios({
-                    url: this.uploadImg,
-                    method: 'post',
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        token: this.token,
-                    }
-                }).then(res => {
-                    this.selectImg(res.data.data);
-                }).catch(console.error)
-            },
-            selectImg(url) {
-                Request({
-                    url: 'QueryAccountSettings',
-                    data: {
-                        id: this.accountId,
-                        headUrl: url,
-                    },
-                    type: 'post',
-                    flag: true
-                }).then(res => {
-                    this.$store.commit('setHeardUrl', url);
-                    Cache.setSession('bier_heardUrl', url);
-                    this.$toast('修改成功');
-                })
-            },
         }
     }
 </script>
@@ -560,39 +468,6 @@
             }
             .passwordBox {
                 height: pxTorem(328px);
-            }
-        }
-    }
-
-    .avatar {
-        background: #ffffff;
-    }
-
-    .avatar-edit {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        .avatar-edit-image {
-            margin-top: pxTorem(100px);
-            max-width: 100%;
-            max-height: 60%;
-            img {
-                max-width: 80%;
-                max-height: 50%;
-            }
-        }
-        .avatar-edit-btn {
-            margin-top: pxTorem(30px);
-            text-align: center;
-            button {
-                @extend %custom-btn;
-                &.btn-secondary {
-                    background: #999;
-                    margin-right: 30px;
-                }
             }
         }
     }

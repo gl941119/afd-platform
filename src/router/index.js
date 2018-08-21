@@ -25,7 +25,9 @@ const Information = () =>
 const Authentication = () =>
     import('@/pages/mine/information/authentication')
 const AuthImg = () =>
-import('@/pages/mine/information/authImg')
+    import('@/pages/mine/information/authImg')
+const HeaderUrl = () =>
+    import('@/pages/mine/information/headerUrl')
 const Revenue = () =>
     import ('@/pages/mine/revenue/revenue')
 const Invite = () =>
@@ -100,6 +102,11 @@ export default new Router({
             path: '/authImg',
             name: 'authImg',
             component: AuthImg
+        },
+        {
+            path: '/headerUrl',
+            name: 'headerUrl',
+            component: HeaderUrl
         },
         {
             path: '/purse',
