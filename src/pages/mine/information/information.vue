@@ -2,7 +2,7 @@
     <div class="information">
         <header-nav linkName="mine" title="个人信息"></header-nav>
         <div class="information_kindBox">
-            <mt-cell class="information_kindBox_kind" @click.native="active" title="头像" is-link>
+            <mt-cell class="information_kindBox_kind" @click.native="active()" title="头像" is-link>
             </mt-cell>
             <mt-cell class="information_kindBox_kind" @click.native="openInfo(1)" title="昵称" is-link>
             </mt-cell>

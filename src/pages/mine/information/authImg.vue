@@ -80,7 +80,7 @@
                 imagePositive: '',
                 imageHandheld: '',
                 authStatusShow: false,
-                authStatus: '',
+                authStatus: '0',
             }
         },
         mounted() {
@@ -128,22 +128,23 @@
                     url: 'QuerySettings',
                     type: 'get',
                 }).then(res => {
-                    this.authStatus = res.data.authStatus;
-                    if(res.data.authStatus != '0'){
-                        this.authStatusShow = true;
-                    }
+                    // this.authStatus = res.data.authStatus;
+                    // if(res.data.authStatus != '0'){
+                    //     this.authStatusShow = true;
+                    // }
                     // this.noPassReason = res.data.noPassReason;
                 })
             },
             uploadImgs(newfile, oldfile) {
                 var file;
                 var value;
-                if (newfile) {
+                if (newfile && !oldfile) {
                     file = newfile.file;
                     value = newfile.el.name;
-                } else {
-                    file = oldfile.file;
-                    value = oldfile.el.name;
+                }
+                if(newfile && oldfile) {
+                    file = newfile.file;
+                    value = newfile.el.name;
                 }
                 var formData = new FormData();
                 formData.append("file", file);
