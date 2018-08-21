@@ -7,7 +7,7 @@
             </p>
             <input class="show-share-title" id="show-share-title" :value="copyValue" style="opacity: 0;" />
             <div class="show-share-btn">
-                <mt-button class="show-share-btn-text" data-clipboard-target="#show-share-title" size="small" type="primary" @click="clickCopy()">点我复制</mt-button>
+                <mt-button class="show-share-btn-text" size="small" type="primary" @click="clickCopy()">点我复制</mt-button>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
 <script>
     import Request from '../../utils/require.js';
     import Cache from '../../utils/cache';
-    import Clipboard from 'clipboard';
+    import clipboard from "clipboard-polyfill/build/clipboard-polyfill.promise"
     export default {
         data() {
             return {
@@ -23,6 +23,7 @@
                 token: this.$store.state.token || Cache.getSession("bier_token"),
                 copyValue: '',
                 language: ' 被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，填邀请码注册就送66AFDT ，每邀请一位再送33AFDT，每日挖币，再享分红！',
+                success: true,
             }
         },
         computed: {
@@ -58,25 +59,38 @@
                 this.$store.commit('setDialogVisible', false);
             },
             clickCopy() {
-                let clipboard = new Clipboard('.show-share-btn-text');
-                clipboard.on('success', e => {
-                    console.log('clipboard success->', e);
-
+                console.log('copy--->');
+                console.log('copy!!!!', this.copyValue);
+                clipboard.writeText(this.copyValue).then(()=>{
                     this.$toast({
                         message: '复制成功',
                         position: 'top',
                         duration: 5000
-                    });
-                    // 释放内存
-                    clipboard.destroy()
+                    })
+                    console.log('success')
+                }).catch(e => {
+                    this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 })
                 })
-                clipboard.on('error', e => {
-                    console.log('clipboard error->', e);
-                    // 不支持复制
-                    this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 });
-                    // 释放内存
-                    clipboard.destroy()
-                })
+                // let clipboard = new Clipboard('.show-share-btn-text');
+                // clipboard.on('success', e => {
+                //     console.log('clipboard success->', e);
+                //     this.success = true;
+                //     this.$toast({
+                //         message: '复制成功',
+                //         position: 'top',
+                //         duration: 5000
+                //     });
+                //     // 释放内存
+                //     clipboard.destroy()
+                // })
+                // clipboard.on('error', e => {
+                //     console.log('clipboard error->', e);
+                //     this.success = false;
+                //     // 不支持复制
+                //     this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 });
+                //     // 释放内存
+                //     clipboard.destroy()
+                // })
             },
         }
     }
