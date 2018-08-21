@@ -42,103 +42,7 @@
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
                 inviteCode: this.$store.state.inviteCode || Cache.getSession('bier_inviteCode'),
                 inviteData: [],
-                totalInviteData: [{
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }, {
-                    nickname: '111111',
-                    createTime: '2018-9-9',
-                    earnings: '0.8'
-                }],
+                totalInviteData: [],
                 page: Config.pageStart,
                 pageSize: Config.pageSize,
                 allLoaded: false,
@@ -184,7 +88,7 @@
                             }
                             resolve();
                         } else {
-                            // this.totalInviteData.push(...this.inviteData);
+                            this.totalInviteData.push(...this.inviteData);
                             resolve();
                         }
                     })
