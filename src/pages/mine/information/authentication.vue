@@ -3,10 +3,10 @@
         <header-nav linkName="information" title="实名认证" class="auth_header"></header-nav>
         <div class="auth_boundary"></div>
         <div class="auth_info">
-            <mt-field :disableClear=true class="auth_info_input" placeholder="姓名" v-model="name"></mt-field>
+            <input :disableClear=true class="auth_info_input" @blur="ralname()" placeholder="姓名" v-model="name" />
             <div class="error" v-if="realNameShow">只能输入英文字母或汉字</div>
             <div class="auth_info_inputBox">
-                <mt-field :disableClear=true class="auth_info_input" placeholder="证件类型" v-model="idType" ></mt-field>
+                <input :disableClear=true class="auth_info_input" placeholder="证件类型" v-model="idType" />
                 <div class="auth_info_font">
                     <i class="custom-mint-icon-xialaanniu1" @click="types = true"></i>
                 </div>
@@ -16,11 +16,11 @@
                 </ul>
             </div>
             <div class="error" v-if="cardTypeShow">请选择证件类型</div>
-            <mt-field :disableClear=true class="auth_info_input" placeholder="身份证号" v-model="idNum"></mt-field>
+            <input :disableClear=true class="auth_info_input" @blur="text()" placeholder="身份证号" v-model="idNum" />
             <div class="error" v-if="numType">请先选择证件类型</div>
             <div class="error" v-if="idCard">请输入正确的身份证/护照格式</div>
             <div class="auth_info_inputBox" :class="{'langer':countryKind}">
-                <mt-field :disableClear=true class="auth_info_input" placeholder="国家地区" v-model="country" ></mt-field>
+                <input :disableClear=true class="auth_info_input" placeholder="国家地区" v-model="country" />
                 <div class="auth_info_font">
                     <i class="custom-mint-icon-xialaanniu1" @click="countryKind = true"></i>
                 </div>
@@ -71,10 +71,12 @@
             click(value) {
                 this.idType = value;
                 this.types = false;
+                this.cardType();
             },
             clickCountry(value) {
                 this.country = value;
                 this.countryKind = false;
+                this.countrySelect();
             },
             ralname() {
                 var value = /^([\u4E00-\u9FA5]+|[a-zA-Z]+)$/.test(this.name);
@@ -130,14 +132,13 @@
                 if (this.cardTypeShow == true || this.cardTypeShow == true || this.numType == true || this.idType == true || this.countryShow == true) {
                     return;
                 } else {
-                    console.log(1);
-                    // this.$store.commit('setAuthName', this.name);
-                    // this.$store.commit('setAuthIdType', this.idType);
-                    // this.$store.commit('setAuthIdNum', this.idNum);
-                    // this.$store.commit('setAuthCountry', this.country);
-                    // this.$router.push({
-                    //     name: 'authImg',
-                    // })
+                    this.$store.commit('setAuthName', this.name);
+                    this.$store.commit('setAuthIdType', this.idType);
+                    this.$store.commit('setAuthIdNum', this.idNum);
+                    this.$store.commit('setAuthCountry', this.country);
+                    this.$router.push({
+                        name: 'authImg',
+                    })
                 }
             }
         },
@@ -150,10 +151,17 @@
             height: 215px;
         }
         &_info {
-            @include remCalc(padding, 0, 38px);
+            @include remCalc(padding, 0, 50px);
             margin-top: pxTorem(50px);
             overflow: hidden;
             position: relative;
+            &_input {
+                border: 1px solid #979797;
+                width: 100%;
+                height: 0.88rem;
+                padding-left: 0.26667rem;
+                margin-bottom: 0.4rem;
+            }
             .error {
                 color: #f66;
                 padding-left: 10px;
@@ -164,7 +172,7 @@
                 top: 5px;
                 right: 16px;
                 color: #d8d8d8;
-                i{
+                i {
                     font-size: 12px;
                 }
             }
@@ -172,7 +180,7 @@
                 position: relative;
                 &_select {
                     border: 1px solid #979797;
-                    width: pxTorem(280px);
+                    width: pxTorem(278px);
                     padding-left: 0.26667rem;
                     margin: 0 10px;
                     margin-bottom: 0.4rem;
@@ -183,7 +191,7 @@
                     z-index: 999;
                     position: absolute;
                     top: 38px;
-                    right: 0;
+                    right: -12px;
                     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
                     border: 1px solid #e4e7ed;
                     border-radius: 4px;
@@ -196,7 +204,7 @@
                     }
                 }
                 .country {
-                    height: 200px;
+                    height: 170px;
                     overflow: hidden;
                     overflow-y: scroll;
                 }
