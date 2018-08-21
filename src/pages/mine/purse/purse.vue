@@ -96,13 +96,12 @@
     @import '../../../assets/css/global.scss';
     .purse {
         background: #fafafa;
-        overflow-y: scroll;
-        flex: 1;
         display: flex;
         flex-direction: column;
         &_balance {
             background: #ffffff;
             @include remCalc(padding, 10px, 18px, 0);
+            margin-top: pxTorem(55px);
             flex: 1;
             &_box {
                 border: 1px solid #979797;

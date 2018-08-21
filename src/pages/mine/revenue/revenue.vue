@@ -163,6 +163,7 @@
             border-bottom: 1px solid #D8D8D8;
             background: #ffffff;
             text-align: center;
+            margin-top: pxTorem(55px);
             &_one {
                 border-right: 1px solid #D8D8D8;
                 box-sizing: border-box;

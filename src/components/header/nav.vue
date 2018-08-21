@@ -3,7 +3,9 @@
         <router-link v-if="linkName" class="nav-link" :to="{name: linkName}">
             <i class="custom-mint-icon-arrowr"></i>
         </router-link>
-        <a v-else @click="$router.go(-1)" class="nav-link" href="javacript:;"><i class="custom-mint-icon-arrowr"></i></a>
+        <a v-else @click="$router.go(-1)" class="nav-link" href="javacript:;">
+            <i class="custom-mint-icon-arrowr"></i>
+        </a>
         <div class="nav-text">{{title}}</div>
     </div>
 </template>
@@ -23,7 +25,10 @@
         @include remCalc(padding, 0, 14px);
         @include content-flex();
         background: #ffffff;
-        margin-bottom: pxTorem(10px);
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
         &-link {
             height: 100%;
             @include remCalc(padding, 0, 10px);
