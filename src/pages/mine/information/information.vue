@@ -78,8 +78,7 @@
         </div>
 
         <div class="avatar">
-            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/png,image/gif,image/jpeg,image/webp" name="avatar" class="btn btn-primary"  :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile"
-                ref="upload">
+            <file-upload style="visibility: hidden;" extensions="gif,jpg,jpeg,png,webp" accept="image/png,image/gif,image/jpeg,image/webp" name="avatar" class="btn btn-primary" :drop="!edit" v-model="files" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
             </file-upload>
             <div class="avatar-edit" v-show="files.length && edit">
                 <div class="avatar-edit-image" v-if="files.length">
@@ -223,8 +222,10 @@
                 switch (value) {
                 case 1:
                     this.nicknameShow = !this.nicknameShow; //nickname-show
+                    this.loginPasswordShow = false;
                     break;
                 case 2:
+                    this.nicknameShow = false;
                     this.loginPasswordShow = !this.loginPasswordShow; //loginPassword-show
                     break;
                 default:
@@ -461,20 +462,20 @@
                 }).catch(console.error)
             },
             selectImg(url) {
-				Request({
-					url: 'QueryAccountSettings',
-					data: {
-						id: this.accountId,
-						headUrl: url,
-					},
-					type: 'post',
-					flag: true
-				}).then(res => {
+                Request({
+                    url: 'QueryAccountSettings',
+                    data: {
+                        id: this.accountId,
+                        headUrl: url,
+                    },
+                    type: 'post',
+                    flag: true
+                }).then(res => {
                     this.$store.commit('setHeardUrl', url);
                     Cache.setSession('bier_heardUrl', url);
                     this.$toast('修改成功');
-				})
-			},
+                })
+            },
         }
     }
 </script>
@@ -483,7 +484,7 @@
     .information {
         background: #fafafa;
         overflow-y: scroll;
-        &_kindBox{
+        &_kindBox {
             margin-top: pxTorem(55px);
             &_kind {
                 color: rgba(51, 51, 51, 1);
@@ -562,9 +563,11 @@
             }
         }
     }
-    .avatar{
+
+    .avatar {
         background: #ffffff;
     }
+
     .avatar-edit {
         position: fixed;
         top: 0;
