@@ -102,7 +102,7 @@
             },
             recertification(){
                 Request({
-                    url: 'QueryAuthentication',
+                    url: 'ChangeAuthStatus',
                     data: {
                         id: this.accountId,
                         status: 0
