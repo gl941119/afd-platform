@@ -180,7 +180,7 @@ export default class Util {
         }
     }
     newWin(url) {
-        console.log('url_>', url);
+        // console.log('url_>', url);
         // var tempWindow = window.open('', '_blank', ''); //打开一个新的空白窗口
         // tempWindow.location.href = url; //对新打开的页面进行重定向
         window.location.href = url;

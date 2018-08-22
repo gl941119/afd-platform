@@ -59,38 +59,16 @@
                 this.$store.commit('setDialogVisible', false);
             },
             clickCopy() {
-                console.log('copy--->');
-                console.log('copy!!!!', this.copyValue);
                 clipboard.writeText(this.copyValue).then(()=>{
                     this.$toast({
                         message: '复制成功',
                         position: 'top',
                         duration: 5000
                     })
-                    console.log('success')
+                    console.log('copy success')
                 }).catch(e => {
                     this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 })
                 })
-                // let clipboard = new Clipboard('.show-share-btn-text');
-                // clipboard.on('success', e => {
-                //     console.log('clipboard success->', e);
-                //     this.success = true;
-                //     this.$toast({
-                //         message: '复制成功',
-                //         position: 'top',
-                //         duration: 5000
-                //     });
-                //     // 释放内存
-                //     clipboard.destroy()
-                // })
-                // clipboard.on('error', e => {
-                //     console.log('clipboard error->', e);
-                //     this.success = false;
-                //     // 不支持复制
-                //     this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 });
-                //     // 释放内存
-                //     clipboard.destroy()
-                // })
             },
         }
     }

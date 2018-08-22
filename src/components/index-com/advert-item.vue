@@ -113,7 +113,6 @@
                 this.tradeSheetVisible = true;
             },
             goShare() {
-                console.log('share');
                 if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
                     this.$messagebox.confirm(
                         '请先登录，才能分享'
@@ -126,7 +125,7 @@
             },
             goTelegram() {
                 this.$messagebox.alert('电报群需翻墙').then(action => {
-                    console.log('alert_>', this.advertDatas.telegrameUrl);
+                    // console.log('alert_>', this.advertDatas.telegrameUrl);
                     this.utils.newWin(this.advertDatas.telegrameUrl);
                 });
             },

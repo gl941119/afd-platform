@@ -50,7 +50,6 @@
                 // console.log('edit->', value);
                 if (value) {
                     this.$nextTick(function () {
-                        console.log('value watch edit->', this.$refs.editImage);
                         if (!this.$refs.editImage) {
                             return
                         }

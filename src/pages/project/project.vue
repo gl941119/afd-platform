@@ -41,7 +41,8 @@
                 noData: false,
                 allLoaded: false,
                 bottomStatus: '',
-                wrapperHeight: 0
+                wrapperHeight: 0,
+                count: 0,
             }
         },
         mounted() {
@@ -94,9 +95,10 @@
                         type: 'get'
                     }).then(res => {
                         // console.log('QueryAdvertInfoForPage>', res);
+                        this.count ++; // 异步的用语判断首次是否有数据
                         this.advertDatas = res.data;
                         if (res.data && res.data.length === 0) {
-                            this.page === 1 && (this.noData = true);
+                            this.count === 1 && (this.noData = true);
                             this.allLoaded = true;
                             resolve();
                         } else {
@@ -163,6 +165,7 @@
             height: calc(100vh - 50px - 44px);
             @include content-flex(center);
             flex-direction: column;
+            color: #999;
             &_box {
                 margin-bottom: 10px;
                 text-align: center;
