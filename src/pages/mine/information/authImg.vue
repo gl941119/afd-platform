@@ -135,16 +135,13 @@
                     // this.noPassReason = res.data.noPassReason;
                 })
             },
-            uploadImgs(newfile, oldfile) {
+            uploadImgs(newfile, oldfile,value) {
                 var file;
-                var value;
                 if (newfile && !oldfile) {
                     file = newfile.file;
-                    value = newfile.el.name;
                 }
                 if(newfile && oldfile) {
                     file = newfile.file;
-                    value = newfile.el.name;
                 }
                 var formData = new FormData();
                 formData.append("file", file);
@@ -168,13 +165,16 @@
                 })
             },
             getImg(newfile, oldfile) {
-                this.uploadImgs(newfile, oldfile);
+                let value = '1';
+                this.uploadImgs(newfile, oldfile,value);
             },
             getImgTwo(newfile, oldfile) {
-                this.uploadImgs(newfile, oldfile);
+                let value = '2';
+                this.uploadImgs(newfile, oldfile,value);
             },
             getImgThree(newfile, oldfile) {
-                this.uploadImgs(newfile, oldfile);
+                let value = '3';
+                this.uploadImgs(newfile, oldfile,value);
             },
         }
     }
