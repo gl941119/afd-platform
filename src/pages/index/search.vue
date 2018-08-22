@@ -48,6 +48,7 @@
                         url: 'QueryAllConcept',
                         type: 'get'
                     }).then(res => {
+                        res.data.unshift({id: 0, name: this.$t('crowdFunding.allConcept')});
                         this.conceptOptions = res.data;
                         // console.log('res-->', res.data);
                         resolve();
@@ -61,7 +62,7 @@
             searchProject(concept) {
                 this.inputSearch = concept.name;
                 this.handleHistory(concept);
-                this.$router.push({ name: 'project', query: { id: concept.id, value: concept.name } })
+                this.$router.push({ name: 'project', query: { id: concept.id, value: concept.id===0?'':concept.name } })
             },
             handleHistory(concept) {
                 let index = this.searchHistory.findIndex(item => item.id === concept.id);

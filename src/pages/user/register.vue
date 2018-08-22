@@ -66,7 +66,7 @@
                     verifyCode: '',
                     password: '',
                     passwordAgain: '',
-                    inviteCode: '',
+                    inviteCode: this.$store.state.inviteCode,
                     disclaimerChecked: true,
                 },
                 registerTerm: false,

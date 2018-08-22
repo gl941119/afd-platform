@@ -46,7 +46,7 @@ export default new Router({
         {
             path: '/index',
             name: 'index',
-            meta: { showFooter: true }, // 显示footer
+            meta: { showFooter: true, keepAlive: true }, // 显示footer
             component: IndexCom
         },
         {

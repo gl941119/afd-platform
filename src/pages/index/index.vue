@@ -40,6 +40,7 @@
             }
         },
         mounted() {
+            this.setInviteCode()
             Promise.all([this.findAdvertisement(), this.getAdvertInfo()]).then(() => {
                 this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
                 var token = Cache.getSession('bier_token');
@@ -49,6 +50,17 @@
 
         },
         methods: {
+            setInviteCode() {
+                let arr = window.location.hash;
+                let code = arr.split('=')[2];
+                console.log('hash->', code);
+                if(code){
+                    this.$store.commit('setInviteCode', code);
+                    Cache.setSession('bier_inviteCode', code);
+                    document.cookie = "bier_inviteCode=" + code;
+                }
+                // this.registerModel.form.inviteCode = arr.split('=')[2];
+            },
             queryCode(value) {
                 Request({
                     url: 'QueryInviteCode',

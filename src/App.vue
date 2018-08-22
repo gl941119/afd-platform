@@ -1,7 +1,10 @@
 <template>
     <div id="app">
         <custom-share></custom-share>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
+        </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
         <Footer></Footer>
     </div>
 </template>
