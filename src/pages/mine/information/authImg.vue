@@ -108,7 +108,6 @@
                         status: 0
                     },
                     type: 'post',
-                    flag: true
                 }).then(res => {
                     this.$router.push({
                         name:'authentication'
