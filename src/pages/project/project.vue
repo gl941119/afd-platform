@@ -97,11 +97,13 @@
                         // console.log('QueryAdvertInfoForPage>', res);
                         this.count ++; // 异步的用语判断首次是否有数据
                         this.advertDatas = res.data;
+                        // console.log('count->', this.count, res.data);
                         if (res.data && res.data.length === 0) {
                             this.count === 1 && (this.noData = true);
                             this.allLoaded = true;
                             resolve();
                         } else {
+                            this.count === 2 && (this.noData = false); // count = 2 有数据
                             this.totalAdvertItemDatas.push(...this.advertDatas);
                             resolve();
                         }
