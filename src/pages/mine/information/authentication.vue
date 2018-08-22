@@ -68,6 +68,29 @@
         },
 
         methods: {
+            // search() { //模糊搜索
+            //     if (this.country) {
+            //         this.countryKind = true;
+            //         let list = this.country.toString();
+            //         var len = list.length;
+            //         var arr = [];
+            //         var brr = [];
+            //         var that = this;
+            //         this.countrys.forEach((item, index) => {
+            //             arr.push(item.value);
+            //         })
+            //         console.log(arr.indexOf(list))
+            //         console.log(list)
+            //         if (arr.indexOf(list) >= 0) {
+            //                 brr.push(item);
+            //             }
+            //         console.log(brr)
+            //         this.countrys = brr;
+            //         return this.countrys;
+            //     } else {
+            //         this.countryKind = false;
+            //     }
+            // },
             click(value) {
                 this.idType = value;
                 this.types = false;
