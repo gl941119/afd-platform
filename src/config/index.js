@@ -66,6 +66,7 @@ export default {
     QueryCode: 'blockchainadvert/account/sendBindEmailCode', //获取验证码
     QueryPasswordCode: 'blockchainadvert/account/sendUpdateAccountCode', //获取验证码
     QueryAuthentication: 'blockchainadvert/account/idAuthentication', //身份验证
+    ChangeAuthStatus:'blockchainadvert/account/updateAuthStatus',
     SetPassword: 'blockchainadvert/account/setPassword', //设置密码
     SetTradePassword: 'blockchainadvert/account/setTradePassword', //设置 交易密码
     QuerySettings: 'blockchainadvert/account/getAccountStatus', //获取设置信息

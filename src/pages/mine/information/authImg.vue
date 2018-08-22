@@ -48,10 +48,10 @@
                 <div class="authImg_box_popup_box" @click.stop>
                     <div v-if="authStatus == 1">身份认证提交资料已成功通过审核</div>
                     <div v-if="authStatus == 2">已提交认证，请等待审核结果</div>
-                    <div v-if="editShow">认证失败，请重新认证</div>
+                    <div v-if="authStatus == 3">认证失败，请重新认证</div>
                     <div class="authImg_box_popup_box_buttonbox">
                         <mt-button v-if="authStatus == 2 || authStatus == 1" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="confirm">确认</mt-button>
-                        <mt-button v-if="editShow" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="recertification">重新认证</mt-button>
+                        <mt-button v-if="authStatus == 3" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="recertification">重新认证</mt-button>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,6 @@
                 imagePositive: '',
                 imageHandheld: '',
                 authStatusShow: false,
-                editShow:false,
                 authStatus: '',
             }
         },
@@ -102,8 +101,18 @@
                 })
             },
             recertification(){
-                this.$router.push({
-                    name:'authentication'
+                Request({
+                    url: 'QueryAuthentication',
+                    data: {
+                        id: this.accountId,
+                        status: 0
+                    },
+                    type: 'post',
+                    flag: true
+                }).then(res => {
+                    this.$router.push({
+                        name:'authentication'
+                    })
                 })
             },
             authentication() {
@@ -133,10 +142,6 @@
                     if(res.data.authStatus != '0'){
                         this.authStatusShow = true;
                     }
-					if(res.data.authStatus == 3){
-                        this.authStatusShow = true;
-						this.editShow = true;
-					}
                     // this.noPassReason = res.data.noPassReason;
                 })
             },
