@@ -10,6 +10,7 @@ export default new Vuex.Store({
         username: Cache.getSession('bier_username'),
         usernickname: Cache.getSession('bier_usernickname'),
         token: Cache.getSession('bier_token') || Cache.getCookie('login_token'),
+        incomeId:'',//收益账户根据id请求流水
         dialogVisible: false, // share component visible
         conceptId: 0, // advert concept id
         instantBuyVisible: false, // buy dialog visible
@@ -41,6 +42,9 @@ export default new Vuex.Store({
         },
         setToken(state, val) {
             state.token = val;
+        },
+        setIncomeId(state, val) {
+            state.incomeId = val;
         },
         setDialogVisible(state, val) {
             state.dialogVisible = val;

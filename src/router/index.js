@@ -6,7 +6,7 @@ const SearchCom = () =>
     import ('@/pages/index/search')
 // user
 const LoginCom = () =>
-    import('@/pages/user/login');
+    import ('@/pages/user/login');
 const RegisterCom = () =>
     import ('@/pages/user/register');
 const ForgetPwdCom = () =>
@@ -23,13 +23,17 @@ const Purse = () =>
 const Information = () =>
     import ('@/pages/mine/information/information')
 const Authentication = () =>
-    import('@/pages/mine/information/authentication')
+    import ('@/pages/mine/information/authentication')
 const AuthImg = () =>
-    import('@/pages/mine/information/authImg')
+    import ('@/pages/mine/information/authImg')
 const HeaderUrl = () =>
-    import('@/pages/mine/information/headerUrl')
+    import ('@/pages/mine/information/headerUrl')
 const Revenue = () =>
     import ('@/pages/mine/revenue/revenue')
+const Records = () =>
+    import('@/pages/mine/revenue/records')
+const RecordsOne = () =>
+    import ('@/pages/mine/revenue/recordsOne')
 const Invite = () =>
     import ('@/pages/mine/invite/invite')
 
@@ -116,7 +120,19 @@ export default new Router({
         {
             path: '/revenue',
             name: 'revenue',
-            component: Revenue
+            component: Revenue,
+            redirect: {name:'recordsOne'},
+            children: [
+            {
+                path: 'recordsOne',
+                name: 'recordsOne',
+                component: RecordsOne,
+            },
+            {
+                path: 'records',
+                name: 'records',
+                component: Records,
+            }]
         },
         {
             path: '/invite',

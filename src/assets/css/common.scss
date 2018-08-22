@@ -16,20 +16,13 @@
 .nav .custom-mint-icon-arrowr {
     font-size: 14px;
 }
-
 /* input */
-
 .mint-field-core {
     border: 1px solid rgba(151, 151, 151, 1);
     width: pxTorem(220px);
     height: pxTorem(33px);
     padding-left: pxTorem(10px);
     margin-bottom: pxTorem(15px);
-}
-
-//revenue -ischecked
-.mint-navbar .mint-tab-item.is-selected {
-    border-bottom: 0;
 }
 .register-fixed_content{
     height: 100%;
@@ -53,13 +46,5 @@
             background: #ffffff;
             flex: 1;
         }
-    }
-}
-//.revenue-1/2
-.revenue{
-    .mint-tab-container {
-        width: 100%;
-        overflow: hidden;
-        overflow-y: scroll;
     }
 }

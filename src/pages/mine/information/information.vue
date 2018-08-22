@@ -351,10 +351,12 @@
                 this.$store.commit('setToken', undefined);
                 this.$store.commit('setHeardUrl', undefined);
                 this.$store.commit('setInviteCode', '');
+                this.$store.commit('setIncomeId', '');
                 Cache.removeCookie('login_identify');
                 Cache.removeCookie('login_token');
                 Cache.removeSession('bier_username');
                 Cache.removeSession('bier_token');
+                Cache.removeSession('bire_incomeId');
                 Cache.removeSession('bier_userid');
                 Cache.removeSession('bier_userid');
                 Cache.removeSession('bier_inviteCode');
