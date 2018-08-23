@@ -15,7 +15,7 @@
 <script>
     import Request from '../../utils/require.js';
     import Cache from '../../utils/cache';
-    import clipboard from "clipboard-polyfill/build/clipboard-polyfill.promise"
+    import clipboard from "clipboard-polyfill"
     export default {
         data() {
             return {
@@ -59,6 +59,7 @@
                 this.$store.commit('setDialogVisible', false);
             },
             clickCopy() {
+                console.log('clipboard!->', this.copyValue);
                 clipboard.writeText(this.copyValue).then(()=>{
                     this.$toast({
                         message: '复制成功',
@@ -67,6 +68,7 @@
                     })
                     console.log('copy success')
                 }).catch(e => {
+                    console.log('e--->', e);
                     this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 })
                 })
             },
