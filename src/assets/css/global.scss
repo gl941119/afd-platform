@@ -74,6 +74,9 @@ $base-size: 37.5;
 .advert-item .mint-actionsheet {
     z-index: 2220!important;
 }
+.mint-toast {
+    z-index: 2224!important;
+}
 
 %load-more {
     padding-bottom: 10px;
