@@ -63,24 +63,26 @@
     import Request from '../../utils/require.js';
     export default {
         name: 'AdvertItem',
-        props: ['advertDatas', 'conceptId'],
+        props: [
+            'advertDatas', 'conceptId',
+        ],
         data() {
             return {
                 popupVisible: false,
                 actionsOptions: [],
                 tradeSheetVisible: false,
                 utils: new Utils(),
-            }
+            };
         },
         mounted() {
             this.handleActions();
         },
         methods: {
             handleActions() {
-                let _self = this;
+                const _self = this;
                 this.advertDatas.websiteResultList.forEach(item => {
                     item.name = item.websiteName;
-                    item.method = function () {
+                    item.method = function() {
                         // console.log('method_>', item, _self.advertDatas);
                         Request({
                             url: 'ClickAdvertToProfit',
@@ -89,35 +91,35 @@
                                 conceptId: _self.conceptId || 0,
                                 advertWebsiteId: item.id,
                             },
-                            type: 'get'
+                            type: 'get',
                         }).then(res => {
                             // skip
                             _self.utils.newWin(item.websiteAddress);
                         }).catch(msg => {
                             _self.$emit('update-data');
-                            this.$router.push({name: 'login'})
-                        })
-                    }
+                            this.$router.push({ name: 'login' });
+                        });
+                    };
                 });
                 this.actionsOptions = this.advertDatas.websiteResultList;
             },
             goTrade() {
-                if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
+                if (!(this.$store.state.token || Cache.getSession('bier_token'))) {
                     this.$messagebox.confirm(
                         '请先登录，再去交易'
                     ).then(() => {
-                        this.$router.push({ name: 'login' })
+                        this.$router.push({ name: 'login' });
                     }, () => {});
                     return;
                 }
                 this.tradeSheetVisible = true;
             },
             goShare() {
-                if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
+                if (!(this.$store.state.token || Cache.getSession('bier_token'))) {
                     this.$messagebox.confirm(
                         '请先登录，才能分享'
                     ).then(() => {
-                        this.$router.push({ name: 'login' })
+                        this.$router.push({ name: 'login' });
                     }, () => {});
                     return;
                 }
@@ -133,8 +135,8 @@
                 this.$refs.popupModal && (this.$refs.popupModal.currentValue = false);
             },
             stop() {},
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';

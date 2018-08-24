@@ -104,7 +104,7 @@ export default {
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 1999;
+    z-index: 2226;
     display: flex;
     justify-content: center;
     align-items: center;
