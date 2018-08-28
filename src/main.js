@@ -1,9 +1,9 @@
 import 'lib-flexible';
-import "babel-polyfill";
-import Vue from 'vue'
-import router from '@/router'
-import store from '@/store'
-import App from './APP'
+import 'babel-polyfill';
+import Vue from 'vue';
+import router from '@/router';
+import store from '@/store';
+import App from './APP';
 import filters from './filters';
 import FastClick from 'fastclick';
 import Cache from './utils/cache';
