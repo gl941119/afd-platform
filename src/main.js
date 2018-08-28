@@ -16,7 +16,7 @@ import 'cropperjs/dist/cropper.min.css';
 import i18n from './i18n/i18n';
 import './utils/validation';
 
-import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
+import VConsole from 'vconsole/dist/vconsole.min.js'; // import vconsole
 
 // component
 import HeaderNav from '@/components/header/nav';
@@ -27,9 +27,10 @@ Vue.component(HeaderNav.name, HeaderNav);
 Vue.component(AdvertItem.name, AdvertItem);
 
 // for development
-let vConsole;
+/* eslint no-unused-vars: [2, { "varsIgnorePattern": "Console" }] */
+var vConsole;
 if (process.env.NODE_ENV === 'development') {
-    vConsole = new VConsole()
+    vConsole = new VConsole();
     console.log('VConsole is cool');
 }
 
@@ -38,13 +39,13 @@ Object.keys(filters).forEach(key => {
 });
 
 if ('addEventListener' in document) {
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         FastClick.attach(document.body);
     }, false);
 }
 
 router.beforeEach((to, from, next) => {
-    let token = store.state.token;
+    const token = store.state.token;
 
     if (to.matched.some(record => record.meta.showFooter)) {
         Cache.setSession('show_footer', '1');
@@ -55,14 +56,14 @@ router.beforeEach((to, from, next) => {
     }
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!token) {
-            next({ name: 'index' })
+            next({ name: 'index' });
         } else {
             next();
         }
     } else {
-        next()
+        next();
     }
-})
+});
 
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
@@ -72,4 +73,4 @@ new Vue({
     store,
     i18n,
     render: h => h(App),
-})
+});

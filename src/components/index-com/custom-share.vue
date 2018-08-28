@@ -1,130 +1,176 @@
 <template>
-    <div class="share" @click="close" v-if="dialogVisible">
-        <div id="thisDiv" class="show-share">
-            <p class="show-share-title">
+    <div class="share"
+         v-if="dialogVisible">
+        <div class="share-modal"
+             @click="close"></div>
+        <div id="thisDiv"
+             class="show-share">
+            <p v-if="showLink"
+               class="show-share-title">
                 被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，邀请人得33AFDT 被邀请人得66AFDT，每日挖币，再享分红！
                 <br/>http://www.afdchain.com
             </p>
-            <input class="show-share-title" id="show-share-title" :value="copyValue" style="opacity: 0;" />
-            <div class="show-share-btn">
-                <mt-button class="show-share-btn-text" size="small" type="primary" @click="clickCopy()">点我复制</mt-button>
+            <P v-else
+               class="show-share-title show-link">{{copyValue}}</P>
+            <div v-if="showLink"
+                 class="show-share-btn">
+                <button class="show-share-btn-text"
+                        @click="clickCopy">点我复制</button>
+            </div>
+            <div v-else
+                 class="show-share-tip">
+                <img src="../../assets/imgs/img/point.png">
+                <p>选中上方链接，复制邀请</p>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import Request from '../../utils/require.js';
-    import Cache from '../../utils/cache';
-    import clipboard from "clipboard-polyfill"
-    export default {
-        data() {
-            return {
-                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
-                token: this.$store.state.token || Cache.getSession("bier_token"),
-                copyValue: '',
-                language: ' 被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，填邀请码注册就送66AFDT ，每邀请一位再送33AFDT，每日挖币，再享分红！',
-                success: true,
-            }
+import Cache from '../../utils/cache';
+import ClipboardJS from 'clipboard';
+export default {
+    data() {
+        return {
+            accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+            token: this.$store.state.token || Cache.getSession('bier_token'),
+            copyValue: '',
+            language: '被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，填邀请码注册就送66AFDT ，每邀请一位再送33AFDT，每日挖币，再享分红！',
+            showLink: true,
+        };
+    },
+    computed: {
+        dialogVisible: {
+            get() {
+                return this.$store.state.dialogVisible;
+            },
+            set(v) {
+                this.$store.commit('setDialogVisible', v);
+            },
         },
-        computed: {
-            dialogVisible: {
-                get() {
-                    return this.$store.state.dialogVisible;
+        inviteCode: {
+            get() {
+                const code = this.$store.state.inviteCode || Cache.getSession('bier_inviteCode');
+                return code;
+            },
+            set() {},
+        },
+    },
+    mounted() {
+        this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
+    },
+    watch: {
+        inviteCode(val) {
+            this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + val;
+        },
+    },
+    methods: {
+        close() {
+            this.$store.commit('setDialogVisible', false);
+        },
+        clickCopy($event) {
+            console.log('copy');
+            const _self = this;
+            var clipboard = new ClipboardJS('.show-share-btn-text', {
+                text: function() {
+                    return _self.copyValue;
                 },
-                set() {
-                    this.$store.commit('setDialogVisible', false);
-                }
-            },
-            inviteCode: {
-                get() {
-                    let code = this.$store.state.inviteCode || Cache.getSession("bier_inviteCode");
-                    return code;
-                },
-                set() {
+            });
+            clipboard.on('success', function(e) {
+                console.log('copy Text:', e.text);
+                _self.dialogVisible = false;
+                _self.showLink = true;
+                e.clearSelection();
 
-                }
-            },
-
+                _self.$toast('复制成功');
+            });
+            clipboard.on('error', function(e) {
+                _self.$toast('该浏览器暂不支持复制功能');
+                console.error('Action:', e);
+                console.error('Trigger:', e.trigger);
+                _self.dialogVisible = true;
+                // show tip
+                _self.showLink = false;
+                e.clearSelection();
+            });
         },
-        mounted() {
-            this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
-        },
-        watch:{
-            inviteCode(val){
-                this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + val;
-            }
-        },
-        methods: {
-            close() {
-                this.$store.commit('setDialogVisible', false);
-            },
-            clickCopy() {
-                console.log('clipboard!->', this.copyValue);
-                clipboard.writeText(this.copyValue).then(()=>{
-                    this.$toast({
-                        message: '复制成功',
-                        position: 'top',
-                        duration: 5000
-                    })
-                    console.log('copy success')
-                }).catch(e => {
-                    console.log('e--->', e);
-                    this.$toast({ message: '该浏览器不支持点我复制', position: 'top', duration: 5000 })
-                })
-            },
-        }
-    }
+    },
+};
 </script>
 <style lang="scss" scoped>
-    @import '../../assets/css/global.scss';
-    .share {
-        z-index: 9999;
+@import '../../assets/css/global.scss';
+.share {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2226;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-modal {
         position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
         background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
+}
 
-    .show-share {
-        width: pxTorem(320px);
-        max-height: pxTorem(400px);
-        background: #ffffff;
-        margin: 0 auto 36px;
-        position: relative;
-        padding: 35px 10px;
-        @include remCalc(padding, 35px, 10px);
-        &-title {
-            color: #FF9500;
-            font-size: 20px;
-            line-height: 30px;
-            text-align: center;
+.show-share {
+    width: pxTorem(320px);
+    max-height: pxTorem(400px);
+    background: #ffffff;
+    margin: 0 auto 36px;
+    position: relative;
+    padding: 35px 10px;
+    @include remCalc(padding, 35px, 10px);
+    &-title {
+        color: #ff9500;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        &.show-link {
+            font-size: 15px;
+            line-height: 22px;
         }
-        &-btn {
-            @include remCalc(padding, 10px, 20px);
-            /*background: #fff;*/
-            &-text {
-                display: block;
-                margin: 0 auto;
-                width: pxTorem(116px);
-                background: #FF9500;
-                border: none;
+    }
+    &-btn {
+        @include remCalc(padding, 10px, 20px);
+        /*background: #fff;*/
+        &-text {
+            display: block;
+            margin: 0 auto;
+            width: pxTorem(116px);
+            background: #ff9500;
+            border: none;
+            color: #fff;
+            box-shadow: 0px 2px 4px 0px #955700;
+            border-radius: 4px;
+            height: 41px;
+            font-size: 15px;
+            &:hover,
+            &:active,
+            &:focus {
+                background: #ff9500;
                 color: #fff;
-                box-shadow: 0px 2px 4px 0px #955700;
-                &:hover,
-                &:active,
-                &:focus {
-                    background: #FF9500;
-                    color: #fff;
-                }
-                &:active {
-                    background: #FCA529;
-                }
+            }
+            &:active {
+                background: #fca529;
             }
         }
     }
+    &-tip {
+        margin-top: 15px;
+        text-align: center;
+        p {
+            color: #51a7c3;
+            font-size: 14px;
+        }
+        img {
+            height: 45px;
+        }
+    }
+}
 </style>

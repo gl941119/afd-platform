@@ -1,3 +1,5 @@
+// https://eslint.org/docs/user-guide/configuring
+
 module.exports = {
     root: true,
     parser: 'babel-eslint',
@@ -10,15 +12,14 @@ module.exports = {
         node: true,
         es6: true,
     },
-    extends: 'eslint:recommended',
+    extends: "eslint:recommended",
     // required to lint *.vue files
     plugins: [
         'html',
         'vue'
     ],
     // add your custom rules here
-    //it is base on https://github.com/vuejs/eslint-config-vue
-    'rules': {
+    rules: {
         'accessor-pairs': 2,
         'arrow-spacing': [2, {
             'before': true,
@@ -31,7 +32,7 @@ module.exports = {
         'camelcase': [0, {
             'properties': 'always'
         }],
-        'comma-dangle': [2, 'never'],
+        'comma-dangle': [2, 'always-multiline'],
         'comma-spacing': [2, {
             'before': false,
             'after': true
@@ -160,7 +161,7 @@ module.exports = {
             'avoidEscape': true,
             'allowTemplateLiterals': true
         }],
-        'semi': [2, 'never'],
+        'semi': [2, 'always'],
         'semi-spacing': [2, {
             'before': false,
             'after': true
