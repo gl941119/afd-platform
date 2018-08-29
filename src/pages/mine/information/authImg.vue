@@ -138,7 +138,7 @@
                     type: 'get',
                 }).then(res => {
                     this.authStatus = res.data.authStatus;
-                    if (res.data.authStatus != '0') {
+                    if (res.data.authStatus !== '0') {
                         this.authStatusShow = true;
                     }
                     // this.noPassReason = res.data.noPassReason;
@@ -162,9 +162,9 @@
                         'Content-Type': 'multipart/form-data',
                     },
                 }).then(res => {
-                    if (value == 1) {
+                    if (value === '1') {
                         this.imageBack = res.data.data;
-                    } else if (value == 2) {
+                    } else if (value === '2') {
                         this.imagePositive = res.data.data;
                     } else {
                         this.imageHandheld = res.data.data;
