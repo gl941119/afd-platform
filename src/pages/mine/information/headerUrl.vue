@@ -42,7 +42,7 @@
             heardUrl() {
                 return this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
             },
-    },
+        },
         watch: {
             edit(value) {
                 // console.log('edit->', value);
