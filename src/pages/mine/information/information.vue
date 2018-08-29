@@ -126,6 +126,7 @@
                     url: 'QuerySettings',
                     type: 'get',
                 }).then(res => {
+                    // console.log(res.data);
                     this.authStatus = res.data.authStatus;
                     this.existTradePassword = res.data.existTradePassword;
                     // this.bindEmail = res.data.Email;
@@ -137,7 +138,7 @@
                 });
             },
             authentication() {
-                if (this.authStatus == 0) {
+                if (this.authStatus === 0) {
                     this.$router.push({
                         name: 'authentication',
                     });
@@ -225,7 +226,7 @@
                     });
                     const timerEmail = setInterval(() => {
                         let num = 300;
-                        if (value == 3) {
+                        if (value === 3) {
                             this.emailCode = true;
                         } else {
                             this.emailCodes = true;
@@ -233,7 +234,7 @@
                         num--;
                         if (num < 1) {
                             clearInterval(timerEmail);
-                            if (value == 3) {
+                            if (value === 3) {
                                 this.emailCode = false;
                             } else {
                                 this.emailCodes = false;
