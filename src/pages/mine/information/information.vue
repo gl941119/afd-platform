@@ -112,23 +112,8 @@
         },
         mounted() {
             this.info();
-            // this.recertification();
         },
         methods: {
-            // recertification() {
-            //     Request({
-            //         url: 'ChangeAuthStatus',
-            //         data: {
-            //             id: this.accountId,
-            //             status: 0,
-            //         },
-            //         type: 'post',
-            //     }).then(res => {
-            //         this.$router.push({
-            //             name: 'authentication',
-            //         });
-            //     });
-            // },
             inDevelopment() {
                 this.$toast({
                     message: '开发中',
