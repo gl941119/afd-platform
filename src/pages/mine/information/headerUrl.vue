@@ -23,11 +23,9 @@
 <script>
     import Cache from '../../../utils/cache.js';
     import Request from '../../../utils/require.js';
-    import validateFun from '../../../utils/validate.js';
-    import Utils from '../../../utils/util';
     import Config from '../../../utils/config';
     import Cropper from 'cropperjs';
-    import axios from 'axios'
+    import axios from 'axios';
     export default {
         data() {
             return {
@@ -38,75 +36,75 @@
                 files: [],
                 edit: false,
                 cropper: false,
-            }
+            };
         },
         computed: {
             heardUrl() {
-                return this.$store.state.heardUrl ||  'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
+                return this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
             },
-		},
+    },
         watch: {
             edit(value) {
                 // console.log('edit->', value);
                 if (value) {
-                    this.$nextTick(function () {
+                    this.$nextTick(function() {
                         if (!this.$refs.editImage) {
-                            return
+                            return;
                         }
 
-                        let cropper = new Cropper(this.$refs.editImage, {
+                        const cropper = new Cropper(this.$refs.editImage, {
                             aspectRatio: 1 / 1,
                             viewMode: 1,
-                        })
-                        this.cropper = cropper
-                    })
+                        });
+                        this.cropper = cropper;
+                    });
                 } else {
                     if (this.cropper) {
-                        this.cropper.destroy()
-                        this.cropper = false
+                        this.cropper.destroy();
+                        this.cropper = false;
                     }
                 }
-            }
+            },
         },
         methods: {
             // avatar
             inputFile(newFile, oldFile, prevent) {
                 if (newFile && !oldFile) {
-                    this.$nextTick(function () {
-                        this.edit = true
-                    })
+                    this.$nextTick(function() {
+                        this.edit = true;
+                    });
                 }
                 if (!newFile && oldFile) {
-                    this.edit = false
+                    this.edit = false;
                 }
             },
             inputFilter(newFile, oldFile, prevent) {
                 if (newFile && !oldFile) {
                     if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
-                        this.$toast('Your choice is not a picture')
-                        return prevent()
+                        this.$toast('Your choice is not a picture');
+                        return prevent();
                     }
                 }
                 if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
-                    newFile.url = ''
-                    let URL = window.URL || window.webkitURL
+                    newFile.url = '';
+                    const URL = window.URL || window.webkitURL;
                     if (URL && URL.createObjectURL) {
-                        newFile.url = URL.createObjectURL(newFile.file)
+                        newFile.url = URL.createObjectURL(newFile.file);
                     }
                 }
             },
             editSave() {
-                this.edit = false
-                let oldFile = this.files[0];
-                let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
-                let arr = new Uint8Array(binStr.length)
+                this.edit = false;
+                const oldFile = this.files[0];
+                const binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1]);
+                const arr = new Uint8Array(binStr.length);
                 for (let i = 0; i < binStr.length; i++) {
-                    arr[i] = binStr.charCodeAt(i)
+                    arr[i] = binStr.charCodeAt(i);
                 }
-                let file = new File([arr], oldFile.name, { type: oldFile.type });
+                const file = new File([arr], oldFile.name, { type: oldFile.type });
 
                 var formData = new FormData();
-                formData.append("file", file);
+                formData.append('file', file);
                 axios({
                     url: this.uploadImg,
                     method: 'post',
@@ -114,10 +112,10 @@
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         token: this.token,
-                    }
+                    },
                 }).then(res => {
                     this.selectImg(res.data.data);
-                }).catch(console.error)
+                }).catch(console.error);
             },
             selectImg(url) {
                 Request({
@@ -127,15 +125,15 @@
                         headUrl: url,
                     },
                     type: 'post',
-                    flag: true
+                    flag: true,
                 }).then(res => {
                     this.$store.commit('setHeardUrl', url);
                     Cache.setSession('bier_heardUrl', url);
                     this.$toast('修改成功');
-                })
+                });
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';
