@@ -157,16 +157,16 @@
                     this.numType = true; // 请先选择身份证件类型
                 } else {
                     this.numType = false;
-                    if (this.idType == '身份证' || this.idType == 'ID card') {
+                    if (this.idType === '身份证' || this.idType === 'ID card') {
                         var value = /^\d{15}|\d{17}(\d{1}|X|x)$/.test(this.idNum);
                         if (!value) {
                             this.idCard = true;
                         } else {
                             this.idCard = false;
                         }
-                    } else if (this.idType == '护照' || this.idType == 'Passport') {
-                        var value = /^[A-Za-z0-9]+$/.test(this.idNum);
-                        if (!value) {
+                    } else if (this.idType === '护照' || this.idType === 'Passport') {
+                        var values = /^[A-Za-z0-9]+$/.test(this.idNum);
+                        if (!values) {
                             this.idCard = true;
                         } else {
                             this.idCard = false;
@@ -181,7 +181,7 @@
                 this.ralname();
                 this.types = false;
                 this.countryKind = false;
-                if (this.cardTypeShow == true || this.cardTypeShow == true || this.numType == true || this.idType == true || this.countryShow == true) {
+                if (this.cardTypeShow === true || this.cardTypeShow === true || this.numType === true || this.idType === true || this.countryShow === true) {
                     return;
                 } else {
                     this.$store.commit('setAuthName', this.name);
