@@ -14,6 +14,7 @@
                  v-if="realNameShow">只能输入英文字母或汉字</div>
             <div class="auth_info_inputBox">
                 <input :disableClear=true
+                        disabled
                        class="auth_info_input"
                        placeholder="证件类型"
                        v-model="idType" />
@@ -34,6 +35,7 @@
             <div class="error"
                  v-if="cardTypeShow">请选择证件类型</div>
             <input :disableClear=true
+                    disabled
                    class="auth_info_input"
                    @blur="text()"
                    placeholder="身份证号"
@@ -84,8 +86,8 @@
     </div>
 </template>
 <script>
-    import Cache from '../../../utils/cache.js'
-    import CountryZh from '../../../i18n/country/countrys-zh.js'
+    // import Cache from '../../../utils/cache.js';
+    import CountryZh from '../../../i18n/country/countrys-zh.js';
     export default {
         data() {
             return {
@@ -95,25 +97,27 @@
                 country: '',
                 countrys: CountryZh.country,
                 filterRes: CountryZh.country,
-                idTypeData: [{
-                    value: '身份证',
-                    label: '身份证'
-                }, {
-                    value: '护照',
-                    label: '护照'
-                }],
-                realNameShow: false, //姓名
-                cardTypeShow: false, //身份证件为空
-                numType: false, //请先选择身份类型
-                idCard: false, //身份证不符合规范
-                countryShow: false, //国家为空
+                idTypeData: [
+                    {
+                        value: '身份证',
+                        label: '身份证',
+                    }, {
+                        value: '护照',
+                        label: '护照',
+                    },
+                ],
+                realNameShow: false, // 姓名
+                cardTypeShow: false, // 身份证件为空
+                numType: false, // 请先选择身份类型
+                idCard: false, // 身份证不符合规范
+                countryShow: false, // 国家为空
                 types: false,
                 countryKind: false,
-            }
+            };
         },
 
         methods: {
-            fuzzySearch() { //模糊搜索
+            fuzzySearch() { // 模糊搜索
                 this.filterRes = this.country ? this.countrys.filter(item => item.value.indexOf(this.country) > -1) : this.countrys;
             },
             click(value) {
@@ -150,7 +154,7 @@
             },
             text() {
                 if (!this.idType) {
-                    this.numType = true; //请先选择身份证件类型
+                    this.numType = true; // 请先选择身份证件类型
                 } else {
                     this.numType = false;
                     if (this.idType == '身份证' || this.idType == 'ID card') {
@@ -186,11 +190,11 @@
                     this.$store.commit('setAuthCountry', this.country);
                     this.$router.push({
                         name: 'authImg',
-                    })
+                    });
                 }
-            }
+            },
         },
-    }
+    };
 </script>
 <style lang="scss" scoped>
 @import '../../../assets/css/global.scss';
@@ -209,6 +213,7 @@
             height: 0.88rem;
             padding-left: 0.26667rem;
             margin-bottom: 0.4rem;
+            background: #ffffff;
         }
         .error {
             color: #f66;
