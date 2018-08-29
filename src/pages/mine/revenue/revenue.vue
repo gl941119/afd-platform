@@ -18,9 +18,9 @@
         data() {
             return {
 
-            }
+            };
         },
-    }
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';

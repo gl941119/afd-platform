@@ -45,10 +45,10 @@
                 bottomStatus: '',
                 hide: true,
                 wrapperHeight: 0,
-            }
+            };
         },
         mounted() {
-            Promise.all([ this.revenueDatas()]).then(() => {
+            Promise.all([this.revenueDatas()]).then(() => {
 
             });
         },
@@ -57,7 +57,7 @@
                 this.page++;
                 this.revenueDatas(this.page).then(() => {
                     this.$refs.revenueLoadmore.onBottomLoaded();
-                })
+                });
             },
             handleBottomChange(status) {
                 this.bottomStatus = status;
@@ -72,7 +72,7 @@
                             pageSize,
                             flowType: 1,
                         },
-                        type: 'get'
+                        type: 'get',
                     }).then(res => {
                         this.flowDatas = res.data;
                         if (this.flowDatas && this.flowDatas.length === 0) {
@@ -86,11 +86,11 @@
                             this.totalFlowDatas.push(...this.flowDatas);
                             resolve();
                         }
-                    })
+                    });
                 });
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';

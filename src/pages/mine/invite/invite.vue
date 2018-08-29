@@ -49,13 +49,13 @@
                 bottomStatus: '',
                 hide: true,
                 wrapperHeight: 0,
-            }
+            };
         },
         filters: {
-            emails: function (value) {
+            emails: function(value) {
                 var reg = /(.{3}).+(@.+)/g;
-                if (value) return value.replace(reg, "$1****$2");
-            }
+                if (value) return value.replace(reg, '$1****$2');
+            },
         },
         mounted() {
             Promise.all([this.queryInviteData()]).then(() => {
@@ -67,7 +67,7 @@
                 this.page++;
                 this.queryInviteData(this.page).then(() => {
                     this.$refs.inviteLoadmore.onBottomLoaded();
-                })
+                });
             },
             handleBottomChange(status) {
                 this.bottomStatus = status;
@@ -76,8 +76,8 @@
                 return new Promise((resolve, reject) => {
                     Request({
                         url: 'QueryInviteData',
-                        data: { page, pageSize, inviteCode: this.inviteCode, },
-                        type: 'get'
+                        data: { page, pageSize, inviteCode: this.inviteCode },
+                        type: 'get',
                     }).then(res => {
                         this.inviteData = res.data;
                         if (this.inviteData && this.inviteData.length === 0) {
@@ -91,11 +91,11 @@
                             this.totalInviteData.push(...this.inviteData);
                             resolve();
                         }
-                    })
+                    });
                 });
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';
