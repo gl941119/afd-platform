@@ -62,7 +62,7 @@
     import Request from '../../../utils/require.js';
     import Cache from '../../../utils/cache';
     import Config from '../../../utils/config.js';
-    import axios from 'axios'
+    import axios from 'axios';
     export default {
         data() {
             return {
@@ -74,14 +74,14 @@
                 uploadImg: Config.UploadAuthImg,
                 requestToken: {
                     token: this.$store.state.token ||
-                        Cache.getSession('bier_token')
+                        Cache.getSession('bier_token'),
                 },
                 imageBack: '',
                 imagePositive: '',
                 imageHandheld: '',
                 authStatusShow: false,
                 authStatus: '',
-            }
+            };
         },
         mounted() {
             this.info();
@@ -92,30 +92,30 @@
                     var value = true;
                 }
                 return value;
-            }
+            },
         },
         methods: {
-            confirm(){
+            confirm() {
                 this.$router.push({
-                    name:'information'
-                })
+                    name: 'information',
+                });
             },
-            recertification(){
+            recertification() {
                 Request({
                     url: 'ChangeAuthStatus',
                     data: {
                         id: this.accountId,
-                        status: 0
+                        status: 0,
                     },
                     type: 'post',
                 }).then(res => {
                     this.$router.push({
-                        name:'authentication'
-                    })
-                })
+                        name: 'authentication',
+                    });
+                });
             },
             authentication() {
-                let img = this.imageBack + ',' + this.imagePositive + "," + this.imageHandheld;
+                const img = this.imageBack + ',' + this.imagePositive + ',' + this.imageHandheld;
                 Request({
                     url: 'QueryAuthentication',
                     data: {
@@ -124,13 +124,13 @@
                         idType: this.idType,
                         idNum: this.idNum,
                         realname: this.name,
-                        idImg: img
+                        idImg: img,
                     },
                     type: 'post',
-                    flag: true
+                    flag: true,
                 }).then(res => {
                     this.info();
-                })
+                });
             },
             info() {
                 Request({
@@ -138,29 +138,29 @@
                     type: 'get',
                 }).then(res => {
                     this.authStatus = res.data.authStatus;
-                    if(res.data.authStatus != '0'){
+                    if (res.data.authStatus != '0') {
                         this.authStatusShow = true;
                     }
                     // this.noPassReason = res.data.noPassReason;
-                })
+                });
             },
-            uploadImgs(newfile, oldfile,value) {
+            uploadImgs(newfile, oldfile, value) {
                 var file;
                 if (newfile && !oldfile) {
                     file = newfile.file;
                 }
-                if(newfile && oldfile) {
+                if (newfile && oldfile) {
                     file = newfile.file;
                 }
                 var formData = new FormData();
-                formData.append("file", file);
+                formData.append('file', file);
                 axios({
                     url: this.uploadImg,
                     method: 'post',
                     data: formData,
                     headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+                        'Content-Type': 'multipart/form-data',
+                    },
                 }).then(res => {
                     if (value == 1) {
                         this.imageBack = res.data.data;
@@ -171,22 +171,22 @@
                     }
                 }).catch(err => {
                     console.log(err);
-                })
+                });
             },
             getImg(newfile, oldfile) {
-                let value = '1';
-                this.uploadImgs(newfile, oldfile,value);
+                const value = '1';
+                this.uploadImgs(newfile, oldfile, value);
             },
             getImgTwo(newfile, oldfile) {
-                let value = '2';
-                this.uploadImgs(newfile, oldfile,value);
+                const value = '2';
+                this.uploadImgs(newfile, oldfile, value);
             },
             getImgThree(newfile, oldfile) {
-                let value = '3';
-                this.uploadImgs(newfile, oldfile,value);
+                const value = '3';
+                this.uploadImgs(newfile, oldfile, value);
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';
