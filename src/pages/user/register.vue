@@ -52,7 +52,7 @@
 </template>
 <script>
     import Request from '../../utils/require.js';
-    import Utils from '../../utils/util.js'
+    import Utils from '../../utils/util.js';
     import userRegEn from './user-register-en.js';
     import userRegZh from './user-register-ch.js';
     export default {
@@ -70,7 +70,7 @@
                     disclaimerChecked: true,
                 },
                 registerTerm: false,
-            }
+            };
         },
         computed: {
             language() {
@@ -78,7 +78,7 @@
             },
             content() {
                 return this.language.toUpperCase() === 'EN' ? userRegEn : userRegZh;
-            }
+            },
         },
         methods: {
             sendVerifyCode() {
@@ -87,10 +87,10 @@
                         url: 'SendVerifyCode',
                         data: {
                             email: this.register.email,
-                        }
+                        },
                     }).then(res => {
                         this.disabled = false;
-                        let timer = setInterval(() => {
+                        const timer = setInterval(() => {
                             this.num--;
                             if (this.num < 1) {
                                 clearInterval(timer);
@@ -99,17 +99,17 @@
                             }
                         }, 1000);
                         this.$toast(this.utils.judgeLanguage(this.language, res.message));
-                    }).catch(console.error)
+                    }).catch(console.error);
                 } else {
                     this.$toast('email is empty');
                 }
             },
             registerBtn() {
-                let {
+                const {
                     email,
                     verifyCode,
                     password,
-                    inviteCode
+                    inviteCode,
                 } = this.register;
                 if (this.register.disclaimerChecked) {
                     this.$validator.validateAll().then(valid => {
@@ -120,29 +120,29 @@
                                     authCode: verifyCode,
                                     email,
                                     password,
-                                    inviteCode
+                                    inviteCode,
                                 },
-                                flag: true
+                                flag: true,
                             }).then(res => {
                                 this.toLogin();
-                                this.$toast(this.utils.judgeLanguage(this.language, res.message))
+                                this.$toast(this.utils.judgeLanguage(this.language, res.message));
                             });
                         } else {
-                            this.$toast('表单格式不匹配')
+                            this.$toast('表单格式不匹配');
                         }
                     });
                 } else {
-                    this.$toast('请阅读用户协议')
+                    this.$toast('请阅读用户协议');
                 }
             },
             toLogin() {
-                this.$router.push({ name: 'login' })
+                this.$router.push({ name: 'login' });
             },
             showUserTerm(value) {
                 this.registerTerm = value;
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import './user.scss';

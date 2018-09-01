@@ -8,6 +8,7 @@ import filters from './filters';
 import FastClick from 'fastclick';
 import Cache from './utils/cache';
 import './utils/mint';
+import './utils/vant';
 import './assets/css/reset.css';
 import './assets/css/common.scss';
 import 'swiper/dist/css/swiper.css';

@@ -36,52 +36,53 @@
                 id: this.$store.state.id,
                 allLoaded: false,
                 bottomStatus: '',
-                wrapperHeight: 0
-            }
+                wrapperHeight: 0,
+            };
         },
         mounted() {
-            this.setInviteCode()
-            Promise.all([this.findAdvertisement(), this.getAdvertInfo()]).then(() => {
+            this.setInviteCode();
+            Promise.all([
+                this.findAdvertisement(), this.getAdvertInfo(),
+            ]).then(() => {
                 this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
                 var token = Cache.getSession('bier_token');
                 var id = Cache.getSession('bier_userid');
                 !token && !id && this.getUserInfo();
             });
-
         },
         methods: {
             setInviteCode() {
-                let arr = window.location.hash;
-                let code = arr.split('=')[2];
+                const arr = window.location.hash;
+                const code = arr.split('=')[2];
                 console.log('hash->', code);
-                if(code){
+                if (code) {
                     this.$store.commit('setInviteCode', code);
                     Cache.setSession('bier_inviteCode', code);
-                    document.cookie = "bier_inviteCode=" + code;
+                    document.cookie = 'bier_inviteCode=' + code;
                 }
                 // this.registerModel.form.inviteCode = arr.split('=')[2];
             },
             queryCode(value) {
                 Request({
                     url: 'QueryInviteCode',
-                    data: { accountId: value, },
-                    type: 'get'
+                    data: { accountId: value },
+                    type: 'get',
                 }).then(res => {
                     this.$store.commit('setInviteCode', res.data.inviteCode);
                     Cache.setSession('bier_inviteCode', res.data.inviteCode);
-                })
+                });
             },
             handleLoginSucc(data) {
-                let { id, email, nickname, token, phone, heardUrl, } = data;
+                const { id, email, nickname, token, heardUrl } = data;
                 this.$store.commit('setUserId', id);
                 this.$store.commit('setUserName', email);
                 this.$store.commit('setUserNickName', nickname); // cookie 中不保存 token
                 token && this.$store.commit('setToken', token);
                 this.$store.commit('setHeardUrl', heardUrl);
                 var exp = new Date();
-                exp.setTime(exp.getTime() + 1000 * 60 * 10); //这里表示保存10分钟
-                document.cookie = "login_identify=" + id + ";expires=" + exp.toGMTString();
-                token && (document.cookie = 'login_token=' + token + ";expires=" + exp.toGMTString());
+                exp.setTime(exp.getTime() + 1000 * 60 * 10); // 这里表示保存10分钟
+                document.cookie = 'login_identify=' + id + ';expires=' + exp.toGMTString();
+                token && (document.cookie = 'login_token=' + token + ';expires=' + exp.toGMTString());
                 Cache.setSession('bier_userid', id);
                 Cache.setSession('bier_username', email);
                 nickname && Cache.setSession('bier_usernickname', nickname);
@@ -95,14 +96,14 @@
                 token && id && Request({
                     url: 'GetUserInfoById',
                     type: 'get',
-                    data: { id }
+                    data: { id },
                 }).then(res => {
                     console.log('GetUserInfoById_>', res);
                     this.handleLoginSucc(res.data);
                     this.$store.commit('setToken', token);
                     Cache.setSession('bier_token', token);
                     this.queryCode(id);
-                }).catch(console.error)
+                }).catch(console.error);
             },
             getAdvertInfo(page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
@@ -112,7 +113,7 @@
                             page,
                             pageSize,
                         },
-                        type: 'get'
+                        type: 'get',
                     }).then(res => {
                         // console.log('QueryAdvertInfo_>', res);
                         this.advertItemDatas = res.data;
@@ -123,14 +124,14 @@
                             this.totalAdvertItemDatas.push(...this.advertItemDatas);
                             resolve();
                         }
-                    })
+                    });
                 });
             },
             learnMoreItem() {
                 this.page++;
                 this.getAdvertInfo(this.page).then(() => {
                     this.$refs.loadmore.onBottomLoaded();
-                })
+                });
             },
             handleBottomChange(status) {
                 this.bottomStatus = status;
@@ -146,19 +147,19 @@
                         this.swiperImgs = this.handleCarouselData(res.data);
                         // console.log('this.swiperImgs->', this.swiperImgs);
                         resolve();
-                    })
-                })
+                    });
+                });
             },
             handleCarouselData(data) {
-                return data.filter(item => item.advertPosition === 1).sort((a, b) => a.advertSort - b.advertSort)
-            }
+                return data.filter(item => item.advertPosition === 1).sort((a, b) => a.advertSort - b.advertSort);
+            },
         },
         components: {
             CustomCarousel,
             TopNav,
             IndexSearch,
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
