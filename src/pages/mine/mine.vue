@@ -16,7 +16,7 @@
             <mt-cell class="mine_kind" title="邀请用户" to="/invite" is-link>
             </mt-cell>
         </div>
-        <mt-cell class="mine_last" title="我的众筹" is-link>
+        <mt-cell class="mine_last" title="我的众筹" @click.native="inDevelopment()" is-link>
         </mt-cell>
         <div class="mine_buttonBox">
             <mt-button class="mine_buttonBox_button" @click.native="logOut" type="primary" size="large">退出登录</mt-button>
@@ -36,28 +36,35 @@
             };
         },
         mounted() {
-            this.BasicInformation();
+            this.basicInformation();
         },
         methods: {
-            BasicInformation() {
+            inDevelopment() {
+                this.$toast({
+                    message: '开发中',
+                    position: 'top',
+                    duration: 5000,
+                });
+            },
+            basicInformation() {
                 Request({
                     url: 'QueryRevenueBasicInformation',
                     data: { accountId: this.accountId },
-                    type: 'get'
+                    type: 'get',
                 }).then(res => {
                     this.$store.commit('setIncomeId', res.data.id);
                     Cache.setSession('bire_incomeId', res.data.id);
-                })
+                });
             },
             logOut() {
                 Request({
                     url: 'SignOut',
                     type: 'get',
-                    data: { token: this.token }
+                    data: { token: this.token },
                 }).then(res => {
                     this.handleSignOut();
                     this.$router.push({ name: 'index' });
-                })
+                });
             },
             handleSignOut() {
                 this.$store.commit('setUserId', undefined);
@@ -77,8 +84,8 @@
                 Cache.removeSession('bier_inviteCode');
                 Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';

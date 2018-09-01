@@ -10,7 +10,7 @@
             </mt-cell>
             <mt-cell class="information_kindBox_kind" @click.native="openTradepassword()" title="交易密码" is-link>
             </mt-cell>
-            <mt-cell class="information_kindBox_kind" title="绑定Telegram" is-link>
+            <mt-cell class="information_kindBox_kind" @click.native="inDevelopment()" title="绑定Telegram" is-link>
             </mt-cell>
             <mt-cell class="information_kindBox_kind" @click.native="authentication()" title="实名认证" is-link>
             </mt-cell>
@@ -81,44 +81,52 @@
     import Request from '../../../utils/require.js';
     import validateFun from '../../../utils/validate.js';
     import Utils from '../../../utils/util';
-    import Cropper from 'cropperjs';
-    import axios from 'axios'
+    // import Cropper from 'cropperjs';
+    // import axios from 'axios';
     export default {
         data() {
             return {
                 utils: new Utils(),
-                proup: false, //昵称-登录密码蒙版
-                proups: false, //交易密码蒙版
-                nicknameShow: false, //昵称
+                proup: false, // 昵称-登录密码蒙版
+                proups: false, // 交易密码蒙版
+                nicknameShow: false, // 昵称
                 nicknameValue: this.$store.state.usernickname || Cache.getSession('bier_usernickname'),
                 username: this.$store.state.username || Cache.getSession('bier_username'),
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
                 token: this.$store.state.token || Cache.getSession('bier_token'),
-                loginPasswordShow: false, //登录密码
+                loginPasswordShow: false, // 登录密码
                 oldPassword: '',
                 password: '',
                 oncePassword: '',
                 passwordCode: '',
                 emailCode: false,
-                existTradePassword: false, //交易密码
+                existTradePassword: false, // 交易密码
                 oldTradepassword: '',
                 tradepassword: '',
                 onceTradepassword: '',
                 tradepasswordCode: '',
                 emailCodes: false,
-                popupVisible: false, //密码规则
+                popupVisible: false, // 密码规则
                 authStatus: '',
-            }
+            };
         },
         mounted() {
             this.info();
         },
         methods: {
+            inDevelopment() {
+                this.$toast({
+                    message: '开发中',
+                    position: 'top',
+                    duration: 5000,
+                });
+            },
             info() {
                 Request({
                     url: 'QuerySettings',
                     type: 'get',
                 }).then(res => {
+                    // console.log(res.data);
                     this.authStatus = res.data.authStatus;
                     this.existTradePassword = res.data.existTradePassword;
                     // this.bindEmail = res.data.Email;
@@ -127,17 +135,17 @@
                     // this.isBindTelegram = res.data.isBindTelegram;
                     // this.existImg = res.data.nickname;
                     // this.existNickname = res.data.heardUrl;
-                })
+                });
             },
             authentication() {
-                if (this.authStatus == 0) {
+                if (this.authStatus === 0) {
                     this.$router.push({
-                        name: 'authentication'
-                    })
+                        name: 'authentication',
+                    });
                 } else {
                     this.$router.push({
-                        name: 'authImg'
-                    })
+                        name: 'authImg',
+                    });
                 }
             },
             cancle() {
@@ -147,14 +155,10 @@
                 this.tradepassword = '';
                 this.oldTradepassword = '';
                 this.onceTradepassword = '';
-                this.passwordCode = "";
-                this.tradepasswordCode = "";
+                this.passwordCode = '';
+                this.tradepasswordCode = '';
             },
-            // album() { //相册的回调
-            //     // console.log('click->', this.$refs.upload.$children[0].$el);
-            //     this.$refs.upload.$children[0].$el.click();
-            // },
-            mask() { //昵称-登录密码蒙版
+            mask() { // 昵称-登录密码蒙版
                 this.proup = !this.proup;
                 this.cancle();
             },
@@ -163,67 +167,66 @@
                 this.kinds(value);
                 this.cancle();
             },
-            openTradepassword() { //交易密码蒙版
+            openTradepassword() { // 交易密码蒙版
                 this.proups = !this.proups;
                 this.cancle();
             },
-            kinds(value) { //根据value打开-昵称、登录密码
+            kinds(value) { // 根据value打开-昵称、登录密码
                 switch (value) {
-                case 1:
-                    this.nicknameShow = !this.nicknameShow; //nickname-show
-                    this.loginPasswordShow = false;
-                    break;
-                case 2:
-                    this.nicknameShow = false;
-                    this.loginPasswordShow = !this.loginPasswordShow; //loginPassword-show
-                    break;
-                default:
-                    this.nicknameShow = false; //nickname-show
-                    this.loginPasswordShow = false; //loginPassword-show
-                    break;
+                    case 1:
+                        this.nicknameShow = !this.nicknameShow; // nickname-show
+                        this.loginPasswordShow = false;
+                        break;
+                    case 2:
+                        this.nicknameShow = false;
+                        this.loginPasswordShow = !this.loginPasswordShow; // loginPassword-show
+                        break;
+                    default:
+                        this.nicknameShow = false; // nickname-show
+                        this.loginPasswordShow = false; // loginPassword-show
+                        break;
                 }
             },
-            changeNickName() { //修改昵称
+            changeNickName() { // 修改昵称
                 if (this.nicknameValue.length <= 8) {
                     Request({
                         url: 'QueryAccountSettings',
-                        data: { id: this.accountId, nickname: this.nicknameValue, },
+                        data: { id: this.accountId, nickname: this.nicknameValue },
                         type: 'post',
-                        flag: true
+                        flag: true,
                     }).then(res => {
                         this.$store.commit('setUserNickName', this.nicknameValue);
                         Cache.setSession('bier_usernickname', this.nicknameValue);
                         this.$toast({
                             message: '修改成功',
                             position: 'top',
-                            duration: 5000
+                            duration: 5000,
                         });
                         this.mask();
                     }).catch(e => {
                         console.error('changenickname error_ > ', e);
-                    })
+                    });
                 } else {
                     this.$toast({
                         message: '请输入8位以内昵称',
                         position: 'top',
-                        duration: 5000
+                        duration: 5000,
                     });
                 }
-
             },
-            getCode(value) { //获取邮箱验证码 4-交易密码 3-登录密码
+            getCode(value) { // 获取邮箱验证码 4-交易密码 3-登录密码
                 Request({
                     url: 'QueryPasswordCode',
-                    data: { codeType: value, },
+                    data: { codeType: value },
                 }).then(res => {
                     this.$toast({
                         message: this.utils.judgeLanguage(this.$store.state.slangChange || this.$i18n.locale, res.message),
                         position: 'top',
-                        duration: 5000
+                        duration: 5000,
                     });
-                    let timerEmail = setInterval(() => {
+                    const timerEmail = setInterval(() => {
                         let num = 300;
-                        if (value == 3) {
+                        if (value === 3) {
                             this.emailCode = true;
                         } else {
                             this.emailCodes = true;
@@ -231,7 +234,7 @@
                         num--;
                         if (num < 1) {
                             clearInterval(timerEmail);
-                            if (value == 3) {
+                            if (value === 3) {
                                 this.emailCode = false;
                             } else {
                                 this.emailCodes = false;
@@ -239,15 +242,13 @@
                             num = 300;
                         }
                     }, 1000);
-
-                })
+                });
             },
-            setTradePassword() { //设置交易密码
+            setTradePassword() { // 设置交易密码
                 var str = this.tradepassword;
                 var value = /^.*?[\d]+.*$/.test(str) && /^.*?[A-Za-z]/.test(str) && /^.{8,16}$/.test(str) && str !== this.username;
                 if (value) {
-                    if (this.tradepassword === this.onceTradepassword)
-                    {
+                    if (this.tradepassword === this.onceTradepassword) {
                         Request({
                             url: 'SetTradePassword',
                             data: {
@@ -255,29 +256,29 @@
                                 password: validateFun.encrypt(this.tradepassword),
                             },
                             type: 'post',
-                            flag: true
+                            flag: true,
                         }).then(res => {
                             this.$toast({
                                 message: '修改成功',
                                 position: 'top',
-                                duration: 5000
+                                duration: 5000,
                             });
                             this.info();
                             this.cancle();
                             this.openTradepassword();
-                        })
+                        });
                     } else {
                         this.$toast({
                             message: '两次输入密码不一致',
                             position: 'top',
-                            duration: 5000
+                            duration: 5000,
                         });
                     }
                 } else {
                     this.popupVisible = true;
                 }
             },
-            changeTradePassword() { //修改交易密码
+            changeTradePassword() { // 修改交易密码
                 var str = this.tradepassword;
                 var value = /^.*?[\d]+.*$/.test(str) && /^.*?[A-Za-z]/.test(str) && /^.{8,16}$/.test(str) && str !== this.username;
                 if (value) {
@@ -291,22 +292,22 @@
                                 verificationCode: this.tradepasswordCode,
                             },
                             type: 'post',
-                            flag: true
+                            flag: true,
                         }).then(res => {
                             this.$toast({
                                 message: '修改成功',
                                 position: 'top',
-                                duration: 5000
+                                duration: 5000,
                             });
                             this.info();
                             this.cancle();
                             this.openTradepassword();
-                        })
+                        });
                     } else {
                         this.$toast({
                             message: '两次输入密码不一致',
                             position: 'top',
-                            duration: 5000
+                            duration: 5000,
                         });
                     }
                 } else {
@@ -326,10 +327,10 @@
                             verificationCode: this.passwordCode,
                         },
                         type: 'post',
-                        flag: true
+                        flag: true,
                     }).then(res => {
                         this.out();
-                    })
+                    });
                 } else {
                     this.popupVisible = true;
                 }
@@ -338,11 +339,11 @@
                 Request({
                     url: 'SignOut',
                     type: 'get',
-                    data: { token: this.token }
+                    data: { token: this.token },
                 }).then(res => {
                     this.handleSignOut();
                     this.$router.push({ name: 'index' });
-                })
+                });
             },
             handleSignOut() {
                 this.$store.commit('setUserId', undefined);
@@ -362,8 +363,8 @@
                 Cache.removeSession('bier_inviteCode');
                 Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';

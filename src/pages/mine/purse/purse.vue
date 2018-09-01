@@ -25,7 +25,7 @@
     </div>
 </template>
 <script>
-    import Cache from '../../../utils/cache.js'
+    import Cache from '../../../utils/cache.js';
     import Request from '../../../utils/require.js';
     export default {
         data() {
@@ -34,7 +34,7 @@
                 disabled: false,
                 balance: '0',
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
-            }
+            };
         },
         mounted() {
             this.queryWallet();
@@ -53,22 +53,22 @@
                         this.$toast({
                             message: this.$t('messageNotice.bindSuccess'),
                             position: 'center',
-                            duration: 5000
+                            duration: 5000,
                         });
                         this.queryWallet();
-                    })
+                    });
                 } else {
                     this.$toast({
                         message: this.$t('messageNotice.walltLimit'),
                         position: 'center',
-                        duration: 5000
+                        duration: 5000,
                     });
                 }
             },
             queryWallet() {
                 Request({
                     url: 'QueryWalletAddress',
-                    data: { accountId: this.accountId, },
+                    data: { accountId: this.accountId },
                     type: 'get',
                     flag: true,
                 }).then(res => {
@@ -77,20 +77,20 @@
                         this.disabled = true;
                         this.QueryBalance();
                     }
-                }).catch(e => { if (e.data && e.data.islogin) { this.$router.push({ name: 'index' }); } })
+                }).catch(e => { if (e.data && e.data.islogin) { this.$router.push({ name: 'index' }); } });
             },
             QueryBalance() {
                 Request({
                     url: 'QueryBalance',
-                    data: { address: this.purseAddress, },
+                    data: { address: this.purseAddress },
                     type: 'get',
                     flag: true,
                 }).then(res => {
                     this.balance = res.data.balance;
-                })
-            }
-        }
-    }
+                });
+            },
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';

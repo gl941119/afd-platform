@@ -1,28 +1,28 @@
-'use strict'
-const utils = require('./utils')
-const webpack = require('webpack')
-const config = require('./config')
-const merge = require('webpack-merge')
-const path = require('path')
-const baseWebpackConfig = require('./webpack.base.conf')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const portfinder = require('portfinder')
+'use strict';
+const utils = require('./utils');
+const webpack = require('webpack');
+const config = require('./config');
+const merge = require('webpack-merge');
+const path = require('path');
+const baseWebpackConfig = require('./webpack.base.conf');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const portfinder = require('portfinder');
 
-// const HOST = process.env.HOST
-const HOST = '192.168.1.105' // yu
+const HOST = process.env.HOST;
+// const HOST = '192.168.1.105' // yu
 // const HOST = '192.168.1.103'
-const PORT = process.env.PORT && Number(process.env.PORT)
+const PORT = process.env.PORT && Number(process.env.PORT);
 
 function resolve(dir) {
-    return path.join(__dirname, '..', dir)
+    return path.join(__dirname, '..', dir);
 }
 
 const devWebpackConfig = merge(baseWebpackConfig, {
     mode: 'development',
     module: {
-        rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
+        rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true }),
     },
     // 此选项控制是否以及如何生成source-map。cheap-module-eval-source-map is faster for development
     devtool: config.dev.devtool,
@@ -33,9 +33,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         clientLogLevel: 'warning',
         // 当使用 HTML5 History API 时，任意的 404 响应都可能需要被替代为 index.html
         historyApiFallback: {
-            rewrites: [
-                { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
-            ],
+            rewrites: [{ from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') }],
         },
         // 启用 webpack 的模块热替换特性
         hot: true,
@@ -60,8 +58,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         quiet: true,
         // webpack 使用文件系统(file system)获取文件改动的通知。监视文件
         watchOptions: {
-            poll: config.dev.poll
-        }
+            poll: config.dev.poll,
+        },
     },
     plugins: [
         // 启用模块热替换(HMR)
@@ -74,29 +72,29 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
-            inject: true
+            inject: true,
         }),
         // 复制静态文件
         new CopyWebpackPlugin([
-        {
-            from: path.resolve(__dirname, '../static'),
-            to: config.dev.assetsSubDirectory,
-            ignore: ['.*']
-        }])
-    ]
-})
+            {
+                from: path.resolve(__dirname, '../static'),
+                to: config.dev.assetsSubDirectory,
+                ignore: ['.*'],
+            },
+        ]),
+    ],
+});
 
 module.exports = new Promise((resolve, reject) => {
-
-    portfinder.basePort = process.env.PORT || config.dev.port
+    portfinder.basePort = process.env.PORT || config.dev.port;
     portfinder.getPort((err, port) => {
         if (err) {
-            reject(err)
+            reject(err);
         } else {
             // 发布一个新的端口
-            process.env.PORT = port
+            process.env.PORT = port;
             // 新的端口添加到devServer中
-            devWebpackConfig.devServer.port = port
+            devWebpackConfig.devServer.port = port;
 
             // 添加 FriendlyErrorsPlugin
             devWebpackConfig.plugins.push(
@@ -104,11 +102,11 @@ module.exports = new Promise((resolve, reject) => {
                     compilationSuccessInfo: {
                         messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
                     },
-                    onErrors: config.dev.notifyOnErrors ?
-                        utils.createNotifierCallback() : undefined
+                    onErrors: config.dev.notifyOnErrors
+                        ? utils.createNotifierCallback() : undefined,
                 })
-            )
-            resolve(devWebpackConfig)
+            );
+            resolve(devWebpackConfig);
         }
-    })
-})
+    });
+});
