@@ -58,10 +58,19 @@
                     },
                     type: 'post',
                     flag: true,
+                    feedback: false,
                 }).then(res => {
                     this.handleLoginSucc(res.data);
                 }).catch(e => {
                     console.log('err', e);
+                    if (e.message === '1004') {
+                        this.$dialog.confirm({
+                            title: '提示',
+                            message: '该账户不存在，请先注册',
+                        }).then(() => {
+                            this.$router.push({ name: 'register' });
+                        }).catch(console.log);
+                    }
                 });
             },
             sendVerify() {
@@ -71,7 +80,7 @@
                         data: {
                             phone: this.phone,
                         },
-                    }).then((result) => {
+                    }).then((res) => {
                         this.disabled = false;
                         const timer = setInterval(() => {
                             this.num--;

@@ -9,7 +9,7 @@ import Utils from './util.js';
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? config.url.localTestUrl : config.url.productUrl;
 
-let utils = new Utils();
+const utils = new Utils();
 
 axios.interceptors.request.use(config => {
     Indicator.open({
@@ -33,20 +33,20 @@ axios.interceptors.response.use(data => {
 async function ajaxRequest(url = '', data = {}, type = 'POST', isJson = false) {
     type = type.toUpperCase();
     url = ajaxURL[url];
-    let token = store.state.token || Cache.getSession('bier_token');
-    let lang = store.state.slangChange || i18n.locale;
-    if (lang == 'en') {
+    const token = store.state.token || Cache.getSession('bier_token');
+    let lang = store.state.slangChange;
+    if (lang === 'en') {
         lang = lang.toUpperCase();
     }
     if (type === 'GET') {
         return token ? axios.get(url, {
-                params: data,
-                headers: {
-                    token,
-                    lang,
-                },
-            }) :
-            axios.get(url, {
+            params: data,
+            headers: {
+                token,
+                lang,
+            },
+        })
+            : axios.get(url, {
                 params: data,
                 headers: {
                     token,
@@ -56,16 +56,16 @@ async function ajaxRequest(url = '', data = {}, type = 'POST', isJson = false) {
     } else if (type === 'POST') {
         if (isJson) {
             return token ? axios.post(url, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    token,
+                    lang,
+                },
+            })
+                : axios.post(url, data, {
                     headers: {
                         'Content-Type': 'application/json',
-                        token,
-                        lang
-                    },
-                }) :
-                axios.post(url, data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        lang
+                        lang,
                     },
                 });
         }
@@ -76,17 +76,17 @@ async function ajaxRequest(url = '', data = {}, type = 'POST', isJson = false) {
         });
     } else if (type === 'PUT') {
         return token ? axios.put(url, data, {
-                headers: { token, lang },
-            }) :
-            axios.put(url, data, {
+            headers: { token, lang },
+        })
+            : axios.put(url, data, {
                 headers: { token, lang },
             });
     } else if (type === 'DELETE') {
         return token ? axios.delete(url, {
-                params: data,
-                headers: { token },
-            }) :
-            axios.delete(url, { headers: { token }, params: data });
+            params: data,
+            headers: { token },
+        })
+            : axios.delete(url, { headers: { token }, params: data });
     }
 }
 
@@ -99,11 +99,11 @@ async function ajaxRequest(url = '', data = {}, type = 'POST', isJson = false) {
  * @param params.flag -> json require, default false
  */
 function requestHandle(params) {
-    let { url, data, type, flag } = params;
+    const { url, data, type, flag, feedback = true } = params;
     return new Promise((resolve, reject) => {
         ajaxRequest(url, data, type, flag).then(
             res => {
-                let { data, success, total, message } = res.data;
+                const { data, success, message } = res.data;
 
                 // console.log('requestHandle-[%s]->', url, res.data);
                 if (success === 1) {
@@ -121,16 +121,17 @@ function requestHandle(params) {
                         // location.href = "/index";
                     }
                     reject(res.data);
-                    Toast(utils.judgeLanguage(utils.getCurrLanguage(store), message));
+                    if (feedback) {
+                        Toast(utils.judgeLanguage(utils.getCurrLanguage(store), message));
+                    }
                 }
             },
             rej => {
                 console.error('[%s] error', url, rej);
-                reject(rej)
+                reject(rej);
             }
         );
-    })
+    });
 }
-
 
 export default requestHandle;
