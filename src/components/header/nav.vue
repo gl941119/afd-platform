@@ -1,25 +1,34 @@
 <template>
     <div class="nav">
         <router-link v-if="linkName" class="nav-link" :to="{name: linkName}">
-            <i class="custom-mint-icon-arrowr"></i>
+            <img src="../../assets/imgs/img/return.png">
         </router-link>
-        <a v-else @click="$router.go(-1)" class="nav-link" href="javacript:;">
-            <i class="custom-mint-icon-arrowr"></i>
+        <a v-else @click="$router.go(-1)" class="nav-link" href="javascript:;">
+            <img src="../../assets/imgs/img/return.png">
         </a>
         <div class="nav-text">{{title}}</div>
+        <router-link v-if="skipName" class="nav-skip" :to="{name: skipName}">
+            {{skipTitle}}
+        </router-link>
     </div>
 </template>
 <script>
     export default {
         name: 'HeaderNav',
-        props: ['linkName', 'title'],
+        props: [
+            'linkName',
+            'title',
+            'skipName',
+            'skipTitle',
+        ],
         data() {
-            return {}
-        }
-    }
+            return {};
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
+
     .nav {
         height: pxTorem(44px);
         @include remCalc(padding, 0, 14px);
@@ -29,6 +38,7 @@
         top: 0;
         right: 0;
         width: 100%;
+
         &-link {
             height: 100%;
             @include remCalc(padding, 0, 10px);
@@ -36,11 +46,16 @@
             color: #979797;
             @include content-flex(center);
         }
+
         &-text {
             flex: auto;
             text-align: center;
             font-size: 16px;
             color: rgba(51, 51, 51, 1);
+        }
+        &-skip {
+            font-size: 14px;
+            color: #3B98FC;
         }
     }
 </style>
