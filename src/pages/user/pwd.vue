@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <header-nav skip-name="pwd" skip-title="密码登录"></header-nav>
+        <header-nav :skip-name="'login'" skip-title="快速登录"></header-nav>
         <img class="login-img" src="../../assets/imgs/img/login-logo.png">
         <div class="login_info">
             <input style="display:none">
@@ -60,7 +60,7 @@
                 } = this;
                 if (account) {
                     const val = account.indexOf('@');
-                    const type = val ? 1 : 0;
+                    const type = val > -1 ? 1 : 0;
                     Request({
                         url: 'Login',
                         data: {
@@ -169,7 +169,7 @@
                 background: #ccc;
                 border-radius: 4px;
                 font-size: 16px;
-                color: rgba(51, 51, 51, 1);
+                color: #fff;
             }
 
             .blue_button {

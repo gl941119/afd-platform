@@ -155,7 +155,7 @@
                 background: #ccc;
                 border-radius: 4px;
                 font-size: 16px;
-                color: rgba(51, 51, 51, 1);
+                color: #FFF;
             }
 
             .blue_button {

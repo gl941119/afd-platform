@@ -51,7 +51,8 @@
             flex: auto;
             text-align: center;
             font-size: 16px;
-            color: rgba(51, 51, 51, 1);
+            color: #303030;
+            font-weight: bold;
         }
         &-skip {
             font-size: 14px;
