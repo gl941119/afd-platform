@@ -5,16 +5,16 @@
         <div class="login_info">
             <input style="display:none">
             <div class="login_info_box">
-                <input class="login_info_box_kind" v-validate="'required|phone'" name="phone" placeholder="请输入手机号" autocomplete="off" v-model="phone" />
+                <input class="login_info_box_kind" v-validate="{required: true, regex: /^((13|14|15|17|18)[0-9]{1}\d{8})$/}" name="phone" placeholder="请输入手机号" autocomplete="off" v-model="phone" />
                 <span class="is-danger" v-show="errors.has('phone')">{{errors.first('phone')}}</span>
             </div>
             <div class="login_info_box">
                 <input class="login_info_box_kind" autocomplete="off" placeholder="请输入验证码" v-model="verify" />
                 <van-button v-if="disabled" @click="sendVerify" size="small" :class="{'lost-active': !isPhoneCorrect}" type="warning">获取验证码</van-button>
-                <van-button v-else size="small" class="lost-active" type="warning">({{num}}s)后重试</van-button>
+                <van-button v-else size="small" class="lost-active">({{num}}s)后重试</van-button>
             </div>
             <div class="login_buttonBox">
-                <van-button type="warning" :class="{'blue_button':isSelected }" @click.native="login()" :disabled="!isSelected" class="login_buttonBox_button">快速登录</van-button>
+                <van-button type="warning" :class="{'blue_button':isSelected }" @click="login()" :disabled="!isSelected" class="login_buttonBox_button">快速登录</van-button>
             </div>
             <div class="login_notic">
                 <a href="javascript:;" @click="$router.push({name: 'register'})">新用户注册</a>
@@ -81,6 +81,7 @@
                                 this.num = 60;
                             }
                         }, 1000);
+                        this.$toast(this.utils.judgeLanguage(this.language, res.message));
                     }).catch((err) => {
                         console.error(err);
                     });
