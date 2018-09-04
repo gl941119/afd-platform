@@ -18,10 +18,16 @@ const Project = () =>
     import('@/pages/project/project');
 const Crowdfunding = () =>
     import('@/pages/crowdfunding/crowdfunding');
+// mine
 const Mine = () =>
     import('@/pages/mine/mine');
+// Purse
 const Purse = () =>
     import('@/pages/mine/purse/purse');
+// Transaction
+const Transaction = () =>
+    import('@/pages/mine/purse/records');
+// Information
 const Information = () =>
     import('@/pages/mine/information/information');
 const Authentication = () =>
@@ -30,14 +36,19 @@ const AuthImg = () =>
     import('@/pages/mine/information/authImg');
 const HeaderUrl = () =>
     import('@/pages/mine/information/headerUrl');
+// mine-owner
 const Revenue = () =>
-    import('@/pages/mine/revenue/revenue');
+    import('@/pages/mine/mine-owner/revenue');
 const Records = () =>
-    import('@/pages/mine/revenue/records');
+    import('@/pages/mine/mine-owner/records');
 const RecordsOne = () =>
-    import('@/pages/mine/revenue/recordsOne');
-const Invite = () =>
-    import('@/pages/mine/invite/invite');
+    import('@/pages/mine/mine-owner/recordsOne');
+// Mining
+const Mining = () =>
+    import('@/pages/mine/mining/mining');
+// Account-safe
+const Account = () =>
+    import('@/pages/mine/account-safe/account');
 
 Vue.use(Router);
 
@@ -125,6 +136,11 @@ export default new Router({
             component: Purse,
         },
         {
+            path: '/transaction',
+            name: 'transaction',
+            component: Transaction,
+        },
+        {
             path: '/revenue',
             name: 'revenue',
             component: Revenue,
@@ -143,9 +159,14 @@ export default new Router({
             ],
         },
         {
-            path: '/invite',
-            name: 'invite',
-            component: Invite,
+            path: '/mining',
+            name: 'mining',
+            component: Mining,
+        },
+        {
+            path: '/account',
+            name: 'account',
+            component: Account,
         },
         { path: '*', redirect: '/' },
     ],

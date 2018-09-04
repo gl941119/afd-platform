@@ -33,7 +33,8 @@
         height: pxTorem(44px);
         @include remCalc(padding, 0, 14px);
         @include content-flex();
-        background: #ffffff;
+        background:rgba(12,60,110,1);
+        color: #FFFFFF;
         position: fixed;
         top: 0;
         right: 0;
@@ -43,7 +44,7 @@
             height: 100%;
             @include remCalc(padding, 0, 10px);
             margin-left: pxTorem(-14px);
-            color: #979797;
+            color: #FFFFFF;
             @include content-flex(center);
         }
 

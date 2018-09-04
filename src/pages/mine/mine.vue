@@ -1,26 +1,63 @@
 <template>
     <div class="mine">
-        <mt-cell is-link class="mine_top" to="/information">
-            <div class="mine_info" slot="title">
-                <div class="mine_info_img">
-                    <img slot="icon" :src="headUrl">
+        <div class="mine-top">
+            <div class="mine-top-info">
+                <div class="mine-top-info-img" @click="userInfo()">
+                    <img :src="headUrl">
                 </div>
-                <span class="mine_info_nickname">昵称：{{nickname}}</span>
+                <span class="mine-top-info-nickname" @click="userInfo()">昵称：{{nickname}}</span>
             </div>
-        </mt-cell>
-        <div>
-            <mt-cell class="mine_kind" title="钱包" to="/purse" is-link>
-            </mt-cell>
-            <mt-cell class="mine_kind" title="广告收益" to="/revenue" is-link>
-            </mt-cell>
-            <mt-cell class="mine_kind" title="邀请用户" to="/invite" is-link>
-            </mt-cell>
+            <div class="mine-top-money">
+                <div class="mine-top-money-title">总资产（AFDT）</div>
+                <div class="mine-top-money-large">99.00</div>
+            </div>
+            <div class="mine-top-money kind">
+                <div>
+                    <div class="mine-top-money-title">昨日收益（AFDT）</div>
+                    <div class="mine-top-money-large">99.00</div>
+                </div>
+                <div>
+                    <div class="mine-top-money-title">累计收益（AFDT）</div>
+                    <div class="mine-top-money-large">99.00</div>
+                </div>
+            </div>
         </div>
-        <mt-cell class="mine_last" title="我的众筹" @click.native="inDevelopment()" is-link>
-        </mt-cell>
-        <div class="mine_buttonBox">
-            <mt-button class="mine_buttonBox_button" @click.native="logOut" type="primary" size="large">退出登录</mt-button>
+        <div class="mine-item">
+            <van-cell class="mine-item-kind" is-link to="/purse">
+                <van-icon slot="icon">
+                    <i class="custom-vant-icon-wallet fonts blue"></i>
+                </van-icon>
+                <template slot="title">
+                    <span class="van-cell-text">钱包</span>
+                </template>
+            </van-cell>
         </div>
+        <div class="mine-item">
+            <van-cell class="mine-item-kind common first" is-link to="/revenue">
+                <van-icon slot="icon">
+                    <i class="custom-vant-icon-qianbao fonts red"></i>
+                </van-icon>
+                <template slot="title">
+                    <span class="van-cell-text">矿主收益</span>
+                </template>
+            </van-cell>
+            <van-cell class="mine-item-kind common last" is-link to="/mining">
+                <van-icon slot="icon">
+                    <i class="custom-vant-icon-ziyuan fonts orange"></i>
+                </van-icon>
+                <template slot="title">
+                    <span class="van-cell-text">挖矿收益</span>
+                </template>
+            </van-cell>
+        </div>
+        <van-cell class="mine_last" icon="shop" is-link to="/account">
+            <van-icon slot="icon">
+                <i class="custom-vant-icon-shezhi fonts"></i>
+            </van-icon>
+            <template slot="title">
+                <span class="van-cell-text">账号与安全</span>
+            </template>
+        </van-cell>
     </div>
 </template>
 <script>
@@ -39,11 +76,9 @@
             this.basicInformation();
         },
         methods: {
-            inDevelopment() {
-                this.$toast({
-                    message: '开发中',
-                    position: 'top',
-                    duration: 5000,
+            userInfo() {
+                this.$router.push({
+                    name: 'information',
                 });
             },
             basicInformation() {
@@ -89,61 +124,122 @@
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
+
     .mine {
         background: #fafafa;
         overflow-y: scroll;
         flex: 1;
         display: flex;
         flex-direction: column;
-        &_info {
-            height: pxTorem(106px);
-            line-height: pxTorem(106px);
-            margin-left: pxTorem(10px);
-            position: relative;
-            &_img {
-                width: pxTorem(44px);
-                height: pxTorem(44px);
-                img {
-                    width: pxTorem(44px);
-                    height: pxTorem(44px);
-                    border-radius: 50%;
-                    display: inline-block;
-                    margin-right: pxTorem(13px);
-                    vertical-align: middle;
+
+        &-top {
+            height: pxTorem(193px);
+            background: #0c3c6e;
+            @include remCalc(padding, 0, 24px);
+            color: #ffffff;
+            font-size: 13px;
+
+            &-info {
+                margin-bottom: pxTorem(20px);
+                position: relative;
+
+                &-img {
+                    width: pxTorem(46px);
+                    height: pxTorem(46px);
+                    margin-top: pxTorem(16px);
+
+                    img {
+                        width: pxTorem(46px);
+                        height: pxTorem(46px);
+                        border-radius: 50%;
+                        display: inline-block;
+                        margin-right: pxTorem(13px);
+                        vertical-align: middle;
+                    }
+                }
+
+                &-nickname {
+                    font-size: 12px;
+                    position: absolute;
+                    top: 29px;
+                    left: 58px;
                 }
             }
-            &_nickname {
-                font-size: 12px;
-                color: #333333;
-                position: absolute;
-                top: 0;
-                left: 58px;
+
+            &-money {
+                &.kind {
+                    margin-top: 16px;
+                    display: flex;
+                    justify-content: space-between;
+
+                    >div {
+                        width: pxTorem(140px);
+                    }
+                }
+
+                &-title {
+                    height: 18px;
+                    line-height: 18px;
+                }
+
+                &-large {
+                    font-size: 18px;
+                    height: 25px;
+                    line-height: 25px;
+                }
             }
         }
-        &_top {
-            height: pxTorem(106px);
-            margin-bottom: pxTorem(10px);
+
+        &-item {
+            margin-bottom: 10px;
+
+            &-kind {
+                font-size: 17px;
+                color: rgba(0, 0, 0, 1);
+                border-bottom: 1px solid #e5e5e5;
+
+                &.common {
+                    border: 0;
+                }
+
+                &.first {
+                    border-top: 1px solid #e5e5e5;
+                }
+
+                &.last {
+                    border-bottom: 1px solid #e5e5e5;
+                }
+
+                .fonts {
+                    font-size: 22px;
+                    margin-right: 8px;
+                }
+
+                .blue {
+                    color: #3B98FC;
+                }
+
+                .red {
+                    margin-right: 12px;
+                    color: #E8541E;
+                }
+
+                .orange {
+                    margin-right: 12px;
+                    color: #F39C2D;
+                }
+            }
         }
-        &_kind {
-            font-size: 12px !important;
-            color: rgba(51, 51, 51, 1);
-            border-bottom: 1px solid #e6e6e6;
-        }
-        .mine_kind:last-child {
-            border: 0;
-        }
+
         &_last {
-            @include remCalc(margin, 10px, 0);
-        }
-        &_buttonBox {
-            background: #ffffff;
-            @include remCalc(padding, 20px, 30px, 0);
-            flex: 1;
-            &_button {
-                background: #f3f3f3;
-                margin: 0 auto;
-                color: #333333;
-                font-size: 12px;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 17px;
+
+            .fonts {
+                color: #3B98FC;
+                font-size: 22px;
+                margin-right: 8px;
             }
         }
     }
