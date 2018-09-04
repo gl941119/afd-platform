@@ -73,7 +73,7 @@
                 font-size: 10px;
                 color: #ACACAC;
                 &.router-link-active {
-                    color: #009EC2;
+                    color: #3B98FC;
                     .footer_item_li_home {
                         background-position: 0 -30px;
                     }
@@ -85,7 +85,7 @@
                     }
                 }
                 &.mine-active {
-                    color: #009EC2;
+                    color: #3B98FC;
                     .footer_item_li_mine {
                         background-position: -90px -30px;
                     }
