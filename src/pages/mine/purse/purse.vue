@@ -31,11 +31,6 @@
                     <p>我的-钱包-交易记录</p>
                 </div>
             </div>
-            <!-- <input class="purse_balance_address" placeholder="输入ETH钱包地址" :disabled="disabled" v-model="purseAddress" />
-            <div class="purse_balance_bind">
-                <mt-button v-if="!disabled" @click.native="bind" plain>绑定地址</mt-button>
-                <mt-button v-else plain>已绑定</mt-button>
-            </div> -->
         </div>
     </div>
 </template>
@@ -46,7 +41,6 @@
         data() {
             return {
                 purseAddress: '',
-                disabled: false,
                 balance: '0',
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
                 style: false,
@@ -69,31 +63,6 @@
             withdraw() {
                 console.log('withdraw');
             },
-            bind() {
-                var str = this.purseAddress;
-                var value = /^0x.{40}$/.test(str);
-                if (value) {
-                    Request({
-                        url: 'QueryBindWalletAddress',
-                        data: { id: this.accountId, walletAddress: this.purseAddress },
-                        type: 'post',
-                        flag: true,
-                    }).then(res => {
-                        this.$toast({
-                            message: this.$t('messageNotice.bindSuccess'),
-                            position: 'center',
-                            duration: 5000,
-                        });
-                        this.queryWallet();
-                    });
-                } else {
-                    this.$toast({
-                        message: this.$t('messageNotice.walltLimit'),
-                        position: 'center',
-                        duration: 5000,
-                    });
-                }
-            },
             queryWallet() {
                 Request({
                     url: 'QueryWalletAddress',
@@ -103,12 +72,11 @@
                 }).then(res => {
                     this.purseAddress = res.data.walletAddress;
                     if (res.data.walletAddress) {
-                        this.disabled = true;
-                        this.QueryBalance();
+                        this.queryBalance();
                     }
                 }).catch(e => { if (e.data && e.data.islogin) { this.$router.push({ name: 'index' }); } });
             },
-            QueryBalance() {
+            queryBalance() {
                 Request({
                     url: 'QueryBalance',
                     data: { address: this.purseAddress },
@@ -196,26 +164,6 @@
                     }
                 }
             }
-
-            // &_address {
-            //     width: 100%;
-            //     height: pxTorem(30px);
-            //     border: 1px solid rgba(151, 151, 151, 1);
-            //     padding-left: pxTorem(10px);
-            //     @include remCalc(margin, 10px, 0, 20px);
-            // }
-            // &_bind {
-            //     button {
-            //         width: pxTorem(88px);
-            //         height: pxTorem(24px);
-            //         border: 1px solid rgba(216, 216, 216, 1);
-            //         font-size: 12px;
-            //     }
-            //     button:last-child {
-            //         background: rgba(243, 243, 243, 1);
-            //         border: 0;
-            //     }
-            // }
         }
     }
 </style>

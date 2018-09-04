@@ -26,7 +26,7 @@
                     </div>
                 </van-icon>
             </van-cell>
-            <van-cell title="钱包地址" class="account-item-kind" is-link>
+            <van-cell title="钱包地址" class="account-item-kind" to="/walletAddress" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text">未绑定</span>
                     <div class="account-item-kind-fontBox">

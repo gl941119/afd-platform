@@ -49,6 +49,8 @@ const Mining = () =>
 // Account-safe
 const Account = () =>
     import('@/pages/mine/account-safe/account');
+const WalletAddress = () =>
+    import('@/pages/mine/account-safe/children/wallet-address');
 
 Vue.use(Router);
 
@@ -167,6 +169,11 @@ export default new Router({
             path: '/account',
             name: 'account',
             component: Account,
+        },
+        {
+            path: '/walletAddress',
+            name: 'walletAddress',
+            component: WalletAddress,
         },
         { path: '*', redirect: '/' },
     ],
