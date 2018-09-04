@@ -1,8 +1,28 @@
 <template>
     <div class="information">
-        <header-nav linkName="mine" title="个人信息"></header-nav>
-        <div class="information_kindBox">
-            <mt-cell class="information_kindBox_kind" to="/headerUrl" title="头像" is-link>
+        <header-nav linkName="mine" title="个人资料"></header-nav>
+        <div class="information-item">
+            <van-cell title="头像" class="information-item-kind headerUrl" is-link>
+                <van-icon slot="right-icon">
+                    <img class="information-item-kind-img" :src="headUrl" />
+                    <div class="information-item-kind-fontBox">
+                        <i class="custom-vant-icon-right"></i>
+                    </div>
+                </van-icon>
+            </van-cell>
+        </div>
+        <div class="information-item topMini">
+            <van-cell title="用户名" class="information-item-kind userName" is-link>
+                <van-icon slot="right-icon">
+                    <span class="information-item-kind-text">用户名</span>
+                    <div class="information-item-kind-fontBox">
+                        <i class="custom-vant-icon-right"></i>
+                    </div>
+                </van-icon>
+            </van-cell>
+        </div>
+    </div>
+    <!-- <mt-cell class="information_kindBox_kind" to="/headerUrl" title="头像" is-link>
             </mt-cell>
             <mt-cell class="information_kindBox_kind" @click.native="openInfo(1)" title="昵称" is-link>
             </mt-cell>
@@ -13,9 +33,8 @@
             <mt-cell class="information_kindBox_kind" @click.native="inDevelopment()" title="绑定Telegram" is-link>
             </mt-cell>
             <mt-cell class="information_kindBox_kind" @click.native="authentication()" title="实名认证" is-link>
-            </mt-cell>
-        </div>
-        <div class="popup" v-if="proup" @click="openInfo">
+            </mt-cell> -->
+    <!-- <div class="popup" v-if="proup" @click="openInfo">
             <div class="popup_box" @click.stop>
                 <div class="popup_box_nickname" v-if="nicknameShow">
                     <p class="popup_box_nickname_title">新的昵称</p>
@@ -73,8 +92,7 @@
                     <mt-button @click.native="changeTradePassword" class="popup_box_nickname_button" type="primary" popup_box_nickname_input size="large">确认</mt-button>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> -->
 </template>
 <script>
     import Cache from '../../../utils/cache.js';
@@ -92,6 +110,7 @@
                 nicknameShow: false, // 昵称
                 nicknameValue: this.$store.state.usernickname || Cache.getSession('bier_usernickname'),
                 username: this.$store.state.username || Cache.getSession('bier_username'),
+                headUrl: this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png',
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
                 token: this.$store.state.token || Cache.getSession('bier_token'),
                 loginPasswordShow: false, // 登录密码
@@ -368,86 +387,138 @@
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';
+
     .information {
+        height: 100%;
         background: #fafafa;
-        overflow-y: scroll;
-        &_kindBox {
-            margin-top: pxTorem(55px);
-            &_kind {
-                color: rgba(51, 51, 51, 1);
-                border-bottom: 1px solid #e6e6e6;
-            }
-        }
-        &_popupVisible {
-            padding: pxTorem(5px);
-            &_title {
-                font-size: 16px;
-                text-align: center;
-                margin-bottom: pxTorem(5px);
-            }
-            &_buttonbox {
-                display: flex;
-                justify-content: center;
-                margin-top: pxTorem(5px);
-                &_button {
-                    width: pxTorem(60px);
-                    height: pxTorem(30px);
-                    background: rgba(0, 158, 194, 1);
-                    border-radius: 4px;
-                    color: #ffffff;
-                    font-size: 14px;
-                }
-            }
-        }
-        .popup {
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 111;
-            &_box {
-                background: #ffffff;
-                width: pxTorem(298px);
-                @include remCalc(padding, 15px, 20px, 0);
-                &_nickname {
-                    height: pxTorem(150px);
-                    &_title {
+        &-item {
+            margin-top: pxTorem(44px);
+            &-kind {
+                font-size: 17px;
+                border-bottom: 1px solid #e5e5e5;
+
+                &-fontBox {
+                    display: inline-block;
+
+                    i {
+                        color: #999;
                         font-size: 16px;
-                        color: rgba(51, 51, 51, 1);
-                        margin-bottom: pxTorem(20px);
-                    }
-                    &_button {
-                        width: pxTorem(150px);
-                        height: pxTorem(30px);
-                        background: rgba(0, 158, 194, 1);
-                        border-radius: 4px;
-                        color: #ffffff;
-                        font-size: 16px;
-                        margin: 0 auto;
-                    }
-                    &_codebox {
-                        @include remCalc(padding, 0, 10px);
-                        text-align: right;
-                        &_code {
-                            color: #009ec2;
-                            font-size: 12px;
-                            margin-bottom: pxTorem(20px);
-                            background: transparent;
-                        }
-                    }
-                    .gray {
-                        color: rgba(174, 174, 174, 1);
                     }
                 }
+                &.headerUrl{
+                    padding: 5px 15px;
+                    line-height: 36px;
+                }
+                &-img {
+                    height: 36px;
+                    border-radius: 50%;
+                }
+
+                &.userName {
+                    border-top: 1px solid #e5e5e5;
+                }
+
+                &-text {
+                    font-size: 16px;
+                }
             }
-            .passwordBox {
-                height: pxTorem(328px);
+
+            &.topMini {
+                margin-top: pxTorem(10px);
             }
         }
+
+        // &_kindBox {
+        //     margin-top: pxTorem(55px);
+
+        //     &_kind {
+        //         color: rgba(51, 51, 51, 1);
+        //         border-bottom: 1px solid #e6e6e6;
+        //     }
+        // }
+
+        // &_popupVisible {
+        //     padding: pxTorem(5px);
+
+        //     &_title {
+        //         font-size: 16px;
+        //         text-align: center;
+        //         margin-bottom: pxTorem(5px);
+        //     }
+
+        //     &_buttonbox {
+        //         display: flex;
+        //         justify-content: center;
+        //         margin-top: pxTorem(5px);
+
+        //         &_button {
+        //             width: pxTorem(60px);
+        //             height: pxTorem(30px);
+        //             background: rgba(0, 158, 194, 1);
+        //             border-radius: 4px;
+        //             color: #ffffff;
+        //             font-size: 14px;
+        //         }
+        //     }
+        // }
+
+        // .popup {
+        //     width: 100%;
+        //     height: 100%;
+        //     background: rgba(0, 0, 0, 0.5);
+        //     position: fixed;
+        //     top: 0;
+        //     left: 0;
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: center;
+        //     z-index: 111;
+
+        //     &_box {
+        //         background: #ffffff;
+        //         width: pxTorem(298px);
+        //         @include remCalc(padding, 15px, 20px, 0);
+
+        //         &_nickname {
+        //             height: pxTorem(150px);
+
+        //             &_title {
+        //                 font-size: 16px;
+        //                 color: rgba(51, 51, 51, 1);
+        //                 margin-bottom: pxTorem(20px);
+        //             }
+
+        //             &_button {
+        //                 width: pxTorem(150px);
+        //                 height: pxTorem(30px);
+        //                 background: rgba(0, 158, 194, 1);
+        //                 border-radius: 4px;
+        //                 color: #ffffff;
+        //                 font-size: 16px;
+        //                 margin: 0 auto;
+        //             }
+
+        //             &_codebox {
+        //                 @include remCalc(padding, 0, 10px);
+        //                 text-align: right;
+
+        //                 &_code {
+        //                     color: #009ec2;
+        //                     font-size: 12px;
+        //                     margin-bottom: pxTorem(20px);
+        //                     background: transparent;
+        //                 }
+        //             }
+
+        //             .gray {
+        //                 color: rgba(174, 174, 174, 1);
+        //             }
+        //         }
+        //     }
+
+        //     .passwordBox {
+        //         height: pxTorem(328px);
+        //     }
+        // }
     }
 </style>
