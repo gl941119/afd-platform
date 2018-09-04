@@ -1,10 +1,12 @@
 <template>
-    <div class="nav">
+    <div class="nav" :class="{'blue-background': isBlue}">
         <router-link v-if="linkName" class="nav-link" :to="{name: linkName}">
-            <img src="../../assets/imgs/img/return.png">
+            <img v-if="!isBlue" src="../../assets/imgs/img/return.png">
+            <img v-else src="../../assets/imgs/img/return-white.png">
         </router-link>
         <a v-else @click="$router.go(-1)" class="nav-link" href="javascript:;">
-            <img src="../../assets/imgs/img/return.png">
+            <img v-if="!isBlue" src="../../assets/imgs/img/return.png">
+            <img v-else src="../../assets/imgs/img/return-white.png">
         </a>
         <div class="nav-text">{{title}}</div>
         <router-link v-if="skipName" class="nav-skip" :to="{name: skipName}">
@@ -20,6 +22,7 @@
             'title',
             'skipName',
             'skipTitle',
+            'isBlue',
         ],
         data() {
             return {};
@@ -33,8 +36,6 @@
         height: pxTorem(44px);
         @include remCalc(padding, 0, 14px);
         @include content-flex();
-        background:rgba(12,60,110,1);
-        color: #FFFFFF;
         position: fixed;
         top: 0;
         right: 0;
@@ -44,7 +45,6 @@
             height: 100%;
             @include remCalc(padding, 0, 10px);
             margin-left: pxTorem(-14px);
-            color: #FFFFFF;
             @include content-flex(center);
         }
 
@@ -58,6 +58,12 @@
         &-skip {
             font-size: 14px;
             color: #3B98FC;
+        }
+        &.blue-background {
+            background:rgba(12,60,110,1);
+            .nav-text {
+                color: #FFF;
+            }
         }
     }
 </style>
