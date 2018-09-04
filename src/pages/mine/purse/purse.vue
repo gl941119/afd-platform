@@ -9,7 +9,7 @@
                     <van-button type="primary" :disabled="!style" :class="{'orange':style}" @click="withdraw()">提现</van-button>
                 </div>
                 <div class="purse_balance_box_records" @click="goRecords()">
-                    <i class="custom-vant-icon-chenggong2"></i><span>交易记录</span>
+                    <i class="custom-vant-icon-jiaoyijilu1"></i><span>交易记录</span>
                 </div>
             </div>
             <div class="purse_balance_notic">

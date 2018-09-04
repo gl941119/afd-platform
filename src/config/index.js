@@ -25,6 +25,7 @@ export default {
     QuickSmsLogin: 'blockchainadvert/account/smslogin', // 快速登录
 
     QueryRevenueBasicInformation: 'blockchainadvert/advert-income/account-id', // mine*
+    QueryRevenue: 'blockchainadvert/income-flows/token',
     QueryRevenueAccountFlow: 'blockchainadvert/income-flow/income-id', // 收益账户流水
     QueryMainBasicInformation: 'blockchainadvert/advert-main/account-id', // 主账户
     QueryMainAccountFlow: 'blockchainadvert/main-flow/main-id', // 账户流水

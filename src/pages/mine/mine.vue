@@ -62,6 +62,7 @@
 </template>
 <script>
     import Request from '../../utils/require';
+    import Cache from '../../utils/cache.js';
     export default {
         data() {
             return {
