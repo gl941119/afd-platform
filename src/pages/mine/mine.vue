@@ -9,16 +9,16 @@
             </div>
             <div class="mine-top-money">
                 <div class="mine-top-money-title">总资产（AFDT）</div>
-                <div class="mine-top-money-large">99.00</div>
+                <div class="mine-top-money-large">{{balance}}</div>
             </div>
             <div class="mine-top-money kind">
                 <div>
                     <div class="mine-top-money-title">昨日收益（AFDT）</div>
-                    <div class="mine-top-money-large">99.00</div>
+                    <div class="mine-top-money-large">{{yesterdayBalance}}</div>
                 </div>
                 <div>
                     <div class="mine-top-money-title">累计收益（AFDT）</div>
-                    <div class="mine-top-money-large">99.00</div>
+                    <div class="mine-top-money-large">{{totalRevenue}}</div>
                 </div>
             </div>
         </div>
@@ -61,14 +61,16 @@
     </div>
 </template>
 <script>
-    import Cache from '../../utils/cache.js';
     import Request from '../../utils/require';
     export default {
         data() {
             return {
                 headUrl: this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png',
                 nickname: this.$store.state.usernickname || this.$store.state.username,
-                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+                accountId: this.$store.state.id,
+                balance: '',
+                totalRevenue: '',
+                yesterdayBalance: '',
             };
         },
         mounted() {
@@ -86,6 +88,9 @@
                     data: { accountId: this.accountId },
                     type: 'get',
                 }).then(res => {
+                    this.balance = res.data.balance;
+                    this.totalRevenue = res.data.totalRevenue;
+                    this.yesterdayBalance = res.data.yesterdayBalance;
                     this.$store.commit('setIncomeId', res.data.id);
                     Cache.setSession('bire_incomeId', res.data.id);
                 });
