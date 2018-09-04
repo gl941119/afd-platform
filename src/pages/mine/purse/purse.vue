@@ -15,19 +15,19 @@
             <div class="purse_balance_notic">
                 <div class="purse_balance_notic-title">提现须知：</div>
                 <div class="purse_balance_notic-info">
-                    1、必须完成<span>实名认证</span>
+                    1、必须完成<span @click="goAccount()">实名认证</span>
                     <p>我的-账户与安全-实名认证</p>
                 </div>
                 <div class="purse_balance_notic-info">
-                    2、设置<span>交易密码</span>
+                    2、设置<span @click="goAccount()">交易密码</span>
                     <p>我的-账户与安全-交易密码</p>
                 </div>
                 <div class="purse_balance_notic-info">
-                    3、绑定<span>钱包地址</span>
+                    3、绑定<span @click="goAccount()">钱包地址</span>
                     <p>我的-账户与安全-钱包地址</p>
                 </div>
                 <div class="purse_balance_notic-info">
-                    4、查看<span>提现记录</span>
+                    4、查看提现记录
                     <p>我的-钱包-交易记录</p>
                 </div>
             </div>
@@ -56,6 +56,11 @@
             this.queryWallet();
         },
         methods: {
+            goAccount() {
+                this.$router.push({
+                    name: 'account',
+                });
+            },
             goRecords() {
                 this.$router.push({
                     name: 'transaction',
