@@ -66,7 +66,6 @@
     export default {
         data() {
             return {
-                token: this.$store.state.token || Cache.getSession('bier_token'),
                 headUrl: this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png',
                 nickname: this.$store.state.usernickname || this.$store.state.username,
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
@@ -91,34 +90,7 @@
                     Cache.setSession('bire_incomeId', res.data.id);
                 });
             },
-            logOut() {
-                Request({
-                    url: 'SignOut',
-                    type: 'get',
-                    data: { token: this.token },
-                }).then(res => {
-                    this.handleSignOut();
-                    this.$router.push({ name: 'index' });
-                });
-            },
-            handleSignOut() {
-                this.$store.commit('setUserId', undefined);
-                this.$store.commit('setUserName', undefined);
-                this.$store.commit('setUserNickName', undefined);
-                this.$store.commit('setToken', undefined);
-                this.$store.commit('setHeardUrl', undefined);
-                this.$store.commit('setInviteCode', '');
-                this.$store.commit('setIncomeId', '');
-                Cache.removeCookie('login_identify');
-                Cache.removeCookie('login_token');
-                Cache.removeSession('bier_username');
-                Cache.removeSession('bier_token');
-                Cache.removeSession('bire_incomeId');
-                Cache.removeSession('bier_heardUrl');
-                Cache.removeSession('bier_userid');
-                Cache.removeSession('bier_inviteCode');
-                Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
-            },
+
         },
     };
 </script>
