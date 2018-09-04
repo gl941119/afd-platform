@@ -21,16 +21,16 @@
                     <div class="mine-top-money-large">{{totalRevenue}}</div>
                 </div>
             </div>
+            <div class="mine-top-records" @click="goRecords()">
+                <i class="custom-vant-icon-jiaoyijilu1"></i><span>交易记录</span>
+            </div>
         </div>
-        <div class="mine-item">
-            <van-cell class="mine-item-kind" is-link to="/purse">
-                <van-icon slot="icon">
-                    <i class="custom-vant-icon-wallet fonts blue"></i>
-                </van-icon>
-                <template slot="title">
-                    <span class="van-cell-text">钱包</span>
-                </template>
-            </van-cell>
+        <div class="mine-purse">
+            <div class="mine-purse-money">
+                <div class="mine-purse-money-commom">账户余额（AFDT）</div>
+                <div class="mine-purse-money-commom moneyNumber">{{balance}}</div>
+            </div>
+            <button class="mine-purse-button" type="primary" @click="withdraw()">提现</button>
         </div>
         <div class="mine-item">
             <van-cell class="mine-item-kind common first" is-link to="/revenue">
@@ -78,6 +78,14 @@
             this.basicInformation();
         },
         methods: {
+            withdraw() {
+                console.log('withdraw');
+            },
+            goRecords() {
+                this.$router.push({
+                    name: 'transaction',
+                });
+            },
             userInfo() {
                 this.$router.push({
                     name: 'information',
@@ -116,7 +124,7 @@
             @include remCalc(padding, 0, 24px);
             color: #ffffff;
             font-size: 13px;
-
+            margin-bottom: pxTorem(10px);
             &-info {
                 margin-bottom: pxTorem(20px);
                 position: relative;
@@ -146,7 +154,7 @@
 
             &-money {
                 &.kind {
-                    margin-top: 16px;
+                    margin-top: pxTorem(16px);
                     display: flex;
                     justify-content: space-between;
 
@@ -156,7 +164,7 @@
                 }
 
                 &-title {
-                    height: 18px;
+                    height: pxTorem(18px);
                     line-height: 18px;
                 }
 
@@ -166,10 +174,53 @@
                     line-height: 25px;
                 }
             }
+            &-records{
+                position: absolute;
+                top: 16px;
+                right: 15px;
+                color: #ffffff;
+                font-size: 13px;
+                i{
+                    font-size: 24px;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                }
+                span{
+                    height: pxTorem(24px);
+                    line-height: 24px;
+                }
+            }
         }
-
+        &-purse{
+            height: pxTorem(55px);
+            background:rgba(255,255,255,1);
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: pxTorem(10px);
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px 0 21px;
+            &-money{
+                &-commom{
+                    height:20px;
+                    font-size:14px;
+                    color:rgba(169,169,169,1);
+                    line-height:20px;
+                    &.moneyNumber{
+                        color:rgba(255,149,0,1);
+                    }
+                }
+            }
+            &-button{
+                width:63px;
+                height:30px;
+                border:1px solid rgba(255,149,0,1);
+                background: transparent;
+                font-size:16px;
+                color:rgba(255,149,0,1);
+            }
+        }
         &-item {
-            margin-bottom: 10px;
+            margin-bottom: pxTorem(10px);
 
             &-kind {
                 font-size: 17px;
@@ -217,7 +268,7 @@
             .fonts {
                 color: #3B98FC;
                 font-size: 22px;
-                margin-right: 8px;
+                margin-right: pxTorem(8px);
             }
         }
     }

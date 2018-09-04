@@ -21,12 +21,9 @@ const Crowdfunding = () =>
 // mine
 const Mine = () =>
     import('@/pages/mine/mine');
-// Purse
-const Purse = () =>
-    import('@/pages/mine/purse/purse');
 // Transaction
 const Transaction = () =>
-    import('@/pages/mine/purse/records');
+    import('@/pages/mine/transaction/records');
 // Information
 const Information = () =>
     import('@/pages/mine/information/information');
@@ -131,11 +128,6 @@ export default new Router({
             path: '/headerUrl',
             name: 'headerUrl',
             component: HeaderUrl,
-        },
-        {
-            path: '/purse',
-            name: 'purse',
-            component: Purse,
         },
         {
             path: '/transaction',
