@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 import Cache from '../utils/cache';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
@@ -10,7 +10,7 @@ export default new Vuex.Store({
         username: Cache.getSession('bier_username'),
         usernickname: Cache.getSession('bier_usernickname'),
         token: Cache.getSession('bier_token') || Cache.getCookie('login_token'),
-        incomeId:'',//收益账户根据id请求流水
+        incomeId: '', // 收益账户根据id请求流水
         dialogVisible: false, // share component visible
         conceptId: 0, // advert concept id
         instantBuyVisible: false, // buy dialog visible
@@ -25,10 +25,10 @@ export default new Vuex.Store({
         inviteCode: Cache.getSession('bier_inviteCode') || Cache.getCookie('bier_inviteCode'),
         // mobile add
         showFooter: Cache.getSession('show_footer') || '1', // 是否显示底部导航 string-> '1'-> show '0'-> hide
-        authName:'',
-        authIdType:'',
-        authIdNum:'',
-        authCountry:'',
+        authName: '',
+        authIdType: '',
+        authIdNum: '',
+        authCountry: '',
     },
     mutations: {
         setUserId(state, val) {
@@ -86,7 +86,7 @@ export default new Vuex.Store({
         setShowFooter(state, val) {
             state.showFooter = val;
         },
-        //auth
+        // auth
         setAuthName(state, val) {
             state.authName = val;
         },

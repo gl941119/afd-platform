@@ -12,18 +12,15 @@
                 <div class="mining-titleBox-title-info">AFDT</div>
             </div>
         </div>
-        <div class="mining-notic" v-if="totalInviteData.length===0">
+        <div class="mining-notic" v-if="revenueData.length===0">
             <div>暂无数据</div>
         </div>
         <div class="infoBox" >
-                <div class="mining-titleBox-title" v-for="(item, index) in totalInviteData" :key="index">
-                    <div class="mining-titleBox-title-info">
-                        <span v-if="item.nickname">{{item.nickname}}</span>
-                        <span v-else>{{item.email | emails}}</span>
-                    </div>
-                    <div class="mining-titleBox-title-info">{{item.createTime}}</div>
-                    <div class="mining-titleBox-title-info">{{item.earnings}}</div>
-                </div>
+            <div class="mining-titleBox-title" v-for="(item, index) in revenueData" :key="index">
+                <div class="mining-titleBox-title-info">{{item.createTime}}</div>
+                <div class="mining-titleBox-title-info">{{item.desc}}</div>
+                <div class="mining-titleBox-title-info">{{item.money}}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -35,8 +32,8 @@
         data() {
             return {
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
-                inviteCode: this.$store.state.inviteCode || Cache.getSession('bier_inviteCode'),
-                totalInviteData: [],
+                incomeId: this.$store.state.incomeId || Cache.getSession('bire_incomeId'),
+                revenueData: [],
                 page: Config.pageStart,
                 pageSize: Config.pageSize,
             };
@@ -48,17 +45,22 @@
             },
         },
         mounted() {
-            this.queryInviteData();
+            this.queryRevenue();
         },
         methods: {
-            queryInviteData(page = this.page, pageSize = this.pageSize) {
+            queryRevenue(page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
                     Request({
-                        url: 'QueryInviteData',
-                        data: { page, pageSize, inviteCode: this.inviteCode },
+                        url: 'QueryRevenue',
+                        data: {
+                            dataType: 1,
+                            page,
+                            pageSize,
+                            incomeId: this.incomeId,
+                        },
                         type: 'get',
                     }).then(res => {
-                        this.totalInviteData = res.data;
+                        this.revenueData = res.data;
                     });
                 });
             },

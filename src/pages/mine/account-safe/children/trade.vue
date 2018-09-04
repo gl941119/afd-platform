@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        trade
     </div>
 </template>
 <script>
