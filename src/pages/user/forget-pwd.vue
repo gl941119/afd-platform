@@ -29,9 +29,10 @@
             </div>
         </div>
         <div v-else class="register-success">
-            <i class="custom-mint-icon-duihao"></i>
-            <span>密码修改成功</span>
-            <van-button @click="toLogin" class="register-success-btn">完成</van-button>
+            <i class="custom-vant-icon-chenggong1"></i>
+            <p class="first">密码修改成功</p>
+            <p class="last">{{skip}}s后自动跳转</p>
+            <van-button @click="toLogin" class="register-success-btn">重新登录</van-button>
         </div>
     </div>
 </template>
@@ -44,6 +45,7 @@
             return {
                 num: 60,
                 disabled: true,
+                skip: 3,
                 utils: new Utils(),
                 register: {
                     email: '',
@@ -131,6 +133,14 @@
                             flag: true,
                         }).then(res => {
                             this.success = true;
+                            const timer = setInterval(() => {
+                                this.skip--;
+                                if (this.skip < 1) {
+                                    clearInterval(timer);
+                                    this.toLogin();
+                                    this.skip = 3;
+                                }
+                            }, 1000);
                         });
                     } else {
                         this.$toast('表单格式不匹配');
@@ -157,12 +167,18 @@
         font-size: 48px;
         color: #FF9500;
     }
-    span {
-        color: #aeaeae;
-        font-size: pxTorem(14px);
-        @include remCalc(margin, 30, 0, 60);
+    p {
+        color: #666;
+        font-size: pxTorem(18px);
+        &.first {
+            margin-top: 12px;
+        }
+        &.last {
+            margin-bottom: 43px;
+        }
     }
     &-btn {
+        font-size: pxTorem(18px);
         width: pxTorem(260px);
         background: #FF9500;
         color: #fff;
