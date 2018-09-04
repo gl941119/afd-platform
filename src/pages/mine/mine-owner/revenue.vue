@@ -2,40 +2,43 @@
     <div class="revenue">
         <header-nav linkName="mine" class="revenue-header" title="矿主收益明细"></header-nav>
         <div class="revenue-totalRenvue">
-            <div class="revenue-totalRenvue-money">999999</div>
+            <div class="revenue-totalRenvue-money">{{balance}}</div>
             <div class="revenue-totalRenvue-text">挖矿总收益（AFDT）</div>
         </div>
         <div>
             <ul class="revenue-item">
-                <li class="revenue-item-li" v-for="(item, index) in liData" :key="index" @click="clickLi(index)" :class="{'active':item.style}">{{item.value}}</li>
+                <router-link class="revenue-item-li" tag="li" to="/revenue/recordsOne">邀请注册收益</router-link>
+                <router-link class="revenue-item-li" tag="li" to="/revenue/records">邀请挖矿收益</router-link>
             </ul>
+            <router-view></router-view>
         </div>
     </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                liData: [
-                    {
-                        value: '邀请注册收益',
-                        style: true,
-                    }, {
-                        value: '邀请交易收益',
-                        style: false,
-                    },
-                ],
-            };
+import Request from '../../../utils/require';
+export default {
+    data() {
+        return {
+            balance: 0,
+        };
+    },
+    mounted() {
+        this.queryRevenueBalance();
+    },
+    methods: {
+        queryRevenueBalance() {
+            Request({
+                url: 'QueryRevenueBalance',
+                data: {
+                    dataType: 1,
+                },
+                type: 'get',
+            }).then(res => {
+                this.balance = res.data[0].balance;
+            });
         },
-        methods: {
-            clickLi(index) {
-                this.liData.forEach((item, index) => {
-                    item.style = false;
-                });
-                this.liData[index].style = true;
-            },
-        },
-    };
+    },
+};
 </script>
 <style lang="scss" scoped>
     @import '../../../assets/css/global.scss';
@@ -82,7 +85,7 @@
                 background: #ffffff;
                 text-align: center;
                 line-height: 31px;
-                &.active {
+                &.router-link-active {
                     color: #ffffff;
                     background:rgba(12,60,110,1);
                 }

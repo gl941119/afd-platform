@@ -39,10 +39,10 @@ const HeaderUrl = () =>
 // mine-owner
 const Revenue = () =>
     import('@/pages/mine/mine-owner/revenue');
-const Records = () =>
-    import('@/pages/mine/mine-owner/records');
 const RecordsOne = () =>
-    import('@/pages/mine/mine-owner/recordsOne');
+        import('@/pages/mine/mine-owner/children/records-invite');
+const Records = () =>
+    import('@/pages/mine/mine-owner/children/records-free');
 // Mining
 const Mining = () =>
     import('@/pages/mine/mining/mining');

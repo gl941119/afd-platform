@@ -2,7 +2,7 @@
     <div class="mining">
         <header-nav linkName="mine" class="mining-header" title="挖矿收益明细"></header-nav>
         <div class="mining-totalRenvue">
-            <div class="mining-totalRenvue-money">999999</div>
+            <div class="mining-totalRenvue-money">{{balance}}</div>
             <div class="mining-totalRenvue-text">挖矿总收益（AFDT）</div>
         </div>
         <div class="mining-titleBox">
@@ -31,11 +31,12 @@
     export default {
         data() {
             return {
-                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+                accountId: this.$store.state.id,
                 incomeId: this.$store.state.incomeId || Cache.getSession('bire_incomeId'),
                 revenueData: [],
                 page: Config.pageStart,
                 pageSize: Config.pageSize,
+                balance: 0,
             };
         },
         filters: {
@@ -46,6 +47,7 @@
         },
         mounted() {
             this.queryRevenue();
+            this.queryRevenueBalance();
         },
         methods: {
             queryRevenue(page = this.page, pageSize = this.pageSize) {
@@ -62,6 +64,17 @@
                     }).then(res => {
                         this.revenueData = res.data;
                     });
+                });
+            },
+            queryRevenueBalance() {
+                Request({
+                    url: 'QueryRevenueBalance',
+                    data: {
+                        dataType: 1,
+                    },
+                    type: 'get',
+                }).then(res => {
+                    this.balance = res.data[0].balance;
                 });
             },
         },

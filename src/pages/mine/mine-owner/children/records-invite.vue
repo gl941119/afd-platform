@@ -1,0 +1,95 @@
+<template>
+    <div class="revenue">
+        <div class="revenue-notic" v-if="freeDatas.length===0">
+            <div>暂无数据</div>
+        </div>
+        <div class="revenue-titleBox" ref="revenueWrapper">
+            <div class="revenue-titleBox-title">
+                <div class="revenue-titleBox-title-info">注册时间</div>
+                <div class="revenue-titleBox-title-info">被邀请用户</div>
+                <div class="revenue-titleBox-title-info">获得AFDT</div>
+            </div>
+            <div class="revenue-titleBox-title" v-for="(item, index) in freeDatas" :key="index">
+                <div class="revenue-titleBox-title-info">
+                    {{item.createTime}}
+                </div>
+                <div class="revenue-titleBox-title-info">{{item.desc}}</div>
+                <div class="revenue-titleBox-title-info">
+                    {{item.money}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    import Cache from '../../../../utils/cache.js';
+    import Request from '../../../../utils/require';
+    import Config from '../../../../utils/config.js';
+    export default {
+        data() {
+            return {
+                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
+                id: this.$store.state.incomeId || Cache.getSession('bire_incomeId'),
+                freeDatas: [],
+                page: Config.pageStart,
+                pageSize: Config.pageSize,
+            };
+        },
+        mounted() {
+            this.revenueDatas();
+        },
+        methods: {
+            revenueDatas(page = this.page, pageSize = this.pageSize) {
+                return new Promise((resolve, reject) => {
+                    Request({
+                        url: 'QueryRevenue',
+                        data: {
+                            dataType: 3,
+                            incomeId: this.id,
+                            page,
+                            pageSize,
+                        },
+                        type: 'get',
+                    }).then(res => {
+                        this.freeDatas = res.data;
+                    });
+                });
+            },
+        },
+    };
+</script>
+<style lang="scss" scoped>
+    @import '../../../../assets/css/global.scss';
+    .revenue {
+        background: #fafafa;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &-notic {
+            height: calc(100vh - 50px - 40px - 50px);
+            @include content-flex(center);
+        }
+        &-bottom {
+            @extend %load-more;
+        }
+        &-titleBox {
+            overflow: hidden;
+            overflow-y: scroll;
+            width: 100%; // margin-bottom: 51px;
+            height: pxTorem(515px);
+            &-title {
+                height: pxTorem(40px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-bottom: 1px solid #D8D8D8;
+                background: #ffffff;
+                text-align: center;
+                &-info {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+</style>
