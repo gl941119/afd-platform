@@ -29,11 +29,11 @@ Vue.component(AdvertItem.name, AdvertItem);
 
 // for development
 /* eslint no-unused-vars: [2, { "varsIgnorePattern": "Console" }] */
-var vConsole;
-if (process.env.NODE_ENV === 'development') {
-    vConsole = new VConsole();
-    console.log('VConsole is cool');
-}
+// var vConsole;
+// if (process.env.NODE_ENV === 'development') {
+//     vConsole = new VConsole();
+//     console.log('VConsole is cool');
+// }
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key]);

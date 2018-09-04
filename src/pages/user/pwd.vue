@@ -1,23 +1,26 @@
 <template>
     <div class="login">
-        <header-nav :skip-name="'pwd'" skip-title="密码登录"></header-nav>
+        <header-nav :skip-name="'login'" skip-title="快速登录"></header-nav>
         <img class="login-img" src="../../assets/imgs/img/login-logo.png">
         <div class="login_info">
             <input style="display:none">
             <div class="login_info_box">
-                <input class="login_info_box_kind" v-validate="{required: true, regex: /^((13|14|15|17|18)[0-9]{1}\d{8})$/}" name="phone" placeholder="请输入手机号" autocomplete="off" v-model="phone" />
-                <span class="is-danger" v-show="errors.has('phone')">{{errors.first('phone')}}</span>
+                <input class="login_info_box_kind" name="phone" placeholder="请输入邮箱或手机号" autocomplete="off" v-model="account" />
             </div>
             <div class="login_info_box">
+                <input class="login_info_box_kind" autocomplete="off" type="password" placeholder="请输入密码" v-model="password" />
+            </div>
+            <div class="login_info_box verify-code">
                 <input class="login_info_box_kind" autocomplete="off" placeholder="请输入验证码" v-model="verify" />
-                <van-button v-if="disabled" @click="sendVerify" size="small" :class="{'lost-active': !isPhoneCorrect}" type="warning">获取验证码</van-button>
-                <van-button v-else size="small" class="lost-active">({{num}}s)后重试</van-button>
+                <img class="verify-code-img" width="84" height="40" :src="'data:image/png;base64, ' + base64Str">
+                <div class="verify-code-text" @click="getCode"><span>看不清,换一张</span></div>
             </div>
             <div class="login_buttonBox">
-                <van-button type="warning" :class="{'blue_button':isSelected }" @click="login()" :disabled="!isSelected" class="login_buttonBox_button">快速登录</van-button>
+                <van-button type="warning" :class="{'blue_button':isSelected }" @click.native="login()" :disabled="!isSelected" class="login_buttonBox_button">登录</van-button>
             </div>
             <div class="login_notic">
                 <a href="javascript:;" @click="$router.push({name: 'register'})">新用户注册</a>
+                <a href="javascript:;" @click="$router.push({name: 'forget'})">忘记密码？</a>
             </div>
         </div>
     </div>
@@ -30,73 +33,58 @@
         name: 'QuickLogin',
         data() {
             return {
-                phone: '',
+                account: '',
+                password: '',
                 verify: '',
                 id: this.$store.state.id,
-                num: 60,
-                disabled: true,
+                validateKey: '  ',
+                base64Str: '',
             };
+        },
+        mounted() {
+            this.getCode();
         },
         computed: {
             isSelected() {
-                if (this.phone && this.verify) {
+                if (this.account && this.verify && this.password) {
                     return true;
                 }
                 return false;
             },
-            isPhoneCorrect() {
-                return this.fieldBags['phone'] && this.fieldBags['phone'].valid;
-            },
         },
         methods: {
             login() {
-                Request({
-                    url: 'QuickSmsLogin',
-                    data: {
-                        phone: validateFun.encrypt(this.phone),
-                        validateCode: this.verify,
-                    },
-                    type: 'post',
-                    flag: true,
-                    feedback: false,
-                }).then(res => {
-                    this.handleLoginSucc(res.data);
-                }).catch(e => {
-                    console.log('err', e);
-                    if (e.message === '1004') {
-                        this.$dialog.confirm({
-                            title: '提示',
-                            message: '该账户不存在，请先注册',
-                        }).then(() => {
-                            this.$router.push({ name: 'register' });
-                        }).catch(console.log);
-                    }
-                });
-            },
-            sendVerify() {
-                if (this.phone) {
+                const {
+                    account,
+                    password,
+                } = this;
+                if (account) {
+                    const val = account.indexOf('@');
+                    const type = val > -1 ? 1 : 0;
                     Request({
-                        url: 'SendSmsVerify',
+                        url: 'Login',
                         data: {
-                            phone: this.phone,
+                            email: validateFun.encrypt(account),
+                            password: validateFun.encrypt(password),
+                            validateCode: this.verify,
+                            validateKey: this.validateKey,
+                            loginType: type,
                         },
-                    }).then((res) => {
-                        this.disabled = false;
-                        const timer = setInterval(() => {
-                            this.num--;
-                            if (this.num < 1) {
-                                clearInterval(timer);
-                                this.disabled = true;
-                                this.num = 60;
-                            }
-                        }, 1000);
-                        this.$toast(this.utils.judgeLanguage(this.language, res.message));
-                    }).catch((err) => {
-                        console.error(err);
+                        type: 'post',
+                        flag: true,
+                    }).then(res => {
+                        this.handleLoginSucc(res.data);
                     });
-                } else {
-                    this.$toast('手机号不能为空');
                 }
+            },
+            getCode() {
+                Request({
+                    url: 'GetVerifyFromSer',
+                    type: 'get',
+                }).then(res => {
+                    this.base64Str = res.data.base64Str;
+                    this.validateKey = res.data.validateKey;
+                });
             },
             handleLoginSucc(data) {
                 const { id, email, nickname, token, heardUrl } = data;
@@ -146,6 +134,23 @@
                     flex: 1;
                     background: transparent;
                 }
+                &.verify-code {
+                    border: none;
+                    .login_info_box_kind {
+                        width: 85px;
+                        border-bottom: 1px solid #d8d8d8;
+                    }
+                    .verify-code-img {
+                        border: 1px solid #d8d8d8;
+                        margin: 0 pxTorem(5px);
+                    }
+                    .verify-code-text {
+                        height: 40px;
+                        color: #666666;
+                        @include content-flex(flex-start, flex-end);
+                        font-size: 12px;
+                    }
+                }
 
                 span.is-danger {
                     position: absolute;
@@ -164,7 +169,7 @@
                 background: #ccc;
                 border-radius: 4px;
                 font-size: 16px;
-                color: #FFF;
+                color: #fff;
             }
 
             .blue_button {

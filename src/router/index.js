@@ -7,6 +7,8 @@ const SearchCom = () =>
 // user
 const LoginCom = () =>
     import('@/pages/user/login');
+const PwdLogin = () =>
+        import('@/pages/user/pwd');
 const RegisterCom = () =>
     import('@/pages/user/register');
 const ForgetPwdCom = () =>
@@ -73,6 +75,11 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: LoginCom,
+        },
+        {
+            path: '/pwd',
+            name: 'pwd',
+            component: PwdLogin,
         },
         {
             path: '/register',

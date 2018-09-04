@@ -1,45 +1,42 @@
 <template>
     <div class="register">
         <header-nav></header-nav>
+        <img class="register-img" src="../../assets/imgs/img/login-logo.png">
         <div class="register_info">
+            <div class="register_info_number">
+                <span>+86 中国大陆</span>
+                <i class="custom-mint-icon-xialaanniu1"></i>
+            </div>
             <input style="display:none">
             <div class="register_info_box">
-                <label class="register_info_box_label">账号：</label>
-                <input type="text" v-validate="'required|email'" name="email" v-model="register.email" class="register_info_box_kind" placeholder="请输入邮箱" autocomplete="off" />
-                <span class="is-danger" v-show="errors.has('email')">{{errors.first('email')}}</span>
+                <input class="register_info_box_kind" v-validate="{required: true, regex: /^((13|14|15|17|18)[0-9]{1}\d{8})$/}" name="phone" placeholder="请输入手机号" autocomplete="off" v-model="register.phone" />
+                <span class="is-danger" v-show="errors.has('phone')">{{errors.first('phone')}}</span>
             </div>
             <div class="register_info_box verify">
-                <label class="register_info_box_label">验证码：</label>
-                <input type="text" v-validate="'required'" name="verifyCode" v-model="register.verifyCode" class="register_info_box_kind" autocomplete="off" />
+                <input class="register_info_box_kind" autocomplete="off" placeholder="请输入验证码" v-validate="'required'" name="verifyCode" v-model="register.verify" />
                 <span class="is-danger" v-show="errors.has('verifyCode')">{{errors.first('verifyCode')}}</span>
-                <div class="register_info_box_buttonbox">
-                    <mt-button v-if="disabled" @click.native="sendVerifyCode" plain size="small" class="register_info_box_buttonbox_button">获取验证码</mt-button>
-                    <mt-button v-else @click.native="sendVerifyCode" plain size="small" class="register_info_box_buttonbox_button">(
-                        <span>{{num}}</span>s)重试</mt-button>
-                </div>
+                <van-button v-if="disabled" @click="sendVerify" size="small" :class="{'lost-active': !isPhoneCorrect}" :disabled="!isPhoneCorrect" type="warning">获取验证码</van-button>
+                <van-button v-else size="small" class="lost-active" >({{num}}s)后重试</van-button>
             </div>
             <div class="register_info_box">
-                <label class="register_info_box_label">密码：</label>
-                <input type="password" name="password" v-validate="{required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!+-^%*#?&]{8,16}$/}" v-model="register.password" class="register_info_box_kind" ref="password" autocomplete="off" />
+                <input type="password" name="password" v-validate="{required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!+-^%*#?&]{8,16}$/}" v-model="register.password" class="register_info_box_kind" ref="password" autocomplete="off" placeholder="请输入密码" />
                 <span class="is-danger" v-show="errors.has('password')">{{errors.first('password')}}</span>
             </div>
             <div class="register_info_box">
-                <label class="register_info_box_label">确认密码：</label>
-                <input type="password" name="passwordAgain" v-validate="'required|confirmed:password'" v-model="register.passwordAgain" class="register_info_box_kind" autocomplete="off" />
+                <input type="password" name="passwordAgain" v-validate="'required|confirmed:password'" v-model="register.passwordAgain" class="register_info_box_kind" autocomplete="off" placeholder="请再次输入密码" />
                 <span class="is-danger" v-show="errors.has('passwordAgain')">{{errors.first('passwordAgain')}}</span>
             </div>
             <div class="register_info_box invite">
-                <label class="register_info_box_label">邀请码：</label>
-                <input name="inviteCode" v-model="register.inviteCode" class="register_info_box_kind" autocomplete="off" />
-                <span>(选填)</span>
+                <input name="inviteCode" v-model="register.inviteCode" class="register_info_box_kind" autocomplete="off" placeholder="请输入邀请码（选填）" />
             </div>
             <div class="register-checkbox">
                 <input v-model="register.disclaimerChecked" type="checkbox" name="userTerm" id="userTerm">
                 <label for="userTerm">我已同意</label>
                 <a @click="showUserTerm(true)" href="javascript:;">AFDCHAIN用户协议</a>
+                <a @click="toLogin" class="go-to-login" href="javascript:;">已有账号,去登录</a>
             </div>
             <div class="register-bottom">
-                <mt-button @click.native="registerBtn" size="small" class="register-bottom-btn btn-active">注册</mt-button>
+                <van-button type="warning" @click="registerBtn" :disabled="!isSelected" class="register-bottom-btn" :class="{'blue_button':isSelected }">注册</van-button>
             </div>
         </div>
         <div class="register-fixed" v-if="registerTerm">
@@ -62,8 +59,8 @@
                 disabled: true,
                 utils: new Utils(),
                 register: {
-                    email: '',
-                    verifyCode: '',
+                    phone: '',
+                    verify: '',
                     password: '',
                     passwordAgain: '',
                     inviteCode: this.$store.state.inviteCode,
@@ -73,6 +70,16 @@
             };
         },
         computed: {
+            isSelected() {
+                const { phone, verify, password, passwordAgain } = this.register;
+                if (phone && verify && password && passwordAgain) {
+                    return true;
+                }
+                return false;
+            },
+            isPhoneCorrect() {
+                return this.fieldBags['phone'] && this.fieldBags['phone'].valid;
+            },
             language() {
                 return this.$store.state.slangChange;
             },
@@ -81,12 +88,13 @@
             },
         },
         methods: {
-            sendVerifyCode() {
-                if (this.register.email) {
+            sendVerify() {
+                if (this.register.phone) {
                     Request({
                         url: 'SendVerifyCode',
                         data: {
-                            email: this.register.email,
+                            email: this.register.phone,
+                            registerType: 0,
                         },
                     }).then(res => {
                         this.disabled = false;
@@ -101,13 +109,13 @@
                         this.$toast(this.utils.judgeLanguage(this.language, res.message));
                     }).catch(console.error);
                 } else {
-                    this.$toast('email is empty');
+                    this.$toast('phone is empty');
                 }
             },
             registerBtn() {
                 const {
-                    email,
-                    verifyCode,
+                    phone,
+                    verify,
                     password,
                     inviteCode,
                 } = this.register;
@@ -117,10 +125,11 @@
                             Request({
                                 url: 'Register',
                                 data: {
-                                    authCode: verifyCode,
-                                    email,
+                                    authCode: verify,
+                                    email: phone,
                                     password,
                                     inviteCode,
+                                    registerType: 0,
                                 },
                                 flag: true,
                             }).then(res => {
@@ -128,7 +137,7 @@
                                 this.$toast(this.utils.judgeLanguage(this.language, res.message));
                             });
                         } else {
-                            this.$toast('表单格式不匹配');
+                            this.$toast('表单尚未正确填写');
                         }
                     });
                 } else {

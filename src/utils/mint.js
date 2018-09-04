@@ -2,7 +2,6 @@ import Vue from 'vue';
 import {
     Tabbar,
     TabItem,
-    Toast,
     MessageBox,
     Indicator,
     Button,
@@ -37,5 +36,4 @@ Vue.component(Field.name, Field);
 Vue.component(Badge.name, Badge);
 
 Vue.prototype.$messagebox = MessageBox;
-Vue.prototype.$toast = Toast;
 Vue.prototype.$indicator = Indicator;

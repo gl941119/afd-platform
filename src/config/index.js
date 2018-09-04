@@ -21,6 +21,8 @@ export default {
     SetNewPassword: 'blockchainadvert/account/setNewPassword',
     JudgeEmail: 'blockchainadvert/account/emailIsRegistered',
     GetUserInfoById: 'blockchainadvert/account',
+    SendSmsVerify: 'blockchainadvert/account/send-smscode', // 快速登录
+    QuickSmsLogin: 'blockchainadvert/account/smslogin', // 快速登录
 
     QueryRevenueBasicInformation: 'blockchainadvert/advert-income/account-id', // 收益账户
     QueryRevenueAccountFlow: 'blockchainadvert/income-flow/income-id', // 收益账户流水
