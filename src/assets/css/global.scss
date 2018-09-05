@@ -1,5 +1,6 @@
 $browser-default-font-size: 37.5px;
 $base-size: 37.5;
+
 @function pxTorem($px) {
     //$px为需要转换的字号
     @return $px / $browser-default-font-size * 1rem;
@@ -14,17 +15,19 @@ $base-size: 37.5;
  * @include remCalc(margin, 10, 20);
  * @include remCalc(margin, 10px, 20px);
  */
-
 @mixin remCalc($property, $values...) {
     $max: length($values); //返回$values列表的长度值
     $remValues: '';
+
     @for $i from 1 through $max {
         $value: strip-units(nth($values, $i));
         $remValues: #{$remValues + $value}rem;
+
         @if $i < $max {
             $remValues: #{$remValues + " "};
         }
     }
+
     #{$property}: $remValues;
 }
 
@@ -57,35 +60,42 @@ $base-size: 37.5;
 // input
 %custom-input {
     background: #F4F4F4;
-    border-radius:10px;
-    height:26px;
+    border-radius: 10px;
+    height: 26px;
 }
+
 // global style
 .search-page-concept .mint-badge {
     color: #333;
     font-size: 12px;
 }
+
 .mint-msgbox-wrapper {
-    z-index: 2222!important;
+    z-index: 2222 !important;
 }
+
 .mint-indicator-wrapper {
-    z-index: 2224!important;
+    z-index: 2224 !important;
 }
+
 .advert-item .mint-actionsheet {
-    z-index: 2220!important;
+    z-index: 2220 !important;
 }
+
 .mint-toast {
-    z-index: 2228!important;
+    z-index: 2228 !important;
 }
 
 %load-more {
     padding-bottom: 10px;
     text-align: center;
     color: #999;
+
     span {
         display: inline-block;
         transition: .2s linear;
         vertical-align: middle;
+
         &.is-rotate {
             transform: rotate(180deg);
         }
@@ -97,4 +107,9 @@ $base-size: 37.5;
     background: #009EC2;
     color: #fff;
     border-radius: 5px;
+}
+
+.van-dialog__confirm,
+.van-dialog__confirm:active {
+    color: #108EE9 !important;
 }

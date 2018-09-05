@@ -2,20 +2,25 @@
     <div>
         <div class="search">
             <a class="search-title" @click="popupVisible=true" href="javascript:;">{{title}}
-                <i class="custom-mint-icon-xialaanniu"></i>
+                <i class="custom-vant-icon-xiasanjiao"></i>
             </a>
             <div class="search-input">
                 <input @focus="inputFocus" class="search-input-item" type="text">
-                <i class="search-input-icon custom-mint-icon-sousuo"></i>
+                <i class="search-input-icon custom-vant-icon-fangdajing"></i>
             </div>
             <a class="search-share" @click="showShare" href="javascript:;">
-                <i class="custom-mint-icon-fenxiang"></i>
+                <img src="../../assets/imgs/img/share.png" >
             </a>
         </div>
-        <mt-popup v-model="popupVisible" popup-transition="popup-fade" class="search-popup" position="bottom">
-            <mt-radio v-model="value" :options="options">
-            </mt-radio>
-        </mt-popup>
+        <van-popup v-model="popupVisible" position="bottom">
+        <van-picker
+            show-toolbar
+            title="请选择语言"
+            :columns="options"
+            @confirm="selLang"
+            @cancel="popupVisible = false"
+        />
+        </van-popup>
     </div>
 </template>
 <script>
@@ -25,81 +30,88 @@
         data() {
             return {
                 popupVisible: false,
-                value: 'zh',
+                value: this.$store.state.slangChange,
                 title: '简体中文',
                 options: [
-                    { label: 'English', value: 'EN' },
-                    { label: '简体中文', value: 'zh' }
-                ]
-            }
+                    {
+                        values: [
+                            { text: '简体中文', label: 'zh' },
+                            { text: 'English', label: 'EN' },
+                        ],
+                        defaultIndex: this.$store.state.slangChange === 'EN' ? 1 : 0,
+                    },
+                ],
+            };
         },
-        watch: {
-            value(val) {
-                this.popupVisible = false;
-                this.title = this.selTitle(val);
-                this.$store.commit('setLanguage', val);
-                Cache.setLocal('bier_langChange', val);
-                this.$validator.localize(val);
-            }
+        mounted() {
+            const lang = this.$store.state.slangChange;
+            this.title = this.selTitle(lang);
         },
         methods: {
             selTitle(lang) {
-                return this.options.find(item => item.value === lang).label;
+                if (!lang) {
+                    return '简体中文';
+                }
+                return this.options[0].values.find(item => item.label === lang).text;
             },
             inputFocus() {
-                this.$router.push({ name: 'search' })
+                this.$router.push({ name: 'search' });
             },
             showShare() {
-                if (!(this.$store.state.token || Cache.getSession("bier_token"))) {
-                    this.$messagebox.confirm(
-                        '请先登录，才能分享'
-                    ).then(() => {
-                        this.$router.push({ name: 'login' })
-                    }, () => {});;
+                if (!(this.$store.state.token || Cache.getSession('bier_token'))) {
+                    this.$dialog.confirm({
+                        title: '请先登录，才能分享',
+                    }).then(() => {
+                        this.$router.push({ name: 'login' });
+                    }, () => {});
                     return;
                 }
                 this.$store.commit('setDialogVisible', true);
-            }
-        }
-    }
+            },
+            selLang(val) {
+                console.log('value->', val);
+                this.popupVisible = false;
+                this.title = val[0].text;
+                this.$store.commit('setLanguage', val[0].label);
+                Cache.setLocal('bier_langChange', val[0].label);
+                this.$validator.localize(val[0].label);
+            },
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
     .search {
-        padding: 8px;
-        height: 44px;
+        padding: 0 pxTorem(12px);
+        margin: 10px 0;
+        height: 30px;
         @include content-flex(space-between);
         &-title {
-            line-height: 44px;
-            color: #fefefe;
-            margin-left: -8px;
-            transform: scale(0.8);
-            font-size: 12px;
+            line-height: 30px;
+            font-size: pxTorem(16px);
             & i {
-                font-size: pxTorem(6px);
+                margin-left: pxTorem(4px);
+                font-size: pxTorem(12px);
             }
         }
         &-input {
             position: relative;
-            margin-left: 8px;
+            margin-left: pxTorem(6px);
             &-item {
                 @extend %custom-input;
-                padding-left: 36px;
-                width: pxTorem(252px);
+                padding-left: 42px;
+                width: pxTorem(224px);
             }
             &-icon {
                 position: absolute;
-                top: 4px;
-                left: 8px;
-                color: #8E8E93;
+                top: 2px;
+                left: 12px;
+                color: #d8d8d8;
             }
         }
         &-share {
-            line-height: 44px;
-            padding: 0 8px;
-            & i {
-                color: #fefefe;
-            }
+            height: 100%;
+            @include content-flex;
         }
         &-popup {
             width: 100%;
