@@ -48,3 +48,11 @@
         }
     }
 }
+
+// vant popup picker
+.van-picker__toolbar {
+    font-size: 17px;
+    .van-picker__cancel, .van-picker__confirm {
+        color: #108EE9;
+    }
+}

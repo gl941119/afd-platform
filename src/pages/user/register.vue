@@ -5,7 +5,7 @@
         <div class="register_info">
             <div class="register_info_number">
                 <span>+86 中国大陆</span>
-                <i class="custom-mint-icon-xialaanniu1"></i>
+                <i class="custom-vant-icon-xialaanniu1"></i>
             </div>
             <input style="display:none">
             <div class="register_info_box">
@@ -63,7 +63,7 @@
                     verify: '',
                     password: '',
                     passwordAgain: '',
-                    inviteCode: this.$store.state.inviteCode,
+                    inviteCode: this.$store.state.registerCode,
                     disclaimerChecked: true,
                 },
                 registerTerm: false,

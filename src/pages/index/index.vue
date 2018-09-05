@@ -1,7 +1,7 @@
 <template>
     <div class="index" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
         <div class="index-nav">
-            <index-search class="index-nav-search"></index-search>
+            <index-search></index-search>
             <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
         </div>
         <top-nav></top-nav>
@@ -54,11 +54,10 @@
             setInviteCode() {
                 const arr = window.location.hash;
                 const code = arr.split('=')[2];
-                console.log('hash->', code);
                 if (code) {
-                    this.$store.commit('setInviteCode', code);
-                    Cache.setSession('bier_inviteCode', code);
-                    document.cookie = 'bier_inviteCode=' + code;
+                    this.$store.commit('setRegisterCode', code);
+                    Cache.setSession('bier_register_code', code);
+                    this.$router.push({ name: 'register' });
                 }
                 // this.registerModel.form.inviteCode = arr.split('=')[2];
             },
@@ -167,14 +166,6 @@
         background: #FAFAFA;
         padding-bottom: 50px;
         overflow: auto;
-        &-nav {
-            position: relative;
-            &-search {
-                position: absolute;
-                z-index: 2;
-                width: 100%;
-            }
-        }
         &-bottom {
             @extend %load-more;
         }

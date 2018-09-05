@@ -23,6 +23,7 @@ export default new Vuex.Store({
         heardUrl: Cache.getSession('bier_heardUrl'),
         registerVisible: false,
         inviteCode: Cache.getSession('bier_inviteCode') || Cache.getCookie('bier_inviteCode'),
+        registerCode: Cache.getSession('bier_register_code'),
         // mobile add
         showFooter: Cache.getSession('show_footer') || '1', // 是否显示底部导航 string-> '1'-> show '0'-> hide
         authName: '',
@@ -81,6 +82,9 @@ export default new Vuex.Store({
         },
         setInviteCode(state, val) {
             state.inviteCode = val;
+        },
+        setRegisterCode(state, val) {
+            state.registerCode = val;
         },
         // mobile add
         setShowFooter(state, val) {
