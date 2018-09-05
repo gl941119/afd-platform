@@ -74,20 +74,22 @@
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">手续费</label>
-                <input class="mine-withdraw-info-span" v-model="handlingFee"/>
+                <input class="mine-withdraw-info-span" disabled v-model="handlingFee"/>
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">到账金额</label>
-                <input class="mine-withdraw-info-span" v-model="arrival"/>
+                <input class="mine-withdraw-info-span" disabled v-model="arrival"/>
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label heighter">提现金额</label>
-                <input class="mine-withdraw-info-input" name="money" ref="money" @blur="isMoney()" autocomplete="off"
-                v-model="withdraws.money" />
+                <input class="mine-withdraw-info-input" name="money" placeholder="提现金额" v-validate="'required|numeric'" autoComplete="off">
+                <span class="is-danger" v-show="errors.has('money')">{{errors.first('money')}}</span>
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label heighter">交易密码</label>
-                <input class="mine-withdraw-info-input" name="tradePassword" @blur="isTradePassword()" ref="tradePassword" autocomplete="off" type="password" v-model="withdraws.tradePassword" />
+                <input style="position:absolute;left:99999999999999px;"/>
+                <input class="mine-withdraw-info-input" name="tradePassword" v-validate="'required'" autoComplete="off" type="password" v-model="withdraws.tradePassword" placeholder="交易密码" >
+                <span class="is-danger" v-show="errors.has('tradePassword')">{{errors.first('tradePassword')}}</span>
             </div>
             <div class="mine-withdraw-buttonBox">
                 <button class="mine-withdraw-buttonBox-button" :class="{'active':style}" @click="rightNow()">立即提现</button>
@@ -190,28 +192,26 @@
                 // }
                 this.withdrawShow = !this.withdrawShow;
             },
-            isMoney(){
-
-            },
-            isTradePassword(){
-
-            },
             rightNow() {
-                const { money, tradePassword } = this.withdraws;
-                Request({
-                    url: 'PostWithdraw',
-                    data: {
-                        accountId: this.accountId,
-                        amount: money,
-                        cost: this.handlingFee,
-                        password: validateFun.encrypt(tradePassword),
-                    },
-                    flag: true,
-                }).then(res => {
-                    this.withdraws.money = '';
-                    this.withdraws.tradePassword = '';
-                    this.withdrawShow = false;
-                    this.$toast.success('已提交提现申请');
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        const { money, tradePassword } = this.withdraws;
+                        Request({
+                            url: 'PostWithdraw',
+                            data: {
+                                accountId: this.accountId,
+                                amount: money,
+                                cost: this.handlingFee,
+                                password: validateFun.encrypt(tradePassword),
+                            },
+                            flag: true,
+                        }).then(res => {
+                            this.withdraws.money = '';
+                            this.withdraws.tradePassword = '';
+                            this.withdrawShow = false;
+                            this.$toast.success('已提交提现申请');
+                        });
+                    }
                 });
             },
             confirm() {
@@ -440,6 +440,7 @@
                     vertical-align: middle;
                     width: pxTorem(128px);
                     @include remCalc(padding, 0, 10px);
+                    background: transparent;
                 }
                 &-input{
                     width: pxTorem(128px);
@@ -448,6 +449,9 @@
                     border-radius:4px;
                     border:1px solid rgba(255,149,0,1);
                     @include remCalc(padding, 0, 10px);
+                }
+                .is-danger{
+                    color: #FF9500;
                 }
             }
             &-buttonBox{
