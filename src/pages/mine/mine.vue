@@ -182,14 +182,14 @@
         },
         methods: {
             withdraw() {
-                // if (this.balance < 10000) {
-                //     this.balanceShow = !this.balanceShow;
-                //     return;
-                // }
-                // if (this.authStatus === 0 || this.existTradePassword || this.existPassword || this.isBindPhone || this.isBindtWalletAddress) {
-                //     this.show = !this.show;
-                //     return;
-                // }
+                if (this.balance < 10000) {
+                    this.balanceShow = !this.balanceShow;
+                    return;
+                }
+                if (this.authStatus === 0 || this.existTradePassword || this.existPassword || this.isBindPhone || this.isBindtWalletAddress) {
+                    this.show = !this.show;
+                    return;
+                }
                 this.withdrawShow = !this.withdrawShow;
             },
             rightNow() {
