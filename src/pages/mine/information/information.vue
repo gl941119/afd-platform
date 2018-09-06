@@ -14,7 +14,7 @@
         <div class="information-item topMini">
             <van-cell title="用户名" class="information-item-kind userName" @click="changeUserName()" is-link>
                 <van-icon slot="right-icon">
-                    <span class="information-item-kind-text">{{username}}</span>
+                    <span class="information-item-kind-text">{{nickname}}</span>
                     <div class="information-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>
@@ -28,7 +28,7 @@
             >
             <div class="information-input">
                 <div class="information-input-title">修改昵称</div>
-                <input class="information-input-change"/>
+                <input v-model="nicknames" class="information-input-change"/>
             </div>
         </van-dialog>
     </div>
@@ -41,9 +41,11 @@
         data() {
             return {
                 utils: new Utils(),
-                username: this.$store.state.username || Cache.getSession('bier_username'),
-                headUrl: this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png',
+                accountId: this.$store.state.id,
+                nickname: this.$store.state.usernickname,
+                headUrl: 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png',
                 show: false,
+                nicknames: '',
             };
         },
         mounted() {
@@ -57,43 +59,42 @@
                 }).then(res => {
                     this.authStatus = res.data.authStatus;
                     this.existTradePassword = res.data.existTradePassword;
+                    this.nickname = res.data.nickname;
+                    if (res.data.heardUrl) {
+                        this.heardUrl = res.data.heardUrl;
+                    }
                 });
             },
             changeUserName() {
+                this.nicknames = '';
                 this.show = true;
             },
             beforeClose(action, done) {
-                // if (action === 'confirm') {
-                //     setTimeout(done, 1000);
-                // } else {
-                //     done();
-                // }
+                if (action === 'confirm') {
+                    this.changeNickName();
+                    setTimeout(done, 1000);
+                } else {
+                    done();
+                }
             },
             changeNickName() { // 修改昵称
-                if (this.nicknameValue.length <= 8) {
+                if (this.nicknames.length <= 8) {
                     Request({
                         url: 'QueryAccountSettings',
-                        data: { id: this.accountId, nickname: this.nicknameValue },
+                        data: { id: this.accountId, nickname: this.nicknames },
                         type: 'post',
                         flag: true,
                     }).then(res => {
-                        this.$store.commit('setUserNickName', this.nicknameValue);
-                        Cache.setSession('bier_usernickname', this.nicknameValue);
-                        this.$toast({
-                            message: '修改成功',
-                            position: 'top',
-                            duration: 5000,
-                        });
-                        this.mask();
+                        this.$store.commit('setUserNickName', this.nicknames);
+                        Cache.setSession('bier_usernickname', this.nicknames);
+                        this.$toast.success('修改成功');
+                        this.info();
+                        this.show = false;
                     }).catch(e => {
                         console.error('changenickname error_ > ', e);
                     });
                 } else {
-                    this.$toast({
-                        message: '请输入8位以内昵称',
-                        position: 'top',
-                        duration: 5000,
-                    });
+                    this.$toast.success('请输入8位以内昵称');
                 }
             },
         },
