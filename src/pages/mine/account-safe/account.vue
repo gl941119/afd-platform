@@ -23,9 +23,9 @@
             <van-cell title="实名认证" class="account-item-kind" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text" v-if="authStatus===0">未认证</span>
+                    <span class="account-item-kind-text" v-if="authStatus===1">已认证</span>
                     <span class="account-item-kind-text" v-if="authStatus===2">已提交认证申请</span>
                     <span class="account-item-kind-text" v-if="authStatus===3">认证失败</span>
-                    <span class="account-item-kind-text" v-else>已认证</span>
                     <div class="account-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>

@@ -52,6 +52,10 @@ const SetTrade = () =>
     import('@/pages/mine/account-safe/children/setTrade');
 const ChangeTrade = () =>
     import('@/pages/mine/account-safe/children/changeTrade');
+const ForgetTrade = () =>
+    import('@/pages/mine/account-safe/children/forgetTrade');
+const ChangeLogin = () =>
+    import('@/pages/mine/account-safe/children/changeLogin');
 
 Vue.use(Router);
 
@@ -180,6 +184,16 @@ export default new Router({
             path: '/changeTrade',
             name: 'changeTrade',
             component: ChangeTrade,
+        },
+        {
+            path: '/forgetTrade',
+            name: 'forgetTrade',
+            component: ForgetTrade,
+        },
+        {
+            path: '/changeLogin',
+            name: 'changeLogin',
+            component: ChangeLogin,
         },
         { path: '*', redirect: '/' },
     ],
