@@ -68,7 +68,10 @@ export default {
     /* 账号设置*/
     QueryAccountSettings: 'blockchainadvert/account/modifyAccountMessage', // 账号设置
     QueryCode: 'blockchainadvert/account/sendBindEmailCode', // 获取验证码
-    QueryPasswordCode: 'blockchainadvert/account/sendUpdateAccountCode', // 获取验证码
+    // 获取验证码 3 修改密码，4修改交易密码 接受验证码类型：0: 手机号， 1：邮箱
+    QueryPasswordCode: 'blockchainadvert/account/sendUpdateAccountCode',
+    // 获取验证码 3 修改密码，4修改交易密码 接受验证码类型：0: 手机号， 1：邮箱
+    QueryPasswordCodes: 'blockchainadvert/account/sned-updatecode', // 更新
     QueryAuthentication: 'blockchainadvert/account/idAuthentication', // 身份验证
     ChangeAuthStatus: 'blockchainadvert/account/updateAuthStatus',
     SetPassword: 'blockchainadvert/account/setPassword', // 设置密码

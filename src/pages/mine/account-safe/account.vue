@@ -1,10 +1,31 @@
 <template>
     <div class="account">
-        <header-nav linkName="mine" class="account-header" title="账户与安全"></header-nav>
+        <header-nav linkName="mine" isBlue=true class="account-header" title="账户与安全"></header-nav>
         <div class="account-item">
+            <van-cell title="手机号" class="account-item-kind" is-link>
+                <van-icon slot="right-icon">
+                    <span class="account-item-kind-text" v-if="!isBindPhone">未绑定</span>
+                    <span class="account-item-kind-text" v-else>已绑定</span>
+                    <div class="account-item-kind-fontBox">
+                        <i class="custom-vant-icon-right"></i>
+                    </div>
+                </van-icon>
+            </van-cell>
+            <van-cell title="邮箱" class="account-item-kind" is-link>
+                <van-icon slot="right-icon">
+                    <span class="account-item-kind-text" v-if="!existEmail">未绑定</span>
+                    <span class="account-item-kind-text" v-else>已绑定</span>
+                    <div class="account-item-kind-fontBox">
+                        <i class="custom-vant-icon-right"></i>
+                    </div>
+                </van-icon>
+            </van-cell>
             <van-cell title="实名认证" class="account-item-kind" is-link>
                 <van-icon slot="right-icon">
-                    <span class="account-item-kind-text">未认证</span>
+                    <span class="account-item-kind-text" v-if="authStatus===0">未认证</span>
+                    <span class="account-item-kind-text" v-if="authStatus===2">已提交认证申请</span>
+                    <span class="account-item-kind-text" v-if="authStatus===3">认证失败</span>
+                    <span class="account-item-kind-text" v-else>已认证</span>
                     <div class="account-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>
@@ -18,9 +39,10 @@
                     </div>
                 </van-icon>
             </van-cell>
-            <van-cell title="支付密码" class="account-item-kind" is-link>
+            <van-cell title="支付密码" class="account-item-kind" @click="trade()" is-link>
                 <van-icon slot="right-icon">
-                    <span class="account-item-kind-text">未设置</span>
+                    <span class="account-item-kind-text" v-if="!existTradePassword">未设置</span>
+                    <span class="account-item-kind-text" v-else>已设置</span>
                     <div class="account-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>
@@ -28,7 +50,8 @@
             </van-cell>
             <van-cell title="钱包地址" class="account-item-kind" to="/walletAddress" is-link>
                 <van-icon slot="right-icon">
-                    <span class="account-item-kind-text">未绑定</span>
+                    <span class="account-item-kind-text" v-if="!isBindtWalletAddress">未绑定</span>
+                    <span class="account-item-kind-text" v-else>已绑定</span>
                     <div class="account-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>
@@ -47,9 +70,13 @@
         data() {
             return {
                 token: this.$store.state.token || Cache.getSession('bier_token'),
-                authStatus: '',
+                // info
+                authStatus: 0,
+                existEmail: false,
                 existTradePassword: false,
                 existPassword: false,
+                isBindPhone: false,
+                isBindtWalletAddress: false,
             };
         },
         mounted() {
@@ -63,9 +90,23 @@
                 }).then(res => {
                     // console.log(res.data);
                     this.authStatus = res.data.authStatus;
+                    this.existEmail = res.data.existEmail;
                     this.existTradePassword = res.data.existTradePassword;
                     this.existPassword = res.data.existPassword;
+                    this.isBindPhone = res.data.isBindPhone;
+                    this.isBindtWalletAddress = res.data.isBindtWalletAddress;
                 });
+            },
+            trade() {
+                if (this.existTradePassword) {
+                    this.$router.push({
+                        name: 'changeTrade',
+                    });
+                } else {
+                    this.$router.push({
+                        name: 'setTrade',
+                    });
+                }
             },
             logOut() {
                 Request({
