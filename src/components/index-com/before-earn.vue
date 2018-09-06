@@ -6,7 +6,7 @@
         </div>
         <div class="earn-number">
             <template v-if="num">
-                <span class="earn-number-num">66</span>
+                <span class="earn-number-num">{{num}}</span>
                 <span class="earn-number-symbol">AFDT</span>
             </template>
             <span v-else class="earn-number-num">---</span>
@@ -17,11 +17,47 @@
     </div>
 </template>
 <script>
+    import Request from '../../utils/require.js';
     export default {
         data() {
             return {
-                num: '',
+                num: null,
             };
+        },
+        computed: {
+            token() {
+                return this.$store.state.token;
+            },
+        },
+        mounted() {
+            if (this.token) {
+                this.getEarn();
+            }
+        },
+        methods: {
+            getEarn() {
+                Request({
+                    url: 'QueryBeforeEarn',
+                    type: 'get',
+                    data: {
+                        dataType: 0,
+                    },
+                }).then(res => {
+                    this.num = this.toDecimal2(res.data.balance);
+                });
+            },
+            toDecimal2(x) {
+                const f = parseFloat(x);
+                if (isNaN(f)) {
+                    return x;
+                }
+                const s = f.toString();
+                const rs = s.indexOf('.');
+                if (rs < 0) {
+                    return s;
+                }
+                return s.substring(0, rs + 3);
+            },
         },
     };
 </script>

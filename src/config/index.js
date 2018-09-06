@@ -10,6 +10,8 @@ export default {
     QueryCrowdDataById: 'blockchainadvert/crowd-funding/id', // 根据主ID获取单个众筹
     GetQrCode: 'blockchainadvert/common/createRrCode',
     FindAdvertisement: 'blockchainadvert/advertservice/findAdvertisement',
+    // 首页获取收益
+    QueryBeforeEarn: 'blockchainadvert/advert-income/token',
     // Login and Register
     Register: 'blockchainadvert/account/registered',
     Login: 'blockchainadvert/account/accountLogin',
