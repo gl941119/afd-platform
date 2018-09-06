@@ -13,13 +13,13 @@
             </a>
         </div>
         <van-popup v-model="popupVisible" position="bottom">
-        <van-picker
-            show-toolbar
-            title="请选择语言"
-            :columns="options"
-            @confirm="selLang"
-            @cancel="popupVisible = false"
-        />
+            <van-picker
+                show-toolbar
+                title="请选择语言"
+                :columns="options"
+                @confirm="selLang"
+                @cancel="popupVisible = false"
+            />
         </van-popup>
     </div>
 </template>
@@ -62,14 +62,14 @@
                     this.$dialog.confirm({
                         title: '请先登录，才能分享',
                     }).then(() => {
-                        this.$router.push({ name: 'login' });
+                        this.$router.push({ name: 'login', query: { redirect: 'index' }});
                     }, () => {});
                     return;
                 }
                 this.$store.commit('setDialogVisible', true);
             },
             selLang(val) {
-                console.log('value->', val);
+                // console.log('value->', val);
                 this.popupVisible = false;
                 this.title = val[0].text;
                 this.$store.commit('setLanguage', val[0].label);

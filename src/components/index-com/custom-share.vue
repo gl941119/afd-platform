@@ -27,12 +27,12 @@
 </template>
 <script>
 import Cache from '../../utils/cache';
+import Request from '../../utils/require.js';
 import ClipboardJS from 'clipboard';
 export default {
     data() {
         return {
-            accountId: this.$store.state.id || Cache.getSession('bier_userid'),
-            token: this.$store.state.token || Cache.getSession('bier_token'),
+            token: this.$store.state.token,
             copyValue: '',
             language: '被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，填邀请码注册就送66AFDT ，每邀请一位再送33AFDT，每日挖币，再享分红！',
             showLink: true,
@@ -49,21 +49,40 @@ export default {
         },
         inviteCode: {
             get() {
-                const code = this.$store.state.inviteCode || Cache.getSession('bier_inviteCode');
+                const code = this.$store.state.inviteCode;
                 return code;
             },
             set() {},
+        },
+        accountId() {
+            return this.$store.state.id;
         },
     },
     mounted() {
         this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + this.inviteCode;
     },
     watch: {
+        accountId(val) {
+            val &&
+                this.getInviteCode(val);
+        },
         inviteCode(val) {
             this.copyValue = this.language + 'http://www.afdchain.com/#/index?type=register&inviteCode=' + val;
         },
     },
     methods: {
+        getInviteCode(value) {
+            Request({
+                url: 'QueryInviteCode',
+                data: {
+                    accountId: value,
+                },
+                type: 'get',
+            }).then(res => {
+                this.$store.commit('setInviteCode', res.data.inviteCode);
+                Cache.setSession('bier_inviteCode', res.data.inviteCode);
+            });
+        },
         close() {
             this.$store.commit('setDialogVisible', false);
         },

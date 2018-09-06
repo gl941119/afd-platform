@@ -55,6 +55,7 @@
     export default {
         data() {
             return {
+                redirect: this.$route.query.redirect,
                 num: 60,
                 disabled: true,
                 utils: new Utils(),
@@ -145,7 +146,7 @@
                 }
             },
             toLogin() {
-                this.$router.push({ name: 'login' });
+                this.$router.push({ name: 'login', query: { redirect: this.redirect }});
             },
             showUserTerm(value) {
                 this.registerTerm = value;
