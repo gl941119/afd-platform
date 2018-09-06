@@ -1,6 +1,6 @@
 <template>
     <div class="information">
-        <header-nav linkName="mine" title="个人资料"></header-nav>
+        <header-nav linkName="mine" isBlue=true title="个人资料"></header-nav>
         <div class="information-item">
             <van-cell title="头像" class="information-item-kind headerUrl" is-link>
                 <van-icon slot="right-icon">

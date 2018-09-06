@@ -2,7 +2,7 @@
     <div class="account">
         <header-nav linkName="mine" isBlue=true class="account-header" title="账户与安全"></header-nav>
         <div class="account-item">
-            <van-cell title="手机号" class="account-item-kind" is-link>
+            <van-cell title="手机号" class="account-item-kind" @click="bind(1)" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text" v-if="!isBindPhone">未绑定</span>
                     <span class="account-item-kind-text" v-else>已绑定</span>
@@ -11,7 +11,7 @@
                     </div>
                 </van-icon>
             </van-cell>
-            <van-cell title="邮箱" class="account-item-kind" is-link>
+            <van-cell title="邮箱" class="account-item-kind" @click="bind(2)" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text" v-if="!existEmail">未绑定</span>
                     <span class="account-item-kind-text" v-else>已绑定</span>
@@ -20,7 +20,7 @@
                     </div>
                 </van-icon>
             </van-cell>
-            <van-cell title="实名认证" class="account-item-kind" is-link>
+            <van-cell title="实名认证" class="account-item-kind" @click="authentication()" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text" v-if="authStatus===0">未认证</span>
                     <span class="account-item-kind-text" v-if="authStatus===1">已认证</span>
@@ -97,6 +97,27 @@
                     this.isBindtWalletAddress = res.data.isBindtWalletAddress;
                 });
             },
+            bind(value) {
+                this.bindKind(!this.existEmail, value);
+                this.bindKind(!this.isBindPhone, value);
+            },
+            bindKind(kinds, value) {
+                if (kinds) {
+                    this.$router.push({
+                        path: '/bind/' + value,
+                        params: {
+                            value: value,
+                        },
+                    });
+                } else {
+                    this.$router.push({
+                        path: '/changeBind/' + value,
+                        params: {
+                            value: value,
+                        },
+                    });
+                }
+            },
             trade() {
                 if (this.existTradePassword) {
                     this.$router.push({
@@ -105,6 +126,17 @@
                 } else {
                     this.$router.push({
                         name: 'setTrade',
+                    });
+                }
+            },
+            authentication() {
+                if (this.authStatus === 0) {
+                    this.$router.push({
+                        name: 'authentication',
+                    });
+                } else {
+                    this.$router.push({
+                        name: 'authImg',
                     });
                 }
             },

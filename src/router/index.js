@@ -27,10 +27,6 @@ const Transaction = () =>
 // Information
 const Information = () =>
     import('@/pages/mine/information/information');
-const Authentication = () =>
-    import('@/pages/mine/information/authentication');
-const AuthImg = () =>
-    import('@/pages/mine/information/authImg');
 const HeaderUrl = () =>
     import('@/pages/mine/information/headerUrl');
 // mine-owner
@@ -56,6 +52,14 @@ const ForgetTrade = () =>
     import('@/pages/mine/account-safe/children/forgetTrade');
 const ChangeLogin = () =>
     import('@/pages/mine/account-safe/children/changeLogin');
+const Bind = () =>
+    import('@/pages/mine/account-safe/children/bind');
+const ChangeBind = () =>
+    import('@/pages/mine/account-safe/children/change-bind');
+const Authentication = () =>
+    import('@/pages/mine/account-safe/children/authentication');
+const AuthImg = () =>
+    import('@/pages/mine/account-safe/children/authImg');
 
 Vue.use(Router);
 
@@ -194,6 +198,16 @@ export default new Router({
             path: '/changeLogin',
             name: 'changeLogin',
             component: ChangeLogin,
+        },
+        {
+            path: '/bind/:value',
+            name: 'bind',
+            component: Bind,
+        },
+        {
+            path: '/changeBind/:value',
+            name: 'changeBind',
+            component: ChangeBind,
         },
         { path: '*', redirect: '/' },
     ],
