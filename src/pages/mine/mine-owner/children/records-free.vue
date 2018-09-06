@@ -5,8 +5,7 @@
         </div>
         <div class="revenue-titleBox" ref="revenueWrapper">
             <div class="revenue-titleBox-title">
-                <div class="revenue-titleBox-title-info">交易时间</div>
-                <div class="revenue-titleBox-title-info">被邀请用户</div>
+                <div class="revenue-titleBox-title-info">挖矿截止时间</div>
                 <div class="revenue-titleBox-title-info">获得AFDT</div>
             </div>
             <div class="revenue-titleBox-title" v-for="(item, index) in inviteDatas" :key="index">

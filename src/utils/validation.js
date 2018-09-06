@@ -16,7 +16,6 @@ const dictionary = {
             passwordAgain: '确认密码',
             verifyCode: '验证码',
             phone: '手机号码',
-            tradePassword: '交易密码',
             money: '提现金额',
         },
     },

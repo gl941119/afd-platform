@@ -6,7 +6,6 @@
         <div class="revenue-titleBox" ref="revenueWrapper">
             <div class="revenue-titleBox-title">
                 <div class="revenue-titleBox-title-info">注册时间</div>
-                <div class="revenue-titleBox-title-info">被邀请用户</div>
                 <div class="revenue-titleBox-title-info">获得AFDT</div>
             </div>
             <div class="revenue-titleBox-title" v-for="(item, index) in freeDatas" :key="index">
