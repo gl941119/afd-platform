@@ -1,27 +1,27 @@
 <template>
-    <div class="password">
-        <header-nav linkName="mine" isBlue=true class="password-header" title="设置支付密码"></header-nav>
-        <div class="password-info">
-            <div class="password-info-item">
+    <div class="input">
+        <header-nav linkName="mine" isBlue=true class="input-header" title="设置支付密码"></header-nav>
+        <div class="input-info">
+            <div class="input-info-item">
                 <input v-model="phone" placeholder="请输入邮箱或手机号"/>
             </div>
-            <div class="password-info-item">
+            <div class="input-info-item">
                 <input class="relative" v-model="verifyCode" name="verifyCode" placeholder="请输入验证码">
-                <button class="password-info-item-button" :disabled="!code" v-if="!codeShow" :class="{'active':code}" @click="getCode()">获取验证码</button>
-                <button class="password-info-item-button" v-else>({{num}}s)后重试</button>
+                <button class="input-info-item-button" :disabled="!code" v-if="!codeShow" :class="{'active':code}" @click="getCode()">获取验证码</button>
+                <button class="input-info-item-button" v-else>({{num}}s)后重试</button>
             </div>
-            <div class="password-info-item">
+            <div class="input-info-item">
                 <input type="password" v-model="tradePassword" @blur="password()" name="tradePassword" placeholder="请设置支付密码"/>
             </div>
-            <div class="password-info-item">
+            <div class="input-info-item">
                 <input type="password" class="relative" v-model="onceTradePassword"  name="onceTradePassword" placeholder="请确认支付密码">
             </div>
         </div>
-        <div class="password-password">
+        <div class="input-password">
             请设置6位数字或字母
         </div>
-        <div class="password-confirm">
-            <button class="password-confirm-button" @click="confirm()" :disabled="!style" :class="{'active':style}">确定</button>
+        <div class="input-confirm">
+            <button class="input-confirm-button" @click="confirm()" :disabled="!style" :class="{'active':style}">确定</button>
         </div>
     </div>
 </template>
@@ -115,5 +115,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '../../../../assets/css/password.scss';
+@import '../../../../assets/css/input.scss';
 </style>

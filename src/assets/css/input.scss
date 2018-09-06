@@ -1,5 +1,5 @@
 @import './global.scss';
-.trade{
+.input{
     @include remCalc(padding, 24px, 38px, 0, 38px);
     &-info{
         @include remCalc(margin, 44px, 0, 32px, 0);

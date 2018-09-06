@@ -1,18 +1,18 @@
 <template>
-    <div class="trade">
-        <header-nav linkName="mine" isBlue=true class="trade-header" title="找回支付密码"></header-nav>
-        <div class="trade-info">
-            <div class="trade-info-item">
+    <div class="input">
+        <header-nav linkName="mine" isBlue=true class="input-header" title="找回支付密码"></header-nav>
+        <div class="input-info">
+            <div class="input-info-item">
                 <input v-model="phone" placeholder="请输入邮箱或手机号"/>
             </div>
-            <div class="trade-info-item">
+            <div class="input-info-item">
                 <input class="relative" v-model="verifyCode" name="verifyCode" placeholder="请输入验证码">
-                <button class="trade-info-item-button" :disabled="!code" v-if="!codeShow" :class="{'active':code}" @click="getCode()">获取验证码</button>
-                <button class="trade-info-item-button" v-else>({{num}}s)后重试</button>
+                <button class="input-info-item-button" :disabled="!code" v-if="!codeShow" :class="{'active':code}" @click="getCode()">获取验证码</button>
+                <button class="input-info-item-button" v-else>({{num}}s)后重试</button>
             </div>
         </div>
-        <div class="trade-confirm">
-            <button class="trade-confirm-button" @click="confirm()" :disabled="!style" :class="{'active':style}">确定</button>
+        <div class="input-confirm">
+            <button class="input-confirm-button" @click="confirm()" :disabled="!style" :class="{'active':style}">确定</button>
         </div>
     </div>
 </template>
@@ -93,5 +93,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '../../../../assets/css/password.scss';
+@import '../../../../assets/css/input.scss';
 </style>

@@ -31,7 +31,7 @@
                     </div>
                 </van-icon>
             </van-cell>
-            <van-cell title="登录密码" class="account-item-kind" is-link>
+            <van-cell title="登录密码" class="account-item-kind" to="/changeLogin" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text">修改</span>
                     <div class="account-item-kind-fontBox">

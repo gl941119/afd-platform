@@ -1,40 +1,36 @@
 <template>
-    <div class="password">
-        <header-nav linkName="mine" isBlue=true class="password-header" title="修改支付密码"></header-nav>
-        <div class="password-info">
-            <div class="password-info-item">
-                <input type="password" v-model="oldTradePassword" name="oldTradePassword" placeholder="原支付密码"/>
+    <div class="input">
+        <header-nav linkName="mine" isBlue=true class="input-header" title="修改登录密码"></header-nav>
+        <div class="input-info">
+            <div class="input-info-item">
+                <input type="password" v-model="oldPassword" name="oldPassword" placeholder="原密码"/>
             </div>
-            <div class="password-info-item">
-                <input type="password" v-model="tradePassword" @blur="password()" name="tradePassword" placeholder="新支付密码"/>
+            <div class="input-info-item">
+                <input type="password" v-model="password" @blur="passwordRule()" name="tradePassword" placeholder="新密码"/>
             </div>
-            <div class="password-info-item">
-                <input type="password" v-model="onceNewTradePassword" name="onceNewTradePassword" placeholder="确认新支付密码">
-            </div>
-        </div>
-        <div class="password-password">
-            <div>
-                请设置6位数字或字母
-            </div>
-            <div class="password-password-forget" @click="forget()">
-                忘记交易密码
+            <div class="input-info-item">
+                <input type="password" v-model="oncePassword" name="oncePassword" placeholder="确认新密码">
             </div>
         </div>
-        <div class="password-confirm">
-            <button class="password-confirm-button" @click="confirm()" :class="{'active':style}">确定</button>
+        <div class="input-password">
+            密码为8~16位数字、字母组合
+        </div>
+        <div class="input-confirm">
+            <button class="input-confirm-button" @click="confirm()" :class="{'active':style}">确定</button>
         </div>
     </div>
 </template>
 <script>
-// import Request from '../../../../utils/require';
-// import validateFun from '../../../../utils/validate.js';
+import Request from '../../../../utils/require';
+import validateFun from '../../../../utils/validate.js';
 export default {
     data() {
         return {
-            oldTradePassword: '',
-            tradePassword: '',
-            onceNewTradePassword: '',
+            oldPassword: '',
+            password: '',
+            oncePassword: '',
             passwordShow: false,
+            accountId: this.$store.state.id,
         };
     },
     computed: {
@@ -46,8 +42,8 @@ export default {
         },
     },
     methods: {
-        password() {
-            var str = this.tradePassword;
+        passwordRule() {
+            var str = this.password;
             var value = /^[a-zA-Z]{6}|[0-9]{6}$/.test(str);
             if (!value) {
                 this.$toast.fail('支付密码格式不对');
@@ -57,7 +53,49 @@ export default {
             }
         },
         confirm() {
-            console.log('1');
+            Request({
+                url: 'QueryAccountSettings',
+                data: {
+                    id: this.accountId,
+                    oldPassword: validateFun.encrypt(this.oldPassword),
+                    password: validateFun.encrypt(this.password),
+                    verificationCode: this.codePassword,
+                },
+                type: 'post',
+                flag: true,
+            }).then(res => {
+                this.out();
+            });
+        },
+        out() {
+            Request({
+                url: 'SignOut',
+                type: 'get',
+                data: {
+                    token: this.token,
+                },
+            }).then(res => {
+                this.handleSignOut();
+                this.$router.push({
+                    name: 'index',
+                });
+            });
+        },
+        handleSignOut() {
+            this.$store.commit('setUserId', undefined);
+            this.$store.commit('setUserName', undefined);
+            this.$store.commit('setUserNickName', undefined);
+            this.$store.commit('setToken', undefined);
+            this.$store.commit('setHeardUrl', undefined);
+            this.$store.commit('setInviteCode', '');
+            Cache.removeCookie('login_identify');
+            Cache.removeCookie('login_token');
+            Cache.removeSession('bier_username');
+            Cache.removeSession('bier_token');
+            Cache.removeSession('bier_userid');
+            Cache.removeSession('bier_userid');
+            Cache.removeSession('bier_inviteCode');
+            Cache.getSession('bier_usernickname') && Cache.removeSession('bier_usernickname');
         },
         forget() {
             this.$router.push({
@@ -68,5 +106,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '../../../../assets/css/password.scss';
+@import '../../../../assets/css/input.scss';
 </style>
