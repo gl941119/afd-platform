@@ -1,6 +1,6 @@
 <template>
     <div class="revenue">
-        <header-nav linkName="mine" title="交易记录"></header-nav>
+        <header-nav linkName="mine" isBlue=true title="交易记录"></header-nav>
         <div>
             <ul class="revenue-item topLanger">
                 <li class="revenue-item-li" v-for="(item, index) in liData" :key="index" @click="clickLi(index)" :class="{'active':item.style}">{{item.value}}</li>

@@ -1,0 +1,77 @@
+<template>
+    <div class="input">
+        <header-nav linkName="mine" isBlue=true class="input-header" :title="title"></header-nav>
+        <div class="input-info">
+            <div class="input-info-item">
+                <input v-model="account" name="oldPassword" :placeholder="placeholder"/>
+            </div>
+            <div class="input-info-item">
+                <input class="relative" v-model="verifyCode" name="verifyCode" placeholder="请输入验证码">
+                <button class="input-info-item-button" :disabled="!code" v-if="!codeShow" :class="{'active':code}" @click="getCode()">获取验证码</button>
+                <button class="input-info-item-button" v-else>({{num}}s)后重试</button>
+            </div>
+            <div class="input-info-item">
+                <input v-model="newAccount" name="password" :placeholder="newPlaceholder"/>
+            </div>
+        </div>
+        <div class="input-confirm">
+            <button class="input-confirm-button" @click="confirm()" :class="{'active':style}">确定</button>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            value: '',
+            title: '',
+            placeholder: '',
+            newPlaceholder: '',
+            account: '',
+            newAccount: '',
+            verifyCode: '',
+            num: 60,
+            codeShow: false,
+        };
+    },
+    mounted() {
+        this.kind();
+    },
+    computed: {
+        style() {
+            const reg = (this.value === '1') ? /^((13|14|15|17|18)[0-9]{1}\d{8})$/ : /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+            if (reg.test(this.newAccount)) {
+                return true;
+            }
+            return false;
+        },
+        code() {
+            const reg = (this.value === '1') ? /^((13|14|15|17|18)[0-9]{1}\d{8})$/ : /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+            if (reg.test(this.account)) {
+                return true;
+            }
+            return false;
+        },
+    },
+    methods: {
+        kind() {
+            this.value = this.$route.params.value;
+            if (this.value === '1') {
+                this.title = '手机号';
+                this.placeholder = '请输入原手机号';
+                this.newPlaceholder = '请输入新手机号';
+            } else {
+                this.title = '邮箱';
+                this.placeholder = '请输入原邮箱';
+                this.newPlaceholder = '请输入新邮箱';
+            }
+        },
+        confirm() {
+            console.log(1);
+        },
+    },
+};
+</script>
+<style lang="scss" scoped>
+@import '../../../../assets/css/input.scss';
+</style>

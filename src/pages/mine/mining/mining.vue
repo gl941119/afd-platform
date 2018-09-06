@@ -74,7 +74,7 @@
                     },
                     type: 'get',
                 }).then(res => {
-                    this.balance = res.data[0].balance;
+                    this.balance = res.data.balance;
                 });
             },
         },
@@ -87,13 +87,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        &-header{
-            background: #ffffff;
-            color: #333333;
-            a{
-                color: #333 !important;
-            }
-        }
         &-totalRenvue{
             margin-top: pxTorem(45px);
             background:rgba(12,60,110,1);

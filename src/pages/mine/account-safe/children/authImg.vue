@@ -1,6 +1,6 @@
 <template>
     <div class="authImg">
-        <header-nav linkName="authentication" title="实名认证" class="authImg_header"></header-nav>
+        <header-nav linkName="authentication" isBlue=true title="实名认证" class="authImg_header"></header-nav>
         <div class="authImg_box">
             <div class="authImg_box_upload">
                 <file-upload class="authImg_box_upload_file" ref="upload" name="1" extensions="gif,jpg,jpeg,png,webp" accept="image/*" :multiple="false" @input-file="getImg">
@@ -59,9 +59,9 @@
     </div>
 </template>
 <script>
-    import Request from '../../../utils/require.js';
-    import Cache from '../../../utils/cache';
-    import Config from '../../../utils/config.js';
+    import Request from '../../../../utils/require.js';
+    import Cache from '../../../../utils/cache';
+    import Config from '../../../../utils/config.js';
     import axios from 'axios';
     export default {
         data() {
@@ -189,7 +189,7 @@
     };
 </script>
 <style lang="scss" scoped>
-    @import '../../../assets/css/global.scss';
+    @import '../../../../assets/css/global.scss';
     .authImg {
         &_header {
             border-bottom: 1px solid #D8D8D8;

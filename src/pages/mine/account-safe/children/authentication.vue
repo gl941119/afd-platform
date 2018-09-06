@@ -2,6 +2,7 @@
     <div class="auth">
         <header-nav linkName="information"
                     title="实名认证"
+                    isBlue=true
                     class="auth_header"></header-nav>
         <div class="auth_boundary"></div>
         <div class="auth_info">
@@ -87,7 +88,7 @@
 </template>
 <script>
     // import Cache from '../../../utils/cache.js';
-    import CountryZh from '../../../i18n/country/countrys-zh.js';
+    import CountryZh from '../../../../i18n/country/countrys-zh.js';
     export default {
         data() {
             return {
@@ -197,7 +198,7 @@
     };
 </script>
 <style lang="scss" scoped>
-@import '../../../assets/css/global.scss';
+@import '../../../../assets/css/global.scss';
 .auth {
     .langer {
         height: 215px;
