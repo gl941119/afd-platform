@@ -1,21 +1,14 @@
 <template>
-    <div class="index" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+    <div class="index">
         <div class="index-nav">
             <index-search></index-search>
             <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
         </div>
         <top-nav></top-nav>
         <before-earn></before-earn>
-        <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
-            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" @update-data="getAdvertInfo"></advert-item>
-            <div slot="bottom" class="index-bottom">
-                <!-- <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span> -->
-                <span v-show="bottomStatus === 'loading'">
-                    <mt-spinner type="snake"></mt-spinner>
-                </span>
-                <span v-show="allLoaded">没有更多数据了</span>
-            </div>
-        </mt-loadmore>
+        <van-list v-model="loading" :finished="finished" @load="loadMore">
+            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" @update-data="updateData"></advert-item>
+        </van-list>
     </div>
 </template>
 <script>
@@ -36,9 +29,8 @@
                 advertItemDatas: [],
                 totalAdvertItemDatas: [],
                 id: this.$store.state.id,
-                allLoaded: false,
-                bottomStatus: '',
-                wrapperHeight: 0,
+                loading: false,
+                finished: false,
             };
         },
         mounted() {
@@ -46,7 +38,6 @@
             Promise.all([
                 this.findAdvertisement(), this.getAdvertInfo(),
             ]).then(() => {
-                this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
                 var token = Cache.getSession('bier_token');
                 var id = Cache.getSession('bier_userid');
                 !token && !id && this.getUserInfo();
@@ -61,7 +52,6 @@
                     Cache.setSession('bier_register_code', code);
                     this.$router.push({ name: 'register' });
                 }
-                // this.registerModel.form.inviteCode = arr.split('=')[2];
             },
             queryCode(value) {
                 Request({
@@ -119,23 +109,23 @@
                         // console.log('QueryAdvertInfo_>', res);
                         this.advertItemDatas = res.data;
                         if (this.advertItemDatas && this.advertItemDatas.length === 0) {
-                            this.allLoaded = true;
+                            this.finished = true;
                             resolve();
                         } else {
                             this.totalAdvertItemDatas.push(...this.advertItemDatas);
                             resolve();
                         }
+                        this.loading = false;
                     });
                 });
             },
-            learnMoreItem() {
+            loadMore() {
                 this.page++;
-                this.getAdvertInfo(this.page).then(() => {
-                    this.$refs.loadmore.onBottomLoaded();
-                });
+                this.getAdvertInfo(this.page);
             },
-            handleBottomChange(status) {
-                this.bottomStatus = status;
+            updateData() {
+                this.totalAdvertItemDatas = [];
+                this.getAdvertInfo();
             },
             // carousel image from server
             findAdvertisement() {
@@ -165,10 +155,12 @@
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
+
     .index {
         background: #FAFAFA;
         padding-bottom: 50px;
         overflow: auto;
+
         &-bottom {
             @extend %load-more;
         }
