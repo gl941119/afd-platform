@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import {
+    Actionsheet,
     Button,
     Cell,
     Dialog,
@@ -11,6 +12,7 @@ import {
 } from 'vant';
 import 'vant/packages/vant-css/src/button.css';
 
+Vue.use(Actionsheet);
 Vue.use(Button);
 Vue.use(Cell);
 Vue.use(Dialog);
