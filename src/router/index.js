@@ -45,7 +45,7 @@ const Account = () =>
 const WalletAddress = () =>
     import('@/pages/mine/account-safe/children/wallet-address');
 const SetTrade = () =>
-    import('@/pages/mine/account-safe/children/setTrade');
+    import('@/pages/mine/account-safe/children/set-trade');
 const ChangeTrade = () =>
     import('@/pages/mine/account-safe/children/changeTrade');
 const ForgetTrade = () =>
