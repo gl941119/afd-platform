@@ -2,7 +2,8 @@ import axios from 'axios';
 import qs from 'qs';
 import store from '../store';
 import Cache from './cache';
-import { Indicator, Toast } from 'mint-ui';
+import { Indicator } from 'mint-ui';
+import { Toast } from 'vant';
 import ajaxURL from '../config';
 import config from './config';
 import Utils from './util.js';
@@ -99,7 +100,7 @@ async function ajaxRequest(url = '', data = {}, type = 'POST', isJson = false) {
  * @param params.flag -> json require, default false
  */
 function requestHandle(params) {
-    const { url, data, type, flag, feedback = true } = params;
+    const { url, data, type, flag } = params;
     return new Promise((resolve, reject) => {
         ajaxRequest(url, data, type, flag).then(
             res => {
@@ -121,7 +122,7 @@ function requestHandle(params) {
                         // location.href = "/index";
                     }
                     reject(res.data);
-                    if (feedback) {
+                    if (message !== '1004') {
                         Toast(utils.judgeLanguage(utils.getCurrLanguage(store), message));
                     }
                 }

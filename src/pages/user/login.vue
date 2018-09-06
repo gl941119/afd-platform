@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <header-nav :skip-name="'pwd'" skip-title="密码登录"></header-nav>
+        <header-nav :skip-name="'pwd'" :query="redirect" skip-title="密码登录"></header-nav>
         <img class="login-img" src="../../assets/imgs/img/login-logo.png">
         <div class="login_info">
             <input style="display:none">
@@ -17,7 +17,7 @@
                 <van-button type="warning" :class="{'blue_button':isSelected }" @click="login()" :disabled="!isSelected" class="login_buttonBox_button">快速登录</van-button>
             </div>
             <div class="login_notic">
-                <a href="javascript:;" @click="$router.push({name: 'register'})">新用户注册</a>
+                <a href="javascript:;" @click="goToRegister">新用户注册</a>
             </div>
         </div>
     </div>
@@ -30,6 +30,7 @@
         name: 'QuickLogin',
         data() {
             return {
+                redirect: this.$route.query.redirect,
                 phone: '',
                 verify: '',
                 id: this.$store.state.id,
@@ -58,17 +59,15 @@
                     },
                     type: 'post',
                     flag: true,
-                    feedback: false,
                 }).then(res => {
                     this.handleLoginSucc(res.data);
                 }).catch(e => {
-                    console.log('err', e);
                     if (e.message === '1004') {
                         this.$dialog.confirm({
                             title: '提示',
                             message: '该账户不存在，请先注册',
                         }).then(() => {
-                            this.$router.push({ name: 'register' });
+                            this.goToRegister();
                         }).catch(console.log);
                     }
                 });
@@ -114,9 +113,18 @@
                 nickname && Cache.setSession('bier_usernickname', nickname);
                 token && Cache.setSession('bier_token', token);
                 heardUrl && Cache.setSession('bier_heardUrl', heardUrl);
-                this.$router.push({
-                    name: 'mine',
-                });
+                if (this.redirect) {
+                    this.$router.push({
+                        name: this.redirect,
+                    });
+                } else {
+                    this.$router.push({
+                        name: 'mine',
+                    });
+                }
+            },
+            goToRegister() {
+                this.$router.push({ name: 'register', query: { redirect: this.redirect }});
             },
         },
     };

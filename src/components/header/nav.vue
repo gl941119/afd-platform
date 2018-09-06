@@ -9,7 +9,7 @@
             <img v-else src="../../assets/imgs/img/return-white.png">
         </a>
         <div class="nav-text">{{title}}</div>
-        <router-link v-if="skipName" class="nav-skip" :to="{name: skipName}">
+        <router-link v-if="skipName" class="nav-skip" :to="{name: skipName, query: {redirect: query}}">
             {{skipTitle}}
         </router-link>
     </div>
@@ -23,6 +23,7 @@
             'skipName',
             'skipTitle',
             'isBlue',
+            'query',
         ],
         data() {
             return {};

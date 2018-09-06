@@ -37,10 +37,10 @@
         methods: {
             goToMine() {
                 if (!(this.$store.state.token || Cache.getSession('bier_token'))) {
-                    this.$messagebox.confirm(
-                        '请先登录，再去查看'
-                    ).then(() => {
-                        this.$router.push({ name: 'login' });
+                    this.$dialog.confirm({
+                        title: '请先登录，再去查看',
+                    }).then(() => {
+                        this.$router.push({ name: 'login', query: { redirect: 'mine' }});
                     }, () => {});
                     return;
                 }
