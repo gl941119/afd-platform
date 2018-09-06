@@ -1,25 +1,27 @@
 <template>
-    <div class="trade">
-        <header-nav linkName="mine" isBlue=true class="trade-header" title="设置支付密码"></header-nav>
-        <div class="trade-info">
-            <div class="trade-info-item">
-                <input type="password" v-model="oldTradePassword" v-validate="{required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!+-^%*#?&]{8,16}$/}" name="oldTradePassword" placeholder="原交易密码"/>
-                <span class="is-danger" v-show="errors.has('oldTradePassword')">{{errors.first('oldTradePassword')}}</span>
+    <div class="input">
+        <header-nav linkName="mine" isBlue=true class="input-header" title="修改支付密码"></header-nav>
+        <div class="input-info">
+            <div class="input-info-item">
+                <input type="password" v-model="oldTradePassword" name="oldTradePassword" placeholder="原支付密码"/>
             </div>
-            <div class="trade-info-item">
-                <input type="password" v-model="tradePassword" v-validate="{required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!+-^%*#?&]{8,16}$/}" name="tradePassword" placeholder="新交易密码"/>
-            <span class="is-danger" v-show="errors.has('tradePassword')">{{errors.first('tradePassword')}}</span>
+            <div class="input-info-item">
+                <input type="password" v-model="tradePassword" @blur="password()" name="tradePassword" placeholder="新支付密码"/>
             </div>
-            <div class="trade-info-item">
-                <input type="password" v-model="onceNewTradePassword" v-validate="'required|confirmed:tradePassword'" name="onceNewTradePassword" placeholder="确认新交易密码">
-                <span class="is-danger" v-show="errors.has('onceNewTradePassword')">{{errors.first('onceNewTradePassword')}}</span>
+            <div class="input-info-item">
+                <input type="password" v-model="onceNewTradePassword" name="onceNewTradePassword" placeholder="确认新支付密码">
             </div>
         </div>
-        <div class="trade-forget">
-            忘记交易密码
+        <div class="input-password">
+            <div>
+                请设置6位数字或字母
+            </div>
+            <div class="input-password-forget" @click="forget()">
+                忘记交易密码
+            </div>
         </div>
-        <div class="trade-confirm">
-            <button class="trade-confirm-button" @click="confirm()" :class="{'active':style}">确定</button>
+        <div class="input-confirm">
+            <button class="input-confirm-button" @click="confirm()" :class="{'active':style}">确定</button>
         </div>
     </div>
 </template>
@@ -32,23 +34,39 @@ export default {
             oldTradePassword: '',
             tradePassword: '',
             onceNewTradePassword: '',
+            passwordShow: false,
         };
     },
     computed: {
         style() {
-            if (this.oldTradePassword && this.tradePassword && this.onceNewTradePassword) {
+            if (this.oldTradePassword && this.tradePassword && this.onceNewTradePassword && !this.passwordShow) {
                 return true;
             }
             return false;
         },
     },
     methods: {
+        password() {
+            var str = this.tradePassword;
+            var value = /^[a-zA-Z]{6}|[0-9]{6}$/.test(str);
+            if (!value) {
+                this.$toast.fail('支付密码格式不对');
+                this.passwordShow = true;
+            } else {
+                this.passwordShow = false;
+            }
+        },
         confirm() {
             console.log('1');
+        },
+        forget() {
+            this.$router.push({
+                name: 'forgetTrade',
+            });
         },
     },
 };
 </script>
 <style lang="scss" scoped>
-@import '../../../../assets/css/tradePassword.scss';
+@import '../../../../assets/css/input.scss';
 </style>

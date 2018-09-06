@@ -1,5 +1,5 @@
 @import './global.scss';
-.trade{
+.input{
     @include remCalc(padding, 24px, 38px, 0, 38px);
     &-info{
         @include remCalc(margin, 44px, 0, 32px, 0);
@@ -36,6 +36,16 @@
                     border:1px solid rgba(255,149,0,1);
                 }
             }
+        }
+    }
+    &-password{
+        font-size:11px;
+        color:rgba(174,174,174,1);
+        margin-bottom: pxTorem(12px);
+        display: flex;
+        justify-content: space-between;
+        &-forget{
+            color: #3B98FC;
         }
     }
     &-confirm{

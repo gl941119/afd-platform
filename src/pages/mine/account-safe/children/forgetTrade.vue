@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <header-nav linkName="mine" isBlue=true class="input-header" title="设置支付密码"></header-nav>
+        <header-nav linkName="mine" isBlue=true class="input-header" title="找回支付密码"></header-nav>
         <div class="input-info">
             <div class="input-info-item">
                 <input v-model="phone" placeholder="请输入邮箱或手机号"/>
@@ -10,15 +10,6 @@
                 <button class="input-info-item-button" :disabled="!code" v-if="!codeShow" :class="{'active':code}" @click="getCode()">获取验证码</button>
                 <button class="input-info-item-button" v-else>({{num}}s)后重试</button>
             </div>
-            <div class="input-info-item">
-                <input type="password" v-model="tradePassword" @blur="password()" name="tradePassword" placeholder="请设置支付密码"/>
-            </div>
-            <div class="input-info-item">
-                <input type="password" class="relative" v-model="onceTradePassword"  name="onceTradePassword" placeholder="请确认支付密码">
-            </div>
-        </div>
-        <div class="input-password">
-            请设置6位数字或字母
         </div>
         <div class="input-confirm">
             <button class="input-confirm-button" @click="confirm()" :disabled="!style" :class="{'active':style}">确定</button>
@@ -33,16 +24,13 @@ export default {
         return {
             phone: '',
             verifyCode: '',
-            tradePassword: '',
-            onceTradePassword: '',
             num: 60,
             codeShow: false,
-            passwordShow: false,
         };
     },
     computed: {
         style() {
-            if (this.onceTradePassword && this.tradePassword && this.phone && this.verifyCode && !this.passwordShow) {
+            if (this.phone && this.verifyCode) {
                 return true;
             }
             return false;
@@ -79,16 +67,6 @@ export default {
                         }
                     }, 1000);
                 });
-            }
-        },
-        password() {
-            var str = this.tradePassword;
-            var value = /^[a-zA-Z]{6}|[0-9]{6}$/.test(str);
-            if (!value) {
-                this.$toast.fail('支付密码格式不对');
-                this.passwordShow = true;
-            } else {
-                this.passwordShow = false;
             }
         },
         confirm() {
