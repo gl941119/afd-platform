@@ -5,6 +5,7 @@
             <custom-carousel :swiper-imgs="swiperImgs"></custom-carousel>
         </div>
         <top-nav></top-nav>
+        <before-earn></before-earn>
         <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
             <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" @update-data="getAdvertInfo"></advert-item>
             <div slot="bottom" class="index-bottom">
@@ -21,6 +22,7 @@
     import CustomCarousel from '@/components/index-com/custom-carousel';
     import IndexSearch from '@/components/header/search';
     import TopNav from '@/components/index-com/top-nav';
+    import BeforeEarn from '@/components/index-com/before-earn';
     import Request from '../../utils/require.js';
     import Config from '../../utils/config.js';
     import Cache from '../../utils/cache';
@@ -157,6 +159,7 @@
             CustomCarousel,
             TopNav,
             IndexSearch,
+            BeforeEarn,
         },
     };
 </script>
