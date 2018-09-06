@@ -10,8 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
 
-const HOST = process.env.HOST;
-// const HOST = '192.168.1.105' // yu
+// const HOST = process.env.HOST;
+const HOST = '192.168.1.105'; // yu
 // const HOST = '192.168.1.103'
 const PORT = process.env.PORT && Number(process.env.PORT);
 

@@ -10,8 +10,6 @@ export default {
     QueryCrowdDataById: 'blockchainadvert/crowd-funding/id', // 根据主ID获取单个众筹
     GetQrCode: 'blockchainadvert/common/createRrCode',
     FindAdvertisement: 'blockchainadvert/advertservice/findAdvertisement',
-    // 首页获取收益
-    QueryBeforeEarn: 'blockchainadvert/advert-income/token',
     // Login and Register
     Register: 'blockchainadvert/account/registered',
     Login: 'blockchainadvert/account/accountLogin',
@@ -28,7 +26,7 @@ export default {
 
     QueryRevenueBasicInformation: 'blockchainadvert/advert-income/account-id', // mine*
     QueryRevenue: 'blockchainadvert/income-flows/token', // revenue*
-    QueryRevenueBalance: 'blockchainadvert/advert-income/token', // revenue-balance
+    QueryRevenueBalance: 'blockchainadvert/advert-income/token', // revenue-balance // 首页获取收益
     QueryRevenueAccountFlow: 'blockchainadvert/income-flow/income-id', // 收益账户流水
     QueryMainBasicInformation: 'blockchainadvert/advert-main/account-id', // 主账户
     QueryMainAccountFlow: 'blockchainadvert/main-flow/main-id', // 账户流水

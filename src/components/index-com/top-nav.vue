@@ -24,5 +24,8 @@ export default {
         background: #fff;
         @include remCalc(padding, 10, 29, 16);
         @include content-flex(space-between);
+        img {
+            width: pxTorem(138px);
+        }
     }
 </style>
