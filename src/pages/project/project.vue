@@ -1,27 +1,22 @@
 <template>
-    <div class="project" ref="projectWrapper" :style="{ height: wrapperHeight + 'px' }">
+    <div class="project">
         <div class="project-header">
             <div class="project-input">
-                <input @focus="inputFocus" v-model="inputValue" class="project-input-item" type="text">
-                <i class="project-input-icon custom-mint-icon-sousuo"></i>
+                <input @focus="goToSearch" v-model="inputValue" class="project-input-item" type="text">
+                <i class="project-input-icon custom-vant-icon-fangdajing"></i>
             </div>
+            <a v-if="conceptId" @click="goToSearch" href="javascript:;" class="project-header-text">取消</a>
         </div>
         <div v-if="noData" class="project-result">
             <div class="project-result_box">
                 <img src="../../assets/imgs/img/search.png">
             </div>
-            <div>搜索不到相关信息</div>
+            <div>没有找到你想要的结果</div>
+            <div>请换个关键词试试</div>
         </div>
-        <mt-loadmore :bottom-method="learnMoreItem" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="projectLoadmore">
-            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" :concept-id="conceptId" @update-data="init"></advert-item>
-            <div v-show="!noData" slot="bottom" class="project-bottom">
-                <!-- <span v-show="bottomStatus !== 'loading'&&!allLoaded" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span> -->
-                <span v-show="bottomStatus === 'loading'">
-                    <mt-spinner type="snake"></mt-spinner>
-                </span>
-                <span v-show="allLoaded">没有更多数据了</span>
-            </div>
-        </mt-loadmore>
+        <van-list v-model="loading" :finished="finished" @load="loadMore">
+            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" :concept-id="conceptId" @update-data="updateData"></advert-item>
+        </van-list>
     </div>
 </template>
 <script>
@@ -38,12 +33,11 @@
                 conceptId: this.$route.query.id,
                 inputValue: this.$route.query.value,
                 pageTotal: 0,
+                loading: false,
+                finished: false,
                 noData: false,
-                allLoaded: false,
-                bottomStatus: '',
-                wrapperHeight: 0,
                 count: 0,
-            }
+            };
         },
         mounted() {
             this.init();
@@ -51,13 +45,9 @@
         methods: {
             init() {
                 if (this.conceptId) {
-                    this.getAdvertInfo(this.conceptId).then(() => {
-                        this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
-                    })
+                    this.getAdvertInfo(this.conceptId);
                 } else {
-                    this.getAdvertInfoInit().then(() => {
-                        this.wrapperHeight = document.documentElement.clientHeight - this.$refs.projectWrapper.getBoundingClientRect().top;
-                    })
+                    this.getAdvertInfoInit();
                 }
             },
             getAdvertInfoInit(page = this.page, pageSize = this.pageSize) {
@@ -68,18 +58,19 @@
                             page,
                             pageSize,
                         },
-                        type: 'get'
+                        type: 'get',
                     }).then(res => {
                         // console.log('QueryAdvertInfo_>', res);
                         this.advertItemDatas = res.data;
                         if (this.advertItemDatas && this.advertItemDatas.length === 0) {
-                            this.allLoaded = true;
+                            this.finished = true;
                             resolve();
                         } else {
                             this.totalAdvertItemDatas.push(...this.advertItemDatas);
                             resolve();
                         }
-                    })
+                        this.loading = false;
+                    });
                 });
             },
             // 通过ID 筛选
@@ -92,15 +83,15 @@
                             pageSize,
                             conceptId,
                         },
-                        type: 'get'
+                        type: 'get',
                     }).then(res => {
                         // console.log('QueryAdvertInfoForPage>', res);
-                        this.count ++; // 异步的用语判断首次是否有数据
+                        this.count++; // 异步的用语判断首次是否有数据
                         this.advertDatas = res.data;
                         // console.log('count->', this.count, res.data);
                         if (res.data && res.data.length === 0) {
                             this.count === 1 && (this.noData = true);
-                            this.allLoaded = true;
+                            this.finished = true;
                             resolve();
                         } else {
                             this.count === 2 && (this.noData = false); // count = 2 有数据
@@ -108,29 +99,30 @@
                             resolve();
                         }
                         this.pageTotal = res.total;
-                    })
+                        this.loading = false;
+                    });
                 });
             },
-            inputFocus() {
-                this.$router.push({ name: 'search' })
+            goToSearch() {
+                this.$router.push({ name: 'search', query: { redirect: 'project' }});
             },
-            learnMoreItem() {
+            loadMore() {
                 this.page++;
                 if (this.conceptId) {
-                    this.getAdvertInfo(this.conceptId, this.page).then(() => {
-                        this.$refs.projectLoadmore.onBottomLoaded();
-                    })
+                    this.getAdvertInfo(this.conceptId, this.page);
                 } else {
-                    this.getAdvertInfoInit(this.page).then(() => {
-                        this.$refs.projectLoadmore.onBottomLoaded();
-                    })
+                    this.getAdvertInfoInit(this.page);
                 }
+            },
+            updateData() {
+                this.totalAdvertItemDatas = [];
+                this.init();
             },
             handleBottomChange(status) {
                 this.bottomStatus = status;
             },
-        }
-    }
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
@@ -138,42 +130,52 @@
         width: 100%;
         background: #FAFAFA;
         padding-bottom: 50px;
-        padding-top: 35px;
+        margin-top: 50px;
         overflow: auto;
         &-header {
             position: fixed;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 44px;
-            @include content-flex(center);
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #0C3C6E;
+            @include content-flex();
+            &-text {
+                font-size: pxTorem(16px);
+                padding: pxTorem(13px);
+                color: #fff;
+            }
         }
         &-input {
             position: relative;
-            width: pxTorem(312px);
+            width: pxTorem(298px);
+            margin-left: 15px;
             &-item {
                 width: 100%;
                 @extend %custom-input;
-                padding-left: 36px;
+                padding-left: 54px;
             }
             &-icon {
                 position: absolute;
-                top: 4px;
-                left: 8px;
-                color: #8E8E93;
+                top: 0px;
+                left: 18px;
+                font-size: 24px;
+                color: #D8D8D8;
             }
         }
         &-result {
-            height: calc(100vh - 50px - 44px);
-            @include content-flex(center);
+            height: calc(100vh - 100px);
+            @include content-flex();
             flex-direction: column;
-            color: #999;
+            color: #333;
+            background: #fff;
+            font-size: pxTorem(18px);
             &_box {
+                margin-top: pxTorem(46px);
                 margin-bottom: 10px;
                 text-align: center;
                 img {
-                    width: 88px;
-                    height: 59px;
+                    width: pxTorem(161px);
                 }
             }
         }

@@ -55,7 +55,7 @@
                 return this.options[0].values.find(item => item.label === lang).text;
             },
             inputFocus() {
-                this.$router.push({ name: 'search' });
+                this.$router.push({ name: 'search', query: { redirect: 'index' }});
             },
             showShare() {
                 if (!(this.$store.state.token || Cache.getSession('bier_token'))) {

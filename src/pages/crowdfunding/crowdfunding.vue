@@ -3,15 +3,12 @@
         <div class="crowd-header">
             <div class="crowd-input">
                 <input v-model="inputValue" class="crowd-input-item" type="text">
-                <i class="crowd-input-icon custom-mint-icon-sousuo"></i>
+                <i class="crowd-input-icon custom-vant-icon-fangdajing"></i>
             </div>
         </div>
         <div class="crowd-content">
-            <div class="temp-crowd" v-for="item in 5" :key="item">
-                	<div>
-                		<img src="../../assets/imgs/img/index_corwd.png"/>
-                	</div>
-                </div>
+            <p class="crowd-content-text">即将上线</p>
+            <p>敬请期待</p>
         </div>
     </div>
 </template>
@@ -20,9 +17,9 @@
         data() {
             return {
                 inputValue: '',
-            }
-        }
-    }
+            };
+        },
+    };
 </script>
 <style lang="scss" scoped>
     @import '../../assets/css/global.scss';
@@ -30,8 +27,14 @@
         width: 100%;
         background: #FAFAFA;
         padding-bottom: 50px;
+        margin-top: 50px;
         &-header {
-            height: 44px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #0C3C6E;
             @include content-flex(center);
         }
         &-input {
@@ -44,25 +47,24 @@
             }
             &-icon {
                 position: absolute;
-                top: 4px;
-                left: 8px;
-                color: #8E8E93;
+                top: 0px;
+                left: 18px;
+                font-size: 24px;
+                color: #D8D8D8;
             }
         }
     }
-    .temp-crowd {
+
+    .crowd-content {
         width: 100%;
-        background: #D3DCE6;
-        height: 240px;
-        padding-top: 20px;
-        &>div{
-            @include content-flex(center);
-        	width: 100%;
-        	height: 240px;
-        	background: white;
-        	& img{
-        		width: 200px;
-        	}
+        background: #F5F5F5;
+        height: calc(100vh - 100px);
+        p {
+            font-size: 16px;
+            text-align: center;
+        }
+        &-text {
+            padding-top: pxTorem(195px);
         }
     }
 </style>
