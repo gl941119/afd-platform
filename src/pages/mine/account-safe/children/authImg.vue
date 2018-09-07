@@ -43,10 +43,10 @@
         data() {
             return {
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
-                name: this.$store.state.authName,
-                idType: this.$store.state.authIdType,
-                idNum: this.$store.state.authIdNum,
-                country: this.$store.state.authCountry,
+                name: this.$store.state.authName || Cache.getSession('auth_name'),
+                idType: this.$store.state.authIdType || Cache.getSession('auth_idType'),
+                idNum: this.$store.state.authIdNum || Cache.getSession('auth_idNum'),
+                country: this.$store.state.authCountry || Cache.getSession('auth_country'),
                 uploadImg: Config.UploadAuthImg,
                 requestToken: {
                     token: this.$store.state.token ||

@@ -42,7 +42,7 @@
     </div>
 </template>
 <script>
-    // import Cache from '../../../utils/cache.js';
+    import Cache from '../../../../utils/cache.js';
     import CountryZh from '../../../../i18n/country/countrys-zh.js';
     export default {
         data() {
@@ -131,6 +131,10 @@
                     this.$store.commit('setAuthIdType', this.idType);
                     this.$store.commit('setAuthIdNum', this.idNum);
                     this.$store.commit('setAuthCountry', this.country);
+                    Cache.setSession('auth-name', this.name);
+                    Cache.setSession('auth-idType', this.idType);
+                    Cache.setSession('auth-idNum', this.idNum);
+                    Cache.setSession('auth-country', this.country);
                     this.$router.push({
                         name: 'authImg',
                     });
