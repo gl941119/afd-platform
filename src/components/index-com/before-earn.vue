@@ -29,15 +29,19 @@
                 return this.$store.state.token;
             },
         },
+        watch: {
+            token(val) {
+                val
+                    ? this.getEarn() : (this.num = null);
+            },
+        },
         mounted() {
-            if (this.token) {
-                this.getEarn();
-            }
+            this.token && this.getEarn();
         },
         methods: {
             getEarn() {
                 Request({
-                    url: 'QueryBeforeEarn',
+                    url: 'QueryRevenueBalance',
                     type: 'get',
                     data: {
                         dataType: 0,
@@ -76,6 +80,10 @@
             span {
                 color: #666;
                 font-size: 18px;
+            }
+
+            img {
+                width: pxTorem(70px);
             }
         }
 

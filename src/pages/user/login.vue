@@ -134,6 +134,7 @@
 
     .login {
         &-img {
+            width: pxTorem(231px);
             margin: pxTorem(50px) auto 0;
             display: block;
         }
