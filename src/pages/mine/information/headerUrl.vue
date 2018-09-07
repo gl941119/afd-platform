@@ -83,7 +83,7 @@
             onRead(file) {
                 this.files.push(file);
                 this.edit = true;
-                console.log(this.files);
+                // console.log(this.files);
             },
             cancle() {
                 this.edit = false;
