@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import {
-    Actionsheet,
     Button,
     Cell,
     Dialog,
@@ -9,10 +8,10 @@ import {
     Popup,
     Toast,
     List,
+    Uploader,
 } from 'vant';
 import 'vant/packages/vant-css/src/button.css';
 
-Vue.use(Actionsheet);
 Vue.use(Button);
 Vue.use(Cell);
 Vue.use(Dialog);
@@ -20,4 +19,5 @@ Vue.use(Icon);
 Vue.use(Picker);
 Vue.use(Popup);
 Vue.use(List);
+Vue.use(Uploader);
 Vue.prototype.$toast = Toast;

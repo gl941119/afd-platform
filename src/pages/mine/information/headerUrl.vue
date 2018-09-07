@@ -1,19 +1,31 @@
 <template>
     <div class="headerUrl">
-        <header-nav linkName="information" title="头像设置" class="headerUrl_header"></header-nav>
+        <header-nav linkName="information" isBlue=true title="头像设置" class="headerUrl_header"></header-nav>
         <div class="imgbox">
             <img class="img" :src="heardUrl">
         </div>
         <div class="avatar">
-            <file-upload extensions="gif,jpg,jpeg,png,webp" accept="image/*" v-model="files" name="avatar" class="btn btn-primary" :drop="!edit" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
-                <div class="btn_text">点击上传</div>
-            </file-upload>
-            <div class="avatar-edit" v-show="files.length && edit">
-                <div class="avatar-edit-image" v-if="files.length">
+            <van-uploader class="btn_text" :after-read="onRead">
+                点击上传
+            </van-uploader>
+            <!-- <div class="avatar-edit" v-show="files && edit">
+                <div class="avatar-edit-image" v-if="files">
                     <img ref="editImage" :src="files[0].url" />
                 </div>
                 <div class="avatar-edit-btn">
                     <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">取消</button>
+                    <button type="submit" class="btn btn-primary" @click.prevent="editSave">保存</button>
+                </div>
+            </div> -->
+             <!-- <file-upload extensions="gif,jpg,jpeg,png,webp" accept="image/*" v-model="files" name="avatar" class="btn btn-primary" :drop="!edit" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
+                <div class="btn_text">点击上传</div>
+            </file-upload> -->
+            <div class="avatar-edit" v-show="files.length && edit">
+                <div class="avatar-edit-image" v-if="files.length">
+                    <img ref="editImage" :src="files[0].content" />
+                </div>
+                <div class="avatar-edit-btn">
+                    <button type="button" class="btn btn-secondary" @click.prevent="cancle">取消</button>
                     <button type="submit" class="btn btn-primary" @click.prevent="editSave">保存</button>
                 </div>
             </div>
@@ -68,34 +80,17 @@
         },
         methods: {
             // avatar
-            inputFile(newFile, oldFile, prevent) {
-                if (newFile && !oldFile) {
-                    this.$nextTick(function() {
-                        this.edit = true;
-                    });
-                }
-                if (!newFile && oldFile) {
-                    this.edit = false;
-                }
+            onRead(file) {
+                this.files.push(file);
+                this.edit = true;
+                console.log(this.files);
             },
-            inputFilter(newFile, oldFile, prevent) {
-                if (newFile && !oldFile) {
-                    if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
-                        this.$toast('Your choice is not a picture');
-                        return prevent();
-                    }
-                }
-                if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
-                    newFile.url = '';
-                    const URL = window.URL || window.webkitURL;
-                    if (URL && URL.createObjectURL) {
-                        newFile.url = URL.createObjectURL(newFile.file);
-                    }
-                }
+            cancle() {
+                this.edit = false;
+                this.files = [];
             },
             editSave() {
-                this.edit = false;
-                const oldFile = this.files[0];
+                const oldFile = this.files[0].file;
                 const binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1]);
                 const arr = new Uint8Array(binStr.length);
                 for (let i = 0; i < binStr.length; i++) {
@@ -115,6 +110,7 @@
                     },
                 }).then(res => {
                     this.selectImg(res.data.data);
+                    this.cancle();
                 }).catch(console.error);
             },
             selectImg(url) {

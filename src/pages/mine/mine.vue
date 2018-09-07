@@ -235,7 +235,6 @@
             basicInformation() {
                 Request({
                     url: 'QueryRevenueBasicInformation',
-                    data: { accountId: this.accountId },
                     type: 'get',
                 }).then(res => {
                     this.balance = res.data.balance;
