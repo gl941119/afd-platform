@@ -1,33 +1,34 @@
 <template>
     <div class="mining">
         <header-nav linkName="mine" class="mining-header" title="挖矿收益明细"></header-nav>
-        <div class="mining-totalRenvue">
-            <div class="mining-totalRenvue-money">{{balance}}</div>
-            <div class="mining-totalRenvue-text">挖矿总收益（AFDT）</div>
-        </div>
-        <div class="mining-titleBox">
-            <div class="mining-titleBox-title">
-                <div class="mining-titleBox-title-info">时间</div>
-                <div class="mining-titleBox-title-info">描述</div>
-                <div class="mining-titleBox-title-info">AFDT</div>
+        <div v-if="revenueData.length!==0">
+            <div class="mining-totalRenvue">
+                <div class="mining-totalRenvue-money">{{balance}}</div>
+                <div class="mining-totalRenvue-text">挖矿总收益（AFDT）</div>
+            </div>
+            <div class="mining-titleBox">
+                <div class="mining-titleBox-title">
+                    <div class="mining-titleBox-title-info">时间</div>
+                    <div class="mining-titleBox-title-info">描述</div>
+                    <div class="mining-titleBox-title-info">AFDT</div>
+                </div>
+            </div>
+            <div class="infoBox" >
+                <div class="mining-titleBox-title" v-for="(item, index) in revenueData" :key="index">
+                    <div class="mining-titleBox-title-info">{{item.createTime}}</div>
+                    <div class="mining-titleBox-title-info">{{item.desc}}</div>
+                    <div class="mining-titleBox-title-info">{{item.money}}</div>
+                </div>
             </div>
         </div>
-        <div class="mining-notic" v-if="revenueData.length===0">
-            <div>暂无数据</div>
-        </div>
-        <div class="infoBox" >
-            <div class="mining-titleBox-title" v-for="(item, index) in revenueData" :key="index">
-                <div class="mining-titleBox-title-info">{{item.createTime}}</div>
-                <div class="mining-titleBox-title-info">{{item.desc}}</div>
-                <div class="mining-titleBox-title-info">{{item.money}}</div>
-            </div>
-        </div>
+        <CleanCom v-else :type='2'></CleanCom>
     </div>
 </template>
 <script>
     import Cache from '../../../utils/cache.js';
     import Request from '../../../utils/require';
     import Config from '../../../utils/config.js';
+    import CleanCom from '../no-data.vue';
     export default {
         data() {
             return {
@@ -38,6 +39,9 @@
                 pageSize: Config.pageSize,
                 balance: 0,
             };
+        },
+        components: {
+            CleanCom,
         },
         filters: {
             emails: function(value) {
@@ -62,7 +66,7 @@
                         },
                         type: 'get',
                     }).then(res => {
-                        this.revenueData = res.data;
+                        // this.revenueData = res.data;
                     });
                 });
             },

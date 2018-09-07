@@ -1,6 +1,6 @@
 <template>
     <div class="revenue">
-        <div class="revenue-notic" v-if="inviteDatas.length===0">
+        <div class="revenue-notic" v-if="freeDatas.length===0">
             <div>暂无数据</div>
         </div>
         <div class="revenue-titleBox" ref="revenueWrapper">
@@ -8,7 +8,7 @@
                 <div class="revenue-titleBox-title-info">挖矿截止时间</div>
                 <div class="revenue-titleBox-title-info">获得AFDT</div>
             </div>
-            <div class="revenue-titleBox-title" v-for="(item, index) in inviteDatas" :key="index">
+            <div class="revenue-titleBox-title" v-for="(item, index) in freeDatas" :key="index">
                 <div class="revenue-titleBox-title-info">
                     {{item.createTime}}
                 </div>
@@ -31,7 +31,7 @@
         data() {
             return {
                 id: this.$store.state.incomeId || Cache.getSession('bire_incomeId'),
-                inviteDatas: [],
+                freeDatas: [],
                 page: Config.pageStart,
                 pageSize: Config.pageSize,
             };
@@ -52,7 +52,7 @@
                         },
                         type: 'get',
                     }).then(res => {
-                        this.inviteDatas = res.data;
+                        this.freeDatas = res.data;
                     });
                 });
             },
