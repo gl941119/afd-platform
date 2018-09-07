@@ -2,9 +2,9 @@
     <div class="information">
         <header-nav linkName="mine" isBlue=true title="个人资料"></header-nav>
         <div class="information-item">
-            <van-cell title="头像" class="information-item-kind headerUrl" @click="changeHeader()" is-link>
+            <van-cell title="头像" class="information-item-kind headerUrl" to="/headerUrl" is-link>
                 <van-icon slot="right-icon">
-                    <img class="information-item-kind-img" :src="headUrl" />
+                    <img class="information-item-kind-img" :src="heardUrl" />
                     <div class="information-item-kind-fontBox">
                         <i class="custom-vant-icon-right lineHeight"></i>
                     </div>
@@ -31,13 +31,6 @@
                 <input v-model="nicknames" class="information-input-change"/>
             </div>
         </van-dialog>
-        <van-actionsheet
-            v-model="photo"
-            :actions="actions"
-            cancel-text="取消"
-            @select="onSelect"
-            @cancel="onCancel"
-        />
     </div>
 </template>
 <script>
@@ -50,22 +43,17 @@
                 utils: new Utils(),
                 accountId: this.$store.state.id,
                 nickname: this.$store.state.usernickname,
-                headUrl: 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png',
                 nicknames: '',
                 show: false,
-                photo: false,
-                actions: [
-                    {
-                        name: '拍照',
-                    },
-                    {
-                        name: '从手机相册选择',
-                    },
-                ],
             };
         },
         mounted() {
             this.info();
+        },
+        computed: {
+            heardUrl() {
+                return this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
+            },
         },
         methods: {
             info() {
@@ -80,15 +68,6 @@
                         this.heardUrl = res.data.heardUrl;
                     }
                 });
-            },
-            changeHeader() {
-                this.photo = true;
-            },
-            onSelect(item) {
-                console.log(item);
-            },
-            onCancel() {
-                this.photo = false;
             },
             changeUserName() {
                 this.nicknames = '';
