@@ -24,9 +24,9 @@ export default {
     SendSmsVerify: 'blockchainadvert/account/send-smscode', // 快速登录
     QuickSmsLogin: 'blockchainadvert/account/smslogin', // 快速登录
 
-    QueryRevenueBasicInformation: 'blockchainadvert/advert-income/account-id', // mine*
+    QueryRevenueBasicInformation: 'blockchainadvert/advert-income/account-id', // mine* // 首页获取收益
     QueryRevenue: 'blockchainadvert/income-flows/token', // revenue*
-    QueryRevenueBalance: 'blockchainadvert/advert-income/token', // revenue-balance // 首页获取收益
+    QueryRevenueBalance: 'blockchainadvert/advert-income/token', // revenue-balance
     QueryRevenueAccountFlow: 'blockchainadvert/income-flow/income-id', // 收益账户流水
     QueryMainBasicInformation: 'blockchainadvert/advert-main/account-id', // 主账户
     QueryMainAccountFlow: 'blockchainadvert/main-flow/main-id', // 账户流水

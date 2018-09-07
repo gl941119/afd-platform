@@ -24,7 +24,7 @@
                 </div>
                 <div class="advert-item-right-bottom">
                     <a @click="goShare" class="advert-item-right-bottom-link" href="javascript:;">
-                        <img src="../../assets/imgs/img/share-item.png">
+                        <i class="custom-vant-icon-fenxiang2"></i>
                         <span>分享</span>
                     </a>
                     <a @click="goTelegram" class="advert-item-right-bottom-link" href="javascript:;">
@@ -57,6 +57,7 @@
             return {
                 popupVisible: false,
                 tradeVisible: false,
+                path: this.$route.name,
                 utils: new Utils(),
             };
         },
@@ -90,7 +91,7 @@
                     this.$dialog.confirm({
                         title: '请先登录，再去交易',
                     }).then(() => {
-                        this.$router.push({ name: 'login', query: { redirect: 'index' }});
+                        this.$router.push({ name: 'login', query: { redirect: this.path }});
                     }, () => {});
                     return;
                 }
@@ -101,7 +102,7 @@
                     this.$dialog.confirm({
                         title: '请先登录，才能分享',
                     }).then(() => {
-                        this.$router.push({ name: 'login', query: { redirect: 'index' }});
+                        this.$router.push({ name: 'login', query: { redirect: this.path }});
                     }, () => {});
                     return;
                 }

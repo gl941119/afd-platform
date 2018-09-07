@@ -1,6 +1,6 @@
 <template>
     <div class="register">
-        <header-nav title="忘记密码"></header-nav>
+        <header-nav title="找回密码"></header-nav>
         <div v-if="!success" class="register_info forget-password">
             <input style="display:none">
             <div class="register_info_box">

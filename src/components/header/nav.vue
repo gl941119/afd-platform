@@ -1,12 +1,10 @@
 <template>
     <div class="nav" :class="{'blue-background': isBlue}">
         <router-link v-if="linkName" class="nav-link" :to="{name: linkName}">
-            <img v-if="!isBlue" src="../../assets/imgs/img/return.png">
-            <img v-else src="../../assets/imgs/img/return-white.png">
+            <i class="nav-text custom-vant-icon-fanhui2"></i>
         </router-link>
         <a v-else @click="$router.go(-1)" class="nav-link" href="javascript:;">
-            <img v-if="!isBlue" src="../../assets/imgs/img/return.png">
-            <img v-else src="../../assets/imgs/img/return-white.png">
+            <i class="nav-text custom-vant-icon-fanhui2"></i>
         </a>
         <div class="nav-text">{{title}}</div>
         <router-link v-if="skipName" class="nav-skip" :to="{name: skipName, query: {redirect: query}}">
@@ -34,7 +32,7 @@
     @import '../../assets/css/global.scss';
 
     .nav {
-        height: pxTorem(44px);
+        height: pxTorem(30px);
         @include remCalc(padding, 0, 14px);
         @include content-flex();
         position: fixed;
@@ -47,6 +45,9 @@
             @include remCalc(padding, 0, 10px);
             margin-left: pxTorem(-14px);
             @include content-flex(center);
+            i {
+                font-size: pxTorem(26px);
+            }
         }
 
         &-text {

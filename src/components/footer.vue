@@ -2,20 +2,20 @@
     <div class="footer" v-if="isShow==='1'">
         <ul class="footer_item">
             <router-link tag="li" :to="{ name: 'index'}" class="footer_item_li">
-                <span class="footer-img footer_item_li_home"></span>
-                首页
+                <i class="custom-vant-icon-home"></i>
+                <span>首页</span>
             </router-link>
             <router-link tag="li" :to="{ name: 'project'}" class="footer_item_li">
-                <span class="footer-img footer_item_li_project"></span>
-                项目
+                <i class="custom-vant-icon-project"></i>
+                <span>项目</span>
             </router-link>
             <router-link tag="li" :to="{ name: 'crowdfunding'}" class="footer_item_li">
-                <span class="footer-img footer_item_li_crowdfunding"></span>
-                众筹
+                <i class="custom-vant-icon-ico"></i>
+                <span>众筹</span>
             </router-link>
             <li @click="goToMine" class="footer_item_li" :class="{'mine-active': mineActive}">
-                <span class="footer-img footer_item_li_mine"></span>
-                我的
+                <i class="custom-vant-icon-mine"></i>
+                <span>我的</span>
             </li>
         </ul>
     </div>
@@ -50,6 +50,7 @@
     };
 </script>
 <style lang="scss" scoped>
+    @import '../assets/css/global.scss';
     .footer {
         background: #fff;
         position: fixed;
@@ -70,44 +71,19 @@
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
-                font-size: 10px;
+                font-size: 12px;
                 color: #ACACAC;
+                i {
+                    font-size: pxTorem(27px);
+                }
+                span {
+                    line-height: pxTorem(17px);
+                }
                 &.router-link-active {
                     color: #3B98FC;
-                    .footer_item_li_home {
-                        background-position: 0 -30px;
-                    }
-                    .footer_item_li_project {
-                        background-position: -30px -30px;
-                    }
-                    .footer_item_li_crowdfunding {
-                        background-position: -60px -30px;
-                    }
                 }
                 &.mine-active {
                     color: #3B98FC;
-                    .footer_item_li_mine {
-                        background-position: -90px -30px;
-                    }
-                }
-                .footer-img {
-                    padding: 14px;
-                    background: url('../assets/imgs/img/mobile-icon.png') no-repeat 0 0;
-                }
-                .footer-img.footer_item_li_mine {
-                    padding: 14px 11px;
-                }
-                &_home.footer-img {
-                    background-position: 0 0;
-                }
-                &_project.footer-img {
-                    background-position: -30px 0;
-                }
-                &_crowdfunding.footer-img {
-                    background-position: -60px 0;
-                }
-                &_mine.footer-img {
-                    background-position: -90px 0;
                 }
             }
         }
