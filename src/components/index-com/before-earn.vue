@@ -2,7 +2,7 @@
     <div class="earn">
         <div class="earn-title">
             <span>昨日收益</span>
-            <img @click="$router.push({name: 'project'})" src="..//../assets/imgs/img/flow.png">
+            <img @click="$router.push({name: 'project'})" src="../../assets/imgs/img/flow.png">
         </div>
         <div class="earn-number">
             <template v-if="num">
@@ -41,13 +41,10 @@
         methods: {
             getEarn() {
                 Request({
-                    url: 'QueryRevenueBalance',
+                    url: 'QueryRevenueBasicInformation',
                     type: 'get',
-                    data: {
-                        dataType: 0,
-                    },
                 }).then(res => {
-                    this.num = this.toDecimal2(res.data.balance);
+                    this.num = this.toDecimal2(res.data.yesterdayBalance);
                 });
             },
             toDecimal2(x) {

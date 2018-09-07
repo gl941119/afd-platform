@@ -24,7 +24,7 @@
                 </div>
                 <div class="advert-item-right-bottom">
                     <a @click="goShare" class="advert-item-right-bottom-link" href="javascript:;">
-                        <img src="../../assets/imgs/img/share-item.png">
+                        <i class="custom-vant-icon-fenxiang2"></i>
                         <span>分享</span>
                     </a>
                     <a @click="goTelegram" class="advert-item-right-bottom-link" href="javascript:;">

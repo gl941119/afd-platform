@@ -9,7 +9,7 @@
                 <i class="search-input-icon custom-vant-icon-fangdajing"></i>
             </div>
             <a class="search-share" @click="showShare" href="javascript:;">
-                <img src="../../assets/imgs/img/share.png" >
+                <i class="custom-vant-icon-fenxiang1"></i>
             </a>
         </div>
         <van-popup v-model="popupVisible" position="bottom">
@@ -112,6 +112,9 @@
         &-share {
             height: 100%;
             @include content-flex;
+            i {
+                font-size: pxTorem(26px);
+            }
         }
         &-popup {
             width: 100%;

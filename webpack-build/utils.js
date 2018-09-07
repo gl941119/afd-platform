@@ -34,9 +34,22 @@ exports.cssLoaders = function(options) {
         let loaders;
         if (options.extract) {
             loaders = options.usePostCSS ? [
-                MiniCssExtractPlugin.loader, cssLoader, postcssLoader,
+                {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        publicPath: '../../',
+                    },
+                },
+                cssLoader,
+                postcssLoader,
             ] : [
-                MiniCssExtractPlugin.loader, cssLoader,
+                {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        publicPath: '../../',
+                    },
+                },
+                cssLoader,
             ];
         } else {
             loaders = options.usePostCSS ? [
