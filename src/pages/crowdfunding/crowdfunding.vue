@@ -43,7 +43,7 @@
             &-item {
                 width: 100%;
                 @extend %custom-input;
-                padding-left: 36px;
+                padding-left: 54px;
             }
             &-icon {
                 position: absolute;

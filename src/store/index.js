@@ -30,6 +30,7 @@ export default new Vuex.Store({
         authIdType: '',
         authIdNum: '',
         authCountry: '',
+        tradeAdId: Cache.getSession('trade_group'),
     },
     mutations: {
         setUserId(state, val) {
@@ -89,6 +90,9 @@ export default new Vuex.Store({
         // mobile add
         setShowFooter(state, val) {
             state.showFooter = val;
+        },
+        setTradeAdId(state, group) {
+            state.tradeAdId = group;
         },
         // auth
         setAuthName(state, val) {
