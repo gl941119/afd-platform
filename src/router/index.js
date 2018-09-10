@@ -8,7 +8,7 @@ const SearchCom = () =>
 const LoginCom = () =>
     import('@/pages/user/login');
 const PwdLogin = () =>
-        import('@/pages/user/pwd');
+    import('@/pages/user/pwd');
 const RegisterCom = () =>
     import('@/pages/user/register');
 const ForgetPwdCom = () =>
@@ -18,6 +18,11 @@ const Project = () =>
     import('@/pages/project/project');
 const Crowdfunding = () =>
     import('@/pages/crowdfunding/crowdfunding');
+
+// freshman
+const Freshman = () =>
+    import('@/pages/freshman/freshman');
+
 // mine
 const Mine = () =>
     import('@/pages/mine/mine');
@@ -33,7 +38,7 @@ const HeaderUrl = () =>
 const Revenue = () =>
     import('@/pages/mine/mine-owner/revenue');
 const RecordsOne = () =>
-        import('@/pages/mine/mine-owner/children/records-invite');
+    import('@/pages/mine/mine-owner/children/records-invite');
 const Records = () =>
     import('@/pages/mine/mine-owner/children/records-free');
 // Mining
@@ -101,6 +106,11 @@ export default new Router({
             path: '/forget',
             name: 'forget',
             component: ForgetPwdCom,
+        },
+        {
+            path: '/freshman',
+            name: 'freshman',
+            component: Freshman,
         },
         {
             path: '/project',

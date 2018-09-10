@@ -2,6 +2,8 @@ import Vue from 'vue';
 import {
     Button,
     Cell,
+    Collapse,
+    CollapseItem,
     Dialog,
     Icon,
     Picker,
@@ -14,6 +16,7 @@ import 'vant/packages/vant-css/src/button.css';
 
 Vue.use(Button);
 Vue.use(Cell);
+Vue.use(Collapse).use(CollapseItem);
 Vue.use(Dialog);
 Vue.use(Icon);
 Vue.use(Picker);

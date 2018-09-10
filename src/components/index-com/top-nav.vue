@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <a href="javascript:;">
+        <a @click="$router.push({name: 'freshman'})" href="javascript:;">
             <img src="../../assets/imgs/img/freshman.png">
         </a>
         <a href="javascript:;">
