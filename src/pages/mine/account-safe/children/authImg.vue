@@ -29,6 +29,17 @@
             <div class="authImg-notic-info">6.确保照片中只有您自己一个人，并且脸部无遮挡</div>
             <div class="authImg-notic-info">7.请您确认签字页的内容是：“AFDchain”与当前日期</div>
         </div>
+        <van-popup v-model="authStatusShow" class="authImg-authStatus">
+            <div class="authImg-authStatus-info" @click.stop>
+                <div v-if="authStatus == 1">身份认证提交资料已成功通过审核</div>
+                <div v-if="authStatus == 2">已提交认证，请等待审核结果</div>
+                <div v-if="authStatus == 3">认证失败，请重新认证</div>
+                <div class="authImg-authStatus-buttons">
+                    <button v-if="authStatus == 2 || authStatus == 1" @click="confirm">确认</button>
+                    <button v-if="authStatus == 3" @click="recertification">重新认证</button>
+                </div>
+            </div>
+        </van-popup>
         <div class="authImg-submit">
             <button @click="authentication()" :disabled="!style" :class="{'style':style}">提交认证</button>
         </div>
@@ -170,11 +181,11 @@
             display: flex;
             &-item{
                 &-uploader{
-                    width:175px;
-                    height:110px;
+                    width:pxTorem(175px);
+                    height:pxTorem(110px);
                     float: left;
                     border-radius: 8px;
-                    margin-bottom: 10px;
+                    margin-bottom: pxTorem(10px);
                     img{
                         height: 100%;
                     }
@@ -190,15 +201,15 @@
                 font-size:14px;
                 color:rgba(96,98,102,1);
                 line-height:20px;
-                margin-bottom: 10px;
+                margin-bottom: pxTorem(10px);
             }
         }
         &-submit {
             text-align: center;
             margin-top: 32px;
             button {
-                width:278px;
-                height:44px;
+                width:pxTorem(278px);
+                height:pxTorem(44px);
                 background:rgba(255,149,0,1);
                 border-radius:4px;
                 opacity:0.5;
@@ -207,6 +218,21 @@
             }
             .style {
                 opacity:1;
+            }
+        }
+        &-authStatus{
+            @include remCalc(padding, 24px, 30px);
+            font-size: 14px;
+            color:rgba(144,147,153,1);
+            border-radius:7px;
+            width:pxTorem(274px);
+            text-align: center;
+            button{
+                @include remCalc(padding, 5px, 25px);
+                border-radius: 4px;
+                margin-top: pxTorem(15px);
+                color: #ffffff;
+                background:rgba(255,149,0,1);
             }
         }
     }
