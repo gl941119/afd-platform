@@ -1,60 +1,47 @@
 <template>
     <div class="authImg">
-        <header-nav linkName="authentication" isBlue=true title="实名认证" class="authImg_header"></header-nav>
-        <div class="authImg_box">
-            <div class="authImg_box_upload">
-                <file-upload class="authImg_box_upload_file" ref="upload" name="1" extensions="gif,jpg,jpeg,png,webp" accept="image/*" :multiple="false" @input-file="getImg">
-                    <div v-if="imageBack" class="authImg_box_upload_file_img">
-                        <img :src="imageBack" />
-                    </div>
-                    <div v-else class="authImg_box_upload_file_box">
-                        <div>
-                            <i class="custom-mint-icon-sousuo"></i>
-                        </div>
-                        <div class="authImg_box_upload_file_box_text">身份证正面</div>
-                    </div>
-                </file-upload>
+        <header-nav linkName="authentication" isBlue=true title="实名认证" class="authImg-header"></header-nav>
+        <div class="authImg-info">
+            <div class="authImg-info-item">
+                <van-uploader class="authImg-info-item-uploader" :after-read="getBack">
+                    <img v-if="!imageBack" src="http://imgs.afdchain.com/web-upload/picture/ba09b1708ff94c528da7bbaf7d09eec4.jpg"/>
+                    <img v-else :src="imageBack"/>
+                </van-uploader>
+                <van-uploader class="authImg-info-item-uploader" :after-read="getPositive">
+                    <img v-if="!imagePositive" src='http://imgs.afdchain.com/web-upload/picture/c4abe2f1abf741a786a5b9758e5782c5.jpg'/>
+                    <img v-else :src="imagePositive"/>
+                </van-uploader>
             </div>
-            <div class="authImg_box_upload">
-                <file-upload class="authImg_box_upload_file" ref="upload" name="2" extensions="gif,jpg,jpeg,png,webp" accept="image/*" :multiple="false" @input-file="getImgTwo">
-                    <div v-if="imagePositive" class="authImg_box_upload_file_img">
-                        <img :src="imagePositive" />
-                    </div>
-                    <div v-else class="authImg_box_upload_file_box">
-                        <div>
-                            <i class="custom-mint-icon-sousuo"></i>
-                        </div>
-                        <div class="authImg_box_upload_file_box_text">身份证反面</div>
-                    </div>
-                </file-upload>
+            <div class="authImg-info-item">
+                <van-uploader :after-read="getHandheld">
+                    <img v-if="!imageHandheld" src="http://imgs.afdchain.com/web-upload/picture/d9c5275b29c842dd974e1a31ee1bf41b.png"/>
+                    <img v-else :src="imageHandheld"/>
+                </van-uploader>
             </div>
-            <div class="authImg_box_upload">
-                <file-upload class="authImg_box_upload_file" ref="upload" name="3" extensions="gif,jpg,jpeg,png,webp" accept="image/*" :multiple="false" @input-file="getImgThree">
-                    <div v-if="imageHandheld" class="authImg_box_upload_file_img">
-                        <img :src="imageHandheld" />
-                    </div>
-                    <div v-else class="authImg_box_upload_file_box">
-                        <div>
-                            <i class="custom-mint-icon-sousuo"></i>
-                        </div>
-                        <div class="authImg_box_upload_file_box_text">手持证件照</div>
-                    </div>
-                </file-upload>
-            </div>
-            <div class="authImg_box_next">
-                <mt-button @click.native="authentication()" :class="{'blue':isBlue}" :disabled="!isBlue" class="authImg_box_next_button" type="primary" size="large">下一步</mt-button>
-            </div>
-            <div class="authImg_box_popup" v-if="authStatusShow">
-                <div class="authImg_box_popup_box" @click.stop>
-                    <div v-if="authStatus == 1">身份认证提交资料已成功通过审核</div>
-                    <div v-if="authStatus == 2">已提交认证，请等待审核结果</div>
-                    <div v-if="authStatus == 3">认证失败，请重新认证</div>
-                    <div class="authImg_box_popup_box_buttonbox">
-                        <mt-button v-if="authStatus == 2 || authStatus == 1" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="confirm">确认</mt-button>
-                        <mt-button v-if="authStatus == 3" class="authImg_box_popup_box_buttonbox_button" type="primary" size="large" @click.native="recertification">重新认证</mt-button>
-                    </div>
+        </div>
+        <div class="authImg-notic">
+            <div class="authImg-notic-title">注意事项</div>
+            <div class="authImg-notic-info">1.请确保照片的格式是：jpeg (.jpg .jpeg .jpe .jfif以及.jif )和 png</div>
+            <div class="authImg-notic-info">2.照片不能太模糊，需要清晰、完整、无遮挡</div>
+            <div class="authImg-notic-info">3.照片不能修图过多，不能修改证件信息</div>
+            <div class="authImg-notic-info">4.不能上传复印件或黑白照片</div>
+            <div class="authImg-notic-info">5.确保证件是有效的证件ID</div>
+            <div class="authImg-notic-info">6.确保照片中只有您自己一个人，并且脸部无遮挡</div>
+            <div class="authImg-notic-info">7.请您确认签字页的内容是：“AFDchain”与当前日期</div>
+        </div>
+        <van-popup v-model="authStatusShow" class="authImg-authStatus">
+            <div class="authImg-authStatus-info" @click.stop>
+                <div v-if="authStatus == 1">身份认证提交资料已成功通过审核</div>
+                <div v-if="authStatus == 2">已提交认证，请等待审核结果</div>
+                <div v-if="authStatus == 3">认证失败，请重新认证</div>
+                <div class="authImg-authStatus-buttons">
+                    <button v-if="authStatus == 2 || authStatus == 1" @click="confirm">确认</button>
+                    <button v-if="authStatus == 3" @click="recertification">重新认证</button>
                 </div>
             </div>
+        </van-popup>
+        <div class="authImg-submit">
+            <button @click="authentication()" :disabled="!style" :class="{'style':style}">提交认证</button>
         </div>
     </div>
 </template>
@@ -67,10 +54,10 @@
         data() {
             return {
                 accountId: this.$store.state.id || Cache.getSession('bier_userid'),
-                name: this.$store.state.authName,
-                idType: this.$store.state.authIdType,
-                idNum: this.$store.state.authIdNum,
-                country: this.$store.state.authCountry,
+                name: this.$store.state.authName || Cache.getSession('auth_name'),
+                idType: this.$store.state.authIdType || Cache.getSession('auth_idType'),
+                idNum: this.$store.state.authIdNum || Cache.getSession('auth_idNum'),
+                country: this.$store.state.authCountry || Cache.getSession('auth_country'),
                 uploadImg: Config.UploadAuthImg,
                 requestToken: {
                     token: this.$store.state.token ||
@@ -80,24 +67,24 @@
                 imagePositive: '',
                 imageHandheld: '',
                 authStatusShow: false,
-                authStatus: '',
+                authStatus: 0,
             };
         },
         mounted() {
             this.info();
         },
         computed: {
-            isBlue() {
+            style() {
                 if (this.imageBack && this.imagePositive && this.imageHandheld) {
-                    var value = true;
+                    return true;
                 }
-                return value;
+                return false;
             },
         },
         methods: {
             confirm() {
                 this.$router.push({
-                    name: 'information',
+                    name: 'account',
                 });
             },
             recertification() {
@@ -116,6 +103,7 @@
             },
             authentication() {
                 const img = this.imageBack + ',' + this.imagePositive + ',' + this.imageHandheld;
+                console.log(1);
                 Request({
                     url: 'QueryAuthentication',
                     data: {
@@ -138,20 +126,12 @@
                     type: 'get',
                 }).then(res => {
                     this.authStatus = res.data.authStatus;
-                    if (res.data.authStatus !== '0') {
+                    if (res.data.authStatus !== 0) {
                         this.authStatusShow = true;
                     }
-                    // this.noPassReason = res.data.noPassReason;
                 });
             },
-            uploadImgs(newfile, oldfile, value) {
-                var file;
-                if (newfile && !oldfile) {
-                    file = newfile.file;
-                }
-                if (newfile && oldfile) {
-                    file = newfile.file;
-                }
+            uploadImgs(file, value) {
                 var formData = new FormData();
                 formData.append('file', file);
                 axios({
@@ -169,21 +149,22 @@
                     } else {
                         this.imageHandheld = res.data.data;
                     }
+                    this.info();
                 }).catch(err => {
                     console.log(err);
                 });
             },
-            getImg(newfile, oldfile) {
+            getBack(file) {
                 const value = '1';
-                this.uploadImgs(newfile, oldfile, value);
+                this.uploadImgs(file.file, value);
             },
-            getImgTwo(newfile, oldfile) {
+            getPositive(file) {
                 const value = '2';
-                this.uploadImgs(newfile, oldfile, value);
+                this.uploadImgs(file.file, value);
             },
-            getImgThree(newfile, oldfile) {
+            getHandheld(file) {
                 const value = '3';
-                this.uploadImgs(newfile, oldfile, value);
+                this.uploadImgs(file.file, value);
             },
         },
     };
@@ -191,80 +172,67 @@
 <style lang="scss" scoped>
     @import '../../../../assets/css/global.scss';
     .authImg {
-        &_header {
+        &-header {
             border-bottom: 1px solid #D8D8D8;
         }
-        &_box {
-            @include remCalc(padding, 0, 38px);
-            padding-top: pxTorem(55px);
-            &_upload {
-                border: 1px solid rgba(151, 151, 151, 1);
-                clear: both;
-                margin-top: pxTorem(30px);
-                height: pxTorem(136px);
-                &_file {
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    &_img {
-                        width: 100%;
+        &-info {
+            @include remCalc(padding, 0, 7px);
+            padding-top: pxTorem(69px);
+            display: flex;
+            &-item{
+                &-uploader{
+                    width:pxTorem(175px);
+                    height:pxTorem(110px);
+                    float: left;
+                    border-radius: 8px;
+                    margin-bottom: pxTorem(10px);
+                    img{
                         height: 100%;
-                        img {
-                            width: 100%;
-                            height: 100%;
-                            overflow: hidden;
-                        }
-                    }
-                    &_box {
-                        &_text {
-                            text-align: center;
-                        }
                     }
                 }
             }
-            &_next {
-                @include remCalc(margin, 35px, 35px, 0);
-                &_button {
-                    font-size: 14px;
-                    background: rgba(243, 243, 243, 1);
-                    color: rgba(51, 51, 51, 1);
-                }
-                .blue {
-                    background: rgba(0, 158, 194, 1);
-                    color: rgba(255, 255, 255, 1);
-                }
+        }
+        &-notic{
+            @include remCalc(padding, 0, 15px);
+            font-size:12px;
+            color:rgba(174,174,174,1);
+            line-height:18px;
+            &-title{
+                font-size:14px;
+                color:rgba(96,98,102,1);
+                line-height:20px;
+                margin-bottom: pxTorem(10px);
             }
-            &_popup {
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                position: fixed;
-                top: 0;
-                left: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 111;
-                &_box{
-                    background: #ffffff;
-                    width: pxTorem(298px);
-                    @include remCalc(padding, 40px, 20px, 0);
-                    font-size:14px;
-                    color:rgba(51,51,51,1);
-                    text-align: center;
-                    &_buttonbox{
-                        @include remCalc(padding, 0, 65px);
-                        &_button{
-                            @include remCalc(margin, 30px, 0, 25px);
-                            background:rgba(0,158,194,1);
-                            font-size:14px;
-                            height: pxTorem(30px);
-                            color:rgba(255,255,255,1);
-                        }
-                    }
-                }
+        }
+        &-submit {
+            text-align: center;
+            margin-top: 32px;
+            button {
+                width:pxTorem(278px);
+                height:pxTorem(44px);
+                background:rgba(255,149,0,1);
+                border-radius:4px;
+                opacity:0.5;
+                font-size:18px;
+                color:rgba(255,255,255,1);
+            }
+            .style {
+                opacity:1;
+            }
+        }
+        &-authStatus{
+            @include remCalc(padding, 24px, 30px);
+            font-size: 14px;
+            color:rgba(144,147,153,1);
+            border-radius:7px;
+            width:pxTorem(274px);
+            text-align: center;
+            button{
+                @include remCalc(padding, 5px, 25px);
+                border-radius: 4px;
+                margin-top: pxTorem(15px);
+                color: #ffffff;
+                background:rgba(255,149,0,1);
             }
         }
     }
