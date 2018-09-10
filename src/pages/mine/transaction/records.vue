@@ -2,9 +2,11 @@
     <div class="revenue">
         <header-nav linkName="mine" isBlue=true title="交易记录"></header-nav>
         <div>
-            <ul class="revenue-item topLanger">
-                <li class="revenue-item-li" v-for="(item, index) in liData" :key="index" @click="clickLi(index)" :class="{'active':item.style}">{{item.value}}</li>
+            <ul class="revenue-item">
+                <router-link class="revenue-item-li" tag="li" to='/transaction/flow'>账号总流水</router-link>
+                <router-link class="revenue-item-li" tag="li" to='/transaction/withdraw'>提现记录</router-link>
             </ul>
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -12,24 +14,11 @@
     export default {
         data() {
             return {
-                liData: [
-                    {
-                        value: '账号总流水',
-                        style: true,
-                    }, {
-                        value: '提现记录',
-                        style: false,
-                    },
-                ],
+
             };
         },
         methods: {
-            clickLi(index) {
-                this.liData.forEach((item, index) => {
-                    item.style = false;
-                });
-                this.liData[index].style = true;
-            },
+
         },
     };
 </script>
@@ -39,6 +28,7 @@
         background: #fafafa;
         height: 100%;
         &-item {
+            margin-top: pxTorem(44px);
             height: pxTorem(55px);
             font-size:14px;
             background: #ffffff;
@@ -46,9 +36,6 @@
             justify-content: center;
             align-items: center;
             margin-bottom: pxTorem(4px);
-            &.topLanger{
-                margin-top: pxTorem(45px);
-            }
             &-li {
                 width:180px;
                 height: pxTorem(31px);
@@ -58,7 +45,7 @@
                 background: #ffffff;
                 text-align: center;
                 line-height: 31px;
-                &.active {
+                &.router-link-active {
                     color: #ffffff;
                     background:rgba(12,60,110,1);
                 }

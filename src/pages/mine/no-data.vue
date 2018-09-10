@@ -20,9 +20,12 @@ export default {
         };
     },
     mounted() {
-        if (this.type === 2) {
+        if (this.type === 1) {
             this.kinds = '邀请';
             this.button = '邀请用户';
+        } else {
+            this.kinds = '挖矿';
+            this.button = '马上挖矿';
         }
     },
 };
@@ -30,12 +33,13 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/css/global.scss';
 .cleanly{
+    width: 100%;
     height: 100%;
     background: #ffffff;
     text-align: center;
     padding-top: pxTorem(45px);
     &-img{
-        border-top: 1px solid rgba(198,200,201,1);
+
         padding-top: pxTorem(18px);
         img{
             height: 100px;

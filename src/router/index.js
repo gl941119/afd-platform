@@ -29,6 +29,10 @@ const Mine = () =>
 // Transaction
 const Transaction = () =>
     import('@/pages/mine/transaction/records');
+const Flow = () =>
+    import('@/pages/mine/transaction/records/flow');
+const Withdraw = () =>
+    import('@/pages/mine/transaction/records/withdraw');
 // Information
 const Information = () =>
     import('@/pages/mine/information/information');
@@ -51,12 +55,10 @@ const WalletAddress = () =>
     import('@/pages/mine/account-safe/children/wallet-address');
 const SetTrade = () =>
     import('@/pages/mine/account-safe/children/set-trade');
-const ChangeTrade = () =>
-    import('@/pages/mine/account-safe/children/changeTrade');
+const ChangePassword = () =>
+    import('@/pages/mine/account-safe/children/change-password');
 const ForgetTrade = () =>
     import('@/pages/mine/account-safe/children/forgetTrade');
-const ChangeLogin = () =>
-    import('@/pages/mine/account-safe/children/changeLogin');
 const Bind = () =>
     import('@/pages/mine/account-safe/children/bind');
 const ChangeBind = () =>
@@ -155,6 +157,19 @@ export default new Router({
             path: '/transaction',
             name: 'transaction',
             component: Transaction,
+            redirect: { name: 'flow' },
+            children: [
+                {
+                    path: 'flow',
+                    name: 'flow',
+                    component: Flow,
+                },
+                {
+                    path: 'withdraw',
+                    name: 'withdraw',
+                    component: Withdraw,
+                },
+            ],
         },
         {
             path: '/revenue',
@@ -195,19 +210,14 @@ export default new Router({
             component: SetTrade,
         },
         {
-            path: '/changeTrade',
-            name: 'changeTrade',
-            component: ChangeTrade,
+            path: '/changePassword/:value',
+            name: 'changePassword',
+            component: ChangePassword,
         },
         {
             path: '/forgetTrade',
             name: 'forgetTrade',
             component: ForgetTrade,
-        },
-        {
-            path: '/changeLogin',
-            name: 'changeLogin',
-            component: ChangeLogin,
         },
         {
             path: '/bind/:value',

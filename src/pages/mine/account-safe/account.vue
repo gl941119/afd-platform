@@ -31,7 +31,7 @@
                     </div>
                 </van-icon>
             </van-cell>
-            <van-cell title="登录密码" class="account-item-kind" to="/changeLogin" is-link>
+            <van-cell title="登录密码" class="account-item-kind" @click="changePassword()" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text">修改</span>
                     <div class="account-item-kind-fontBox">
@@ -118,10 +118,21 @@
                     });
                 }
             },
+            changePassword() {
+                this.$router.push({
+                    path: '/changePassword/' + 1,
+                    params: {
+                        value: 1,
+                    },
+                });
+            },
             trade() {
                 if (this.existTradePassword) {
                     this.$router.push({
-                        name: 'changeTrade',
+                        path: '/changePassword/' + 2,
+                        params: {
+                            value: 2,
+                        },
                     });
                 } else {
                     this.$router.push({
