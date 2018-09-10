@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <header-nav linkName="mine" isBlue=true class="input-header" title="找回支付密码"></header-nav>
+        <header-nav linkName="account" isBlue=true class="input-header" title="找回支付密码"></header-nav>
         <div class="input-info">
             <div class="input-info-item">
                 <input v-model="phone" placeholder="请输入邮箱或手机号"/>

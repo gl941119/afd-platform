@@ -17,6 +17,7 @@
     </div>
 </template>
 <script>
+import Request from '../../../../utils/require.js';
 export default {
     data() {
         return {
@@ -58,8 +59,43 @@ export default {
                 this.placeholder = '请输入邮箱';
             }
         },
+        getCode() { // 2: 绑定邮箱验证码 、 8: 绑定手机号、7: 绑定钱包地址
+            var type;
+            if (this.value === '1') {
+                type = 8;
+            } else {
+                type = 2;
+            }
+            Request({
+                url: 'GetCode',
+                data: {
+                    email: this.account,
+                    codeType: type,
+                },
+            }).then(res => {
+                this.$toast.success('验证码发送成功');
+            });
+        },
         confirm() {
-            console.log(1);
+            if (this.value === '1') {
+                var phone = this.account;
+            } else {
+                var email = this.account;
+            }
+            Request({
+                url: 'BindPhoneOrEmail',
+                data: {
+                    email: email,
+                    phone: phone,
+                    validateCode: this.verifyCode,
+                },
+                flag: true,
+            }).then(res => {
+                this.$toast.success('绑定成功');
+                this.$router.push({
+                    name: 'account',
+                });
+            });
         },
     },
 };

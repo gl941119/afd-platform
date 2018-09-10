@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <header-nav linkName="mine" isBlue=true class="input-header" title="设置支付密码"></header-nav>
+        <header-nav linkName="account" isBlue=true class="input-header" title="设置支付密码"></header-nav>
         <div class="input-info">
             <div class="input-info-item">
                 <input v-model="phone" placeholder="请输入邮箱或手机号"/>
@@ -55,16 +55,13 @@ export default {
         },
     },
     methods: {
-        getCode() { // 3 修改密码，4修改交易密码 接受验证码类型：0: 手机号， 1：邮箱
+        getCode() { // 3 修改密码，4修改交易密码
             if (this.phone) {
-                const val = this.phone.indexOf('@');
-                const type = val > -1 ? 1 : 0;
                 Request({
-                    url: 'QueryPasswordCodes',
+                    url: 'GetCode',
                     data: {
                         email: this.phone,
                         codeType: 4,
-                        registerType: type,
                     },
                     type: 'post',
                     feedback: false,
@@ -96,11 +93,15 @@ export default {
                 this.$toast.fail('确认支付密码与支付密码不一致');
                 return;
             }
+            const val = this.phone.indexOf('@');
+            const type = val > -1 ? 1 : 0;
             Request({
                 url: 'SetTradePassword',
                 data: {
-                    verificationCode: this.verifyCode,
-                    password: validateFun.encrypt(this.tradepassword),
+                    authCode: this.verifyCode,
+                    email: this.phone,
+                    newPassword: validateFun.encrypt(this.tradepassword),
+                    registerType: type,
                 },
                 type: 'post',
                 flag: true,

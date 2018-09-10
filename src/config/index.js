@@ -68,15 +68,24 @@ export default {
     QueryInviteData: 'blockchainadvert/account/getInvitePerson', // 获取邀请用户
     /* 账号设置*/
     QueryAccountSettings: 'blockchainadvert/account/modifyAccountMessage', // 账号设置
+    BindPhoneOrEmail: 'blockchainadvert/account-ext/bind-phoneemail',
     QueryCode: 'blockchainadvert/account/sendBindEmailCode', // 获取验证码
     // 获取验证码 3 修改密码，4修改交易密码 接受验证码类型：0: 手机号， 1：邮箱
     QueryPasswordCode: 'blockchainadvert/account/sendUpdateAccountCode',
     // 获取验证码 3 修改密码，4修改交易密码 接受验证码类型：0: 手机号， 1：邮箱
-    QueryPasswordCodes: 'blockchainadvert/account/send-updatecode', // 更新
+    GetCode: 'blockchainadvert/account/send-bindcode', // 2: 绑定邮箱验证码 、 8: 绑定手机号、7: 绑定钱包地址 4,交易密码
+    NoBindGetCode: 'blockchainadvert/account/send-updatecode', // 2: 绑定邮箱验证码 、 8: 绑定手机号
+    NoBind: 'blockchainadvert/account-ext/valid-phoneemail', // 2: 绑定邮箱验证码 、 8: 绑定手机号、9: 忘记交易密码 ,
+    ReBindPhoneEmail: 'blockchainadvert/account-ext/modify-phoneemail',
+    ChangeLogin: 'blockchainadvert/account-ext/modify-loginpwd',
+    ChangeTradePassword: 'blockchainadvert/account-ext/modify-tradepwd',
+    SetTradePassword: 'blockchainadvert/account-ext/set-newtradepwd', // 设置交易密码
+
+    // QueryPasswordCodes: 'blockchainadvert/account/send-updatecode', // 更新
     QueryAuthentication: 'blockchainadvert/account/idAuthentication', // 身份验证
     ChangeAuthStatus: 'blockchainadvert/account/updateAuthStatus',
-    SetPassword: 'blockchainadvert/account/setPassword', // 设置密码
-    SetTradePassword: 'blockchainadvert/account/setTradePassword', // 设置 交易密码
+    // SetPassword: 'blockchainadvert/account/setPassword', // 设置密码
+    // SetTradePassword: 'blockchainadvert/account/setTradePassword', // 设置 交易密码
     QuerySettings: 'blockchainadvert/account/getAccountStatus', // 获取设置信息
     BindTelegram: 'blockchainadvert/account/bindTelegram', // 绑定telegram
     /* 核心团队*/
