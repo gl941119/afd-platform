@@ -1,25 +1,31 @@
 <template>
     <div class="revenue">
-        <div class="revenue-notic" v-if="totalInviteDatas.length===0">
-            <CleanCom :type='1'></CleanCom>
+        <div class="revenue-notic" v-if="totalWithdrawDatasDatas.length === 0">
+            暂无数据
         </div>
         <div class="data" v-else>
             <div class="revenue-titleBox" ref="revenueWrapper">
                 <div class="revenue-titleBox-title">
-                    <div class="revenue-titleBox-title-info">注册时间</div>
-                    <div class="revenue-titleBox-title-info">获得AFDT</div>
+                    <div class="revenue-titleBox-title-info">时间</div>
+                    <div class="revenue-titleBox-title-info">状态</div>
+                    <div class="revenue-titleBox-title-info">AFDT</div>
                 </div>
             </div>
             <div class="infoBox">
-                <van-list class="data" v-model="loading" :finished="finished" @load="loadMore">
-                    <div class="revenue-titleBox-title" v-for="(item, index) in totalInviteDatas" :key="index">
+                <van-list v-model="loading" :finished="finished" @load="loadMore">
+                    <div class="revenue-titleBox-title" v-for="(item, index) in totalWithdrawDatasDatas" :key="index">
                         <div class="revenue-titleBox-title-info">
                             {{item.createTime}}
                         </div>
-                        <div class="revenue-titleBox-title-info">{{item.desc}}</div>
                         <div class="revenue-titleBox-title-info">
-                            {{item.money}}
+                            <span v-if="item.status==1">转账成功</span>
+                            <span v-if="item.status==2">待转账（审核通过）</span>
+                            <span v-if="item.status==3">待审核</span>
+                            <span v-if="item.status==4">审核不通过</span>
+                            <span v-if="item.status==5">转账失败</span>
+                            <span v-if="item.status==6">转账中</span>
                         </div>
+                        <div class="revenue-titleBox-title-info">{{item.money}}</div>
                     </div>
                 </van-list>
             </div>
@@ -34,10 +40,9 @@
     export default {
         data() {
             return {
-                accountId: this.$store.state.id || Cache.getSession('bier_userid'),
                 id: this.$store.state.incomeId || Cache.getSession('bire_incomeId'),
-                inviteDatas: [],
-                totalInviteDatas: [],
+                withdrawDatas: [],
+                totalWithdrawDatasDatas: [],
                 page: Config.pageStart,
                 pageSize: Config.pageSize,
                 finished: false,
@@ -58,20 +63,19 @@
             revenueDatas(page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
                     Request({
-                        url: 'QueryRevenue',
+                        url: 'QueryWithdraw',
                         data: {
-                            dataType: 3,
                             incomeId: this.id,
                             page,
                             pageSize,
                         },
                         type: 'get',
                     }).then(res => {
-                        this.inviteDatas = res.data;
-                        if (this.inviteDatas && this.inviteDatas.length === 0) {
+                        this.withdrawDatas = res.data;
+                        if (this.withdrawDatas && this.withdrawDatas.length === 0) {
                             this.finished = true;
                         } else {
-                            this.totalInviteDatas.push(...this.inviteDatas);
+                            this.totalWithdrawDatasDatas.push(...this.withdrawDatas);
                         }
                         this.loading = false;
                     });
@@ -82,6 +86,7 @@
 </script>
 <style lang="scss" scoped>
     @import '../../../../assets/css/global.scss';
+
     .revenue {
         background: #fafafa;
         display: flex;
@@ -92,7 +97,7 @@
         //     flex-direction: column;
         // }
         &-notic {
-            height: calc(100vh - 200px);
+            height: calc(100vh - 50px - 40px - 50px);
             @include content-flex(center);
         }
         &-titleBox {
@@ -104,6 +109,7 @@
                 border-bottom: 1px solid #D8D8D8;
                 background: #ffffff;
                 text-align: center;
+
                 &-info {
                     width: 100%;
                     text-align: center;

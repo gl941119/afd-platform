@@ -1,24 +1,30 @@
 <template>
     <div class="revenue">
-        <div class="revenue-notic" v-if="freeDatas.length===0">
-            <div>暂无数据</div>
+        <div class="revenue-notic" v-if="totalFreeDatas.length===0">
+            <CleanCom :type='1'></CleanCom>
         </div>
-        <div class="revenue-titleBox" ref="revenueWrapper">
-            <div class="revenue-titleBox-title">
-                <div class="revenue-titleBox-title-info">挖矿截止时间</div>
-                <div class="revenue-titleBox-title-info">获得AFDT</div>
+        <div class="data" v-else>
+            <div class="revenue-titleBox" ref="revenueWrapper">
+                <div class="revenue-titleBox-title">
+                    <div class="revenue-titleBox-title-info">挖矿截止时间</div>
+                    <div class="revenue-titleBox-title-info">获得AFDT</div>
+                </div>
             </div>
-            <div class="revenue-titleBox-title" v-for="(item, index) in freeDatas" :key="index">
-                <div class="revenue-titleBox-title-info">
-                    {{item.createTime}}
-                </div>
-                <div class="revenue-titleBox-title-info">{{item.desc}}</div>
-                <div class="revenue-titleBox-title-info">
-                    <span v-if="item.status==1">转账成功</span>
-                    <span v-if="item.status==2">待转账（审核通过）</span>
-                    <span v-if="item.status==3">待审核</span>
-                    <span v-if="item.status==4">审核不通过</span>
-                </div>
+            <div class="infoBox">
+                <van-list v-model="loading" :finished="finished" @load="loadMore">
+                    <div class="revenue-titleBox-title" v-for="(item, index) in totalFreeDatas" :key="index">
+                        <div class="revenue-titleBox-title-info">
+                            {{item.createTime}}
+                        </div>
+                        <div class="revenue-titleBox-title-info">{{item.desc}}</div>
+                        <div class="revenue-titleBox-title-info">
+                            <span v-if="item.status==1">转账成功</span>
+                            <span v-if="item.status==2">待转账（审核通过）</span>
+                            <span v-if="item.status==3">待审核</span>
+                            <span v-if="item.status==4">审核不通过</span>
+                        </div>
+                    </div>
+                </van-list>
             </div>
         </div>
     </div>
@@ -27,19 +33,30 @@
     import Cache from '../../../../utils/cache.js';
     import Request from '../../../../utils/require';
     import Config from '../../../../utils/config.js';
+    import CleanCom from '../../no-data.vue';
     export default {
         data() {
             return {
                 id: this.$store.state.incomeId || Cache.getSession('bire_incomeId'),
                 freeDatas: [],
+                totalFreeDatas: [],
                 page: Config.pageStart,
                 pageSize: Config.pageSize,
+                finished: false,
+                loading: false,
             };
         },
         mounted() {
             this.revenueDatas();
         },
+        components: {
+            CleanCom,
+        },
         methods: {
+            loadMore() {
+                this.page++;
+                this.revenueDatas(this.page);
+            },
             revenueDatas(page = this.page, pageSize = this.pageSize) {
                 return new Promise((resolve, reject) => {
                     Request({
@@ -53,6 +70,12 @@
                         type: 'get',
                     }).then(res => {
                         this.freeDatas = res.data;
+                        if (this.freeDatas && this.freeDatas.length === 0) {
+                            this.finished = true;
+                        } else {
+                            this.totalFreeDatas.push(...this.freeDatas);
+                        }
+                        this.loading = false;
                     });
                 });
             },
@@ -67,22 +90,15 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
+        // .data {
+        //     display: flex;
+        //     flex-direction: column;
+        // }
         &-notic {
-            height: calc(100vh - 50px - 40px - 50px);
+            height: calc(100vh - 200px);
             @include content-flex(center);
         }
-
-        &-bottom {
-            @extend %load-more;
-        }
-
         &-titleBox {
-            overflow: hidden;
-            overflow-y: scroll;
-            width: 100%; // margin-bottom: 51px;
-            height: pxTorem(515px);
-
             &-title {
                 height: pxTorem(40px);
                 display: flex;
@@ -98,5 +114,10 @@
                 }
             }
         }
+        // .infoBox {
+        //     overflow: hidden;
+        //     overflow-y: scroll;
+        //     flex: 1;
+        // }
     }
 </style>

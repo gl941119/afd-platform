@@ -26,6 +26,7 @@ export default {
 
     QueryRevenueBasicInformation: 'blockchainadvert/advert-income/account-id', // mine* // 首页获取收益
     QueryRevenue: 'blockchainadvert/income-flows/token', // revenue*
+    QueryWithdraw: 'blockchainadvert/deal-flows/token', // 提现记录*
     QueryRevenueBalance: 'blockchainadvert/advert-income/token', // revenue-balance
     QueryRevenueAccountFlow: 'blockchainadvert/income-flow/income-id', // 收益账户流水
     QueryMainBasicInformation: 'blockchainadvert/advert-main/account-id', // 主账户

@@ -32,7 +32,7 @@
     @import '../../assets/css/global.scss';
 
     .nav {
-        height: pxTorem(30px);
+        height: pxTorem(45px);
         @include remCalc(padding, 0, 14px);
         @include content-flex();
         position: fixed;

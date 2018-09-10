@@ -24,6 +24,10 @@ const Mine = () =>
 // Transaction
 const Transaction = () =>
     import('@/pages/mine/transaction/records');
+const Flow = () =>
+    import('@/pages/mine/transaction/records/flow');
+const Withdraw = () =>
+    import('@/pages/mine/transaction/records/withdraw');
 // Information
 const Information = () =>
     import('@/pages/mine/information/information');
@@ -145,6 +149,19 @@ export default new Router({
             path: '/transaction',
             name: 'transaction',
             component: Transaction,
+            redirect: { name: 'flow' },
+            children: [
+                {
+                    path: 'flow',
+                    name: 'flow',
+                    component: Flow,
+                },
+                {
+                    path: 'withdraw',
+                    name: 'withdraw',
+                    component: Withdraw,
+                },
+            ],
         },
         {
             path: '/revenue',
