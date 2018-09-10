@@ -6,7 +6,7 @@
             </div>
             <div class="advert-item-right">
                 <div class="advert-item-right-top">
-                    <div class="advert-item-right-top-title">
+                    <div class="advert-item-right-top-title" :class="{'is-visited': isVisited}">
                         <div class="advert-item-right-top-title-text">{{advertDatas.shotEnName}}
                             <span>/{{advertDatas.shotCnName}}</span>
                             <span>{{advertDatas.fullEnName}}</span>
@@ -59,7 +59,18 @@
                 tradeVisible: false,
                 path: this.$route.name,
                 utils: new Utils(),
+                isVisited: false,
             };
+        },
+        computed: {
+            tradeAdId() {
+                const _tradeGroup = this.$store.state.tradeAdId;
+                return _tradeGroup && JSON.parse(_tradeGroup) || [];
+            },
+        },
+        mounted() {
+            // console.log('trade adId->', this.tradeAdId, this.advertDatas.id);
+            this.isVisited = this.tradeAdId.some(item => item.id === this.advertDatas.id);
         },
         methods: {
             handleOptions() {
@@ -81,6 +92,11 @@
                 }).then(res => {
                     // skip
                     this.utils.newWin(item.websiteAddress);
+                    // set session
+                    const adId = this.pushAdId(this.tradeAdId, this.advertDatas.id);
+                    this.$store.commit('setTradeAdId', adId);
+                    Cache.setSession('trade_group', adId);
+                    this.$emit('after-trade');
                 }).catch(msg => {
                     this.$emit('update-data');
                 });
@@ -113,6 +129,13 @@
                     console.log('alert_>', this.advertDatas.telegrameUrl);
                     this.utils.newWin(this.advertDatas.telegrameUrl);
                 });
+            },
+            pushAdId(adId, id) {
+                const index = adId.findIndex(item => item.id === id);
+                if (index === -1) {
+                    adId.push({ id });
+                }
+                return adId;
             },
         },
     };
@@ -160,6 +183,9 @@
                         @include text-ellipsis;
                         margin-top: 4px;
                         line-height: 17px;
+                    }
+                    &.is-visited {
+                        color: #999;
                     }
                 }
             }

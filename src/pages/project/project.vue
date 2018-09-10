@@ -14,8 +14,9 @@
             <div>没有找到你想要的结果</div>
             <div>请换个关键词试试</div>
         </div>
+        <div class="project-trade" v-if="success">hahhah</div>
         <van-list v-model="loading" :finished="finished" @load="loadMore">
-            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" :concept-id="conceptId" @update-data="updateData"></advert-item>
+            <advert-item v-for="advert in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :concept-id="conceptId" @update-data="updateData" @after-trade="tradeSucc"></advert-item>
         </van-list>
     </div>
 </template>
@@ -37,10 +38,15 @@
                 finished: false,
                 noData: false,
                 count: 0,
+                success: false,
             };
         },
         mounted() {
+            console.log('git- come>');
             this.init();
+        },
+        destroyed() {
+            console.log('destroy-。');
         },
         methods: {
             init() {
@@ -118,8 +124,9 @@
                 this.totalAdvertItemDatas = [];
                 this.init();
             },
-            handleBottomChange(status) {
-                this.bottomStatus = status;
+            tradeSucc() {
+                console.log('after trade');
+                this.success = true;
             },
         },
     };
@@ -179,8 +186,13 @@
                 }
             }
         }
-        &-bottom {
-            @extend %load-more;
+        &-trade {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, .5)
         }
     }
 </style>
