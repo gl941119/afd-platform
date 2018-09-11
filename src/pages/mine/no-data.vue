@@ -30,9 +30,13 @@ export default {
     },
     methods: {
         goInfo() {
-            this.$router.push({
-                name: 'project',
-            });
+            if (this.type === 1) {
+                this.$store.commit('setDialogVisible', true);
+            } else {
+                this.$router.push({
+                    name: 'project',
+                });
+            }
         },
     },
 };
