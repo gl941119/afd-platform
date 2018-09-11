@@ -1,6 +1,6 @@
 <template>
     <div class="information">
-        <header-nav linkName="account" isBlue=true title="个人资料"></header-nav>
+        <header-nav linkName="mine" isBlue=true title="个人资料"></header-nav>
         <div class="information-item">
             <van-cell title="头像" class="information-item-kind headerUrl" to="/headerUrl" is-link>
                 <van-icon slot="right-icon">
@@ -51,8 +51,13 @@
             this.info();
         },
         computed: {
-            heardUrl() {
-                return this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
+            heardUrl: {
+                get() {
+                    return this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
+                },
+                set() {
+
+                },
             },
         },
         methods: {

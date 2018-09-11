@@ -210,7 +210,7 @@
                     url: 'QueryWithdrawInfo',
                     type: 'get',
                 }).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     this.minValue = res.data.miniValue;
                     this.rate = res.data.rate;
                 });

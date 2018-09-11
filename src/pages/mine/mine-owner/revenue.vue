@@ -1,6 +1,6 @@
 <template>
     <div class="revenue">
-        <header-nav linkName="account" class="revenue-header" title="矿主收益明细"></header-nav>
+        <header-nav linkName="mine" class="revenue-header" title="矿主收益明细"></header-nav>
         <div class="revenue-totalRenvue">
             <div class="revenue-totalRenvue-money">{{balance}}</div>
             <div class="revenue-totalRenvue-text">挖矿总收益（AFDT）</div>
