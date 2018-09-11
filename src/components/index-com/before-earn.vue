@@ -2,7 +2,7 @@
     <div class="earn">
         <div class="earn-title">
             <span>昨日收益</span>
-            <img @click="$router.push({name: 'project'})" src="../../assets/imgs/img/flow.png">
+            <img @click="$router.push({name: 'workflow'})" src="../../assets/imgs/img/flow.png">
         </div>
         <div class="earn-number">
             <template v-if="num">
@@ -12,7 +12,7 @@
             <span v-else class="earn-number-num">---</span>
         </div>
         <div class="earn-btn">
-            <van-button class="earn-btn-round" type="warning">立即去挖矿</van-button>
+            <van-button @click="$router.push({name: 'project'})" class="earn-btn-round" type="warning">立即去挖矿</van-button>
         </div>
     </div>
 </template>

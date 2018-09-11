@@ -22,6 +22,8 @@ const Crowdfunding = () =>
 // freshman
 const Freshman = () =>
     import('@/pages/freshman/freshman');
+const WorkFlow = () =>
+    import('@/pages/freshman/flow');
 
 // mine
 const Mine = () =>
@@ -113,6 +115,11 @@ export default new Router({
             path: '/freshman',
             name: 'freshman',
             component: Freshman,
+        },
+        {
+            path: '/workflow',
+            name: 'workflow',
+            component: WorkFlow,
         },
         {
             path: '/project',

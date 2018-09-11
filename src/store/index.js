@@ -31,6 +31,7 @@ export default new Vuex.Store({
         authIdNum: '',
         authCountry: '',
         tradeAdId: Cache.getSession('trade_group'),
+        tradeSuc: Cache.getSession('trade_suc'),
     },
     mutations: {
         setUserId(state, val) {
@@ -93,6 +94,9 @@ export default new Vuex.Store({
         },
         setTradeAdId(state, group) {
             state.tradeAdId = group;
+        },
+        setTradeSuc(state, val) {
+            state.tradeSuc = val;
         },
         // auth
         setAuthName(state, val) {

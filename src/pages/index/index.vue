@@ -7,7 +7,7 @@
         <top-nav></top-nav>
         <before-earn></before-earn>
         <van-list v-model="loading" :finished="finished" @load="loadMore">
-            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" :item-index="_i" @update-data="updateData"></advert-item>
+            <advert-item v-for="advert in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" @update-data="updateData"></advert-item>
         </van-list>
     </div>
 </template>
