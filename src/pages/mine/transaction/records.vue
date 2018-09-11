@@ -1,6 +1,6 @@
 <template>
     <div class="revenue">
-        <header-nav linkName="mine" isBlue=true title="交易记录"></header-nav>
+        <header-nav linkName="account" isBlue=true title="交易记录"></header-nav>
         <div>
             <ul class="revenue-item">
                 <router-link class="revenue-item-li" tag="li" to='/transaction/flow'>账号总流水</router-link>

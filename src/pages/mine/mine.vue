@@ -96,7 +96,15 @@
             </div>
         </van-popup>
         <div class="mine-item">
-            <van-cell class="mine-item-kind common first" is-link to="/revenue">
+            <van-cell class="mine-item-kind common first" is-link to="/purse">
+                <van-icon slot="icon">
+                    <i class="custom-vant-icon-wallet fonts blue"></i>
+                </van-icon>
+                <template slot="title">
+                    <span class="van-cell-text">钱包</span>
+                </template>
+            </van-cell>
+            <van-cell class="mine-item-kind common two" is-link to="/revenue">
                 <van-icon slot="icon">
                     <i class="custom-vant-icon-qianbao fonts red"></i>
                 </van-icon>
@@ -482,6 +490,12 @@
                 }
 
                 &.first {
+                    border-top: 1px solid #e5e5e5;
+                    border-bottom: 1px solid #e5e5e5;
+                    margin-bottom: pxTorem(10px);
+                }
+
+                &.two{
                     border-top: 1px solid #e5e5e5;
                 }
 

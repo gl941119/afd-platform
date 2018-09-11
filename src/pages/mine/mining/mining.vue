@@ -1,6 +1,6 @@
 <template>
     <div class="mining">
-        <header-nav linkName="mine" class="mining-header" title="挖矿收益明细"></header-nav>
+        <header-nav linkName="account" class="mining-header" title="挖矿收益明细"></header-nav>
         <div v-if="totalRevenueData.length!==0" class="data">
             <div class="mining-totalRenvue">
                 <div class="mining-totalRenvue-money">{{balance}}</div>

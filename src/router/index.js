@@ -26,6 +26,8 @@ const Freshman = () =>
 // mine
 const Mine = () =>
     import('@/pages/mine/mine');
+const Purse = () =>
+    import('@/pages/mine/purse/purse');
 // Transaction
 const Transaction = () =>
     import('@/pages/mine/transaction/records');
@@ -132,6 +134,11 @@ export default new Router({
             meta: { showFooter: true }, // 显示footer
             component: Mine,
 
+        },
+        {
+            path: '/purse',
+            name: 'purse',
+            component: Purse,
         },
         {
             path: '/information',

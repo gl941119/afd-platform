@@ -79,7 +79,10 @@ export default {
     ReBindPhoneEmail: 'blockchainadvert/account-ext/modify-phoneemail',
     ChangeLogin: 'blockchainadvert/account-ext/modify-loginpwd',
     ChangeTradePassword: 'blockchainadvert/account-ext/modify-tradepwd',
-    SetTradePassword: 'blockchainadvert/account-ext/set-newtradepwd', // 设置交易密码
+    SetTradePassword: 'blockchainadvert/account-ext/set-tradepwd', // 设置交易密码
+    SetTradePasswordCode: 'blockchainadvert/account/send-settradepwd', // 设置交易密码code
+    SendForgetTradeCode: 'blockchainadvert/account-ext/sendForgetTradeCode',
+    SendNewTradeCode: 'blockchainadvert/account-ext/set-newtradepwd',
 
     // QueryPasswordCodes: 'blockchainadvert/account/send-updatecode', // 更新
     QueryAuthentication: 'blockchainadvert/account/idAuthentication', // 身份验证
