@@ -35,7 +35,7 @@
             </div>
             <div class="advert-item-trade" v-if="success">
                 <div class="advert-item-trade-relative">
-                    <i @click="closeTradeSuc" class="advert-item-trade-relative-icon custom-vant-icon-cuo"></i>
+                    <i @click="closeTradeSuc" class="advert-item-trade-relative-icon custom-vant-icon-close"></i>
                     <img src="../../assets/imgs/img/mining.png">
                     <span>获得{{tradeNum}}个AFDT</span>
                 </div>
@@ -258,9 +258,11 @@
                     position: absolute;
                     top: 0;
                     right: pxTorem(40px);
-                    background: #C8C8C8;
-                    color: #fff;
+                    color: #C8C8C8;
+                    background: #fff;
                     border-radius: 50%;
+                    line-height: pxTorem(44px);
+                    font-size: pxTorem(44px);
                 }
                 img {
                     width: 100%;

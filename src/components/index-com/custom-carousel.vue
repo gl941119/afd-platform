@@ -26,14 +26,14 @@
                     pagination: {
                         el: '.swiper-pagination',
                     },
-                }
-            }
+                },
+            };
         },
         components: {
             swiper,
-            swiperSlide
-        }
-    }
+            swiperSlide,
+        },
+    };
 </script>
 
 <style lang="scss">

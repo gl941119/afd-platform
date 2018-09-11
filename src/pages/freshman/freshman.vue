@@ -17,7 +17,7 @@
                 <div class="freshman-problem-gift-get">
                     <img src="../../assets/imgs/img/freshman-msg.png" >
                     <span>每次邀请好友注册成功就送33个AFDT</span>
-                    <van-button class="freshman-problem-gift-get-btn" size="mini" type="warning">去邀请</van-button>
+                    <van-button @click="goToInvite" class="freshman-problem-gift-get-btn" size="mini" type="warning">去邀请</van-button>
                 </div>
             </div>
             <freshman-title class="freshman-problem-read">
@@ -34,6 +34,7 @@
 <script>
 import FreshmanTitle from './components/freshman-title';
 import FreshmanContent from './components/freshman-content';
+import Cache from 'utils/cache';
 export default {
     data() {
         return {};
@@ -41,6 +42,19 @@ export default {
     components: {
         FreshmanTitle,
         FreshmanContent,
+    },
+    methods: {
+        goToInvite() {
+            if (!(this.$store.state.token || Cache.getSession('bier_token'))) {
+                this.$dialog.confirm({
+                    title: '请先登录，才能分享',
+                }).then(() => {
+                    this.$router.push({ name: 'login', query: { redirect: 'freshman' }});
+                }, () => {});
+                return;
+            }
+            this.$store.commit('setDialogVisible', true);
+        },
     },
 };
 </script>
