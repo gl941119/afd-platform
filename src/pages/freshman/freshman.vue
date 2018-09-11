@@ -1,6 +1,6 @@
 <template>
     <div class="freshman">
-        <header-nav title="新人专区" :is-blue="true"></header-nav>
+        <header-nav title="新人专区" link-name="index" :is-blue="true"></header-nav>
         <div class="freshman-top">
             <img src="../../assets/imgs/img/freshman-top.png">
         </div>
