@@ -81,7 +81,7 @@ export default {
         },
         password() {
             var str = this.tradePassword;
-            var value = /^[a-zA-Z]{6}|[0-9]{6}$/.test(str);
+            var value = /^(\d{6}|[a-zA-Z]{6})$/.test(str);
             if (!value) {
                 this.$toast.fail('支付密码格式不对');
                 this.passwordShow = true;
