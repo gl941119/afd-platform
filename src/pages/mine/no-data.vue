@@ -6,7 +6,7 @@
         <div class="cleanly-title">您暂无收益哦</div>
         <div class="cleanly-make">去{{kinds}}，立马赚收益</div>
         <div class="cleanly-button">
-            <button>{{button}}</button>
+            <button @click="goInfo()">{{button}}</button>
         </div>
     </div>
 </template>
@@ -27,6 +27,13 @@ export default {
             this.kinds = '挖矿';
             this.button = '马上挖矿';
         }
+    },
+    methods: {
+        goInfo() {
+            this.$router.push({
+                name: 'project',
+            });
+        },
     },
 };
 </script>
