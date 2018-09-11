@@ -1,6 +1,6 @@
 <template>
     <div class="purse">
-        <header-nav linkName="account" isBlue=true title="钱包地址"></header-nav>
+        <header-nav isBlue=true title="钱包地址"></header-nav>
         <div class="purse-info">
             <p class="purse-info-title">ETH钱包地址：</p>
             <input class="purse-info-input" :disabled="show" v-model="purseAddress"/>
