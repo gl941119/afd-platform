@@ -55,16 +55,17 @@ export default {
         },
     },
     methods: {
-        getCode() { // 3 修改密码，4修改交易密码
+        getCode() {
             if (this.phone) {
+                const val = this.phone.indexOf('@');
+                const type = val > -1 ? 1 : 0;
                 Request({
-                    url: 'GetCode',
+                    url: 'SetTradePasswordCode',
                     data: {
                         email: this.phone,
-                        codeType: 4,
+                        registerType: type,
                     },
                     type: 'post',
-                    feedback: false,
                 }).then(res => {
                     const timerEmail = setInterval(() => {
                         this.codeShow = true;
@@ -98,9 +99,9 @@ export default {
             Request({
                 url: 'SetTradePassword',
                 data: {
-                    authCode: this.verifyCode,
+                    verificationCode: this.verifyCode,
                     email: this.phone,
-                    newPassword: validateFun.encrypt(this.tradepassword),
+                    password: validateFun.encrypt(this.tradePassword),
                     registerType: type,
                 },
                 type: 'post',

@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <header-nav linkName="mine" isBlue=true class="input-header" :title="title"></header-nav>
+        <header-nav linkName="account" isBlue=true class="input-header" :title="title"></header-nav>
         <div class="input-info">
             <div v-if="!nextShow">
                 <div class="input-info-item">

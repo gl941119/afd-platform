@@ -60,7 +60,7 @@
             <div class="mine-poup-title">提现提示</div>
             <div class="mine-poup-info">
                 <div class="mine-poup-info-item last">
-                    最小提现金额为10000AFDT，您当前还不能提现
+                    最小提现金额为{{minValue}}AFDT，您当前还不能提现
                 </div>
             </div>
             <div class="mine-poup-perfect">
@@ -96,7 +96,15 @@
             </div>
         </van-popup>
         <div class="mine-item">
-            <van-cell class="mine-item-kind common first" is-link to="/revenue">
+            <van-cell class="mine-item-kind common first" is-link to="/purse">
+                <van-icon slot="icon">
+                    <i class="custom-vant-icon-wallet fonts blue"></i>
+                </van-icon>
+                <template slot="title">
+                    <span class="van-cell-text">钱包</span>
+                </template>
+            </van-cell>
+            <van-cell class="mine-item-kind common two" is-link to="/revenue">
                 <van-icon slot="icon">
                     <i class="custom-vant-icon-qianbao fonts red"></i>
                 </van-icon>
@@ -151,7 +159,12 @@
                     money: '',
                     tradePassword: '',
                 },
+                minValue: '',
+                rate: '',
             };
+        },
+        created() {
+            this.balanceInfo();
         },
         mounted() {
             this.basicInformation();
@@ -167,7 +180,7 @@
             },
             handlingFee: {// 手续费
                 get() {
-                    return this.withdraws.money * 2 / 1000;
+                    return this.withdraws.money * this.rate;
                 },
                 set() {
                     return 0;
@@ -182,7 +195,7 @@
         },
         methods: {
             withdraw() {
-                if (this.balance < 10000) {
+                if (this.balance < this.minValue) {
                     this.balanceShow = !this.balanceShow;
                     return;
                 }
@@ -191,6 +204,16 @@
                     return;
                 }
                 this.withdrawShow = !this.withdrawShow;
+            },
+            balanceInfo() {
+                Request({
+                    url: 'QueryWithdrawInfo',
+                    type: 'get',
+                }).then(res => {
+                    console.log(res);
+                    this.minValue = res.data.miniValue;
+                    this.rate = res.data.rate;
+                });
             },
             rightNow() {
                 this.$validator.validateAll().then((result) => {
@@ -408,6 +431,7 @@
                 text-align: center;
                 border-top: 1px solid rgba(242,242,242,1);
                 button{
+                    width: 100%;
                     font-size:18px;
                     color:rgba(16,142,233,1);
                     border: 0;
@@ -482,6 +506,12 @@
                 }
 
                 &.first {
+                    border-top: 1px solid #e5e5e5;
+                    border-bottom: 1px solid #e5e5e5;
+                    margin-bottom: pxTorem(10px);
+                }
+
+                &.two{
                     border-top: 1px solid #e5e5e5;
                 }
 
