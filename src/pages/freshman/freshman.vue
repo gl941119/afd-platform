@@ -1,5 +1,6 @@
 <template>
     <div class="freshman">
+        <header-nav title="新人专区" :is-blue="true"></header-nav>
         <div class="freshman-top">
             <img src="../../assets/imgs/img/freshman-top.png">
         </div>
@@ -47,6 +48,7 @@ export default {
 @import '~@/assets/css/global.scss';
 .freshman {
     &-top {
+        margin: pxTorem(45px) auto 0;
         img {
             width: 100%;
         }
