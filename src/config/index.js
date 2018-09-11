@@ -38,6 +38,7 @@ export default {
     /* 我发起的众筹*/
     QueryMyNewCrowdfunding: 'blockchainadvert/crowd-funding/initiate',
     /* 钱包地址的绑定*/
+    QueryWithdrawInfo: 'blockchainadvert/account/withdrawInfo', // 获取提现信息
     QueryBindWalletAddress: 'blockchainadvert/account/bindWalletAddress',
     QueryWalletAddress: 'blockchainadvert/account/findWalletAddress',
     QueryBalance: 'blockchainadvert/account/getWalletBalance',
