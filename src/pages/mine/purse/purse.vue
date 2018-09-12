@@ -12,7 +12,7 @@
             </div>
             <div class="purse-info-item">
                 <span class="purse-info-item-title">钱包余额</span>
-                <div class="purse-info-item-content">{{balance}}</div>
+                <div class="purse-info-item-content">{{balance}}AFDT</div>
             </div>
         </div>
     </div>
