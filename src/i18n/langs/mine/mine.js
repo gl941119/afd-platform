@@ -63,6 +63,7 @@ const en = {
     },
     bind: {
         phone: '请输入手机号',
+        email: '请输入邮箱',
         enterCode: '请输入验证码',
         code: '请输入验证码',
     },
