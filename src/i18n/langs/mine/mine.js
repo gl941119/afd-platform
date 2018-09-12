@@ -2,6 +2,7 @@ const en = {
     button: {
         perfect: '去完善',
         confirm: '确定',
+        next: '下一步',
     },
     mine: {
         nickName: '昵称',
@@ -66,6 +67,10 @@ const en = {
         email: '请输入邮箱',
         enterCode: '请输入验证码',
         code: '请输入验证码',
+        later: '后',
+        again: '重试',
+        oldPhone: '请输入原手机号',
+        oldEmail: '请输入原邮箱',
     },
 };
 export default en;
