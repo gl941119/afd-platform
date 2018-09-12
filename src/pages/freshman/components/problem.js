@@ -59,7 +59,7 @@ export default [
     {
         id: 12,
         title: '充提AFDT有没有限额？',
-        content: '充值没有限额，提现10万AFDT以下，系统自动审核，10万AFDT以上需要人工审核，用户提现手续费为千分之二AFDT，1000AFDT起提。',
+        content: '充值没有限额，提现10万AFDT以下，系统自动审核，10万AFDT以上需要人工审核，用户提现手续费为千分之二AFDT，5000AFDT起提。',
     },
     {
         id: 13,

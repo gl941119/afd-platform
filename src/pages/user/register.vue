@@ -19,8 +19,11 @@
                 <van-button v-else size="small" class="lost-active" >({{num}}s)后重试</van-button>
             </div>
             <div class="register_info_box">
-                <input type="password" name="password" v-validate="{required: true, regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!+-^%*#?&]{8,16}$/}" v-model="register.password" class="register_info_box_kind" ref="password" autocomplete="off" placeholder="请输入密码" />
+                <input @focus="handlePwdTip" @blur="handleBlur" type="password" name="password" v-validate="{required: true, regex: /^([A-Za-z]|\d){8,16}$/}" v-model="register.password" class="register_info_box_kind" ref="password" autocomplete="off" placeholder="请输入密码" />
                 <span class="is-danger" v-show="errors.has('password')">{{errors.first('password')}}</span>
+                <div v-show="tip" class="password-tip">
+                    密码为8~16位数字、字母组合
+                </div>
             </div>
             <div class="register_info_box">
                 <input type="password" name="passwordAgain" v-validate="'required|confirmed:password'" v-model="register.passwordAgain" class="register_info_box_kind" autocomplete="off" placeholder="请再次输入密码" />
@@ -68,6 +71,7 @@
                     disclaimerChecked: true,
                 },
                 registerTerm: false,
+                tip: false,
             };
         },
         computed: {
@@ -89,6 +93,12 @@
             },
         },
         methods: {
+            handlePwdTip() {
+                this.tip = true;
+            },
+            handleBlur() {
+                this.tip = false;
+            },
             sendVerify() {
                 if (this.register.phone) {
                     Request({
@@ -156,6 +166,27 @@
 </script>
 <style lang="scss" scoped>
     @import './user.scss';
+    .password-tip{
+        position: absolute;
+        top: -30px;
+        padding: 6px;
+        color: #666;
+        background: #fff;
+        box-shadow: #999 0 0 15px;
+        border-radius: 5px;
+        &:after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-top-color: #fff;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 31px;
+        }
+    }
     .register-fixed {
         position: fixed;
         top: 0;
