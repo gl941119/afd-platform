@@ -92,7 +92,7 @@
                 <span class="is-danger" v-show="errors.has('tradePassword')">{{errors.first('tradePassword')}}</span>
             </div>
             <div class="mine-withdraw-buttonBox">
-                <button class="mine-withdraw-buttonBox-button" :class="{'active':style}" @click="rightNow()">立即提现</button>
+                <button class="mine-withdraw-buttonBox-button" :disabled="!style" :class="{'active':style}" @click="rightNow()">立即提现</button>
             </div>
         </van-popup>
         <div class="mine-item">
@@ -223,6 +223,10 @@
                     if (result) {
                         const { money, tradePassword } = this.withdraws;
                         const free = this.handlingFee.toString();
+                        if (money < this.minValue) {
+                            this.balanceShow = !this.balanceShow;
+                            return;
+                        }
                         Request({
                             url: 'PostWithdraw',
                             data: {
@@ -234,6 +238,7 @@
                             flag: true,
                         }).then(res => {
                             this.withdrawShow = false;
+                            this.basicInformation();
                             this.$toast.success('已提交提现申请');
                         });
                     }
