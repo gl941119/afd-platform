@@ -204,6 +204,8 @@
                     this.show = !this.show;
                     return;
                 }
+                this.withdraws.money = '';
+                this.withdraws.tradePassword = '';
                 this.withdrawShow = !this.withdrawShow;
             },
             balanceInfo() {
@@ -231,8 +233,6 @@
                             },
                             flag: true,
                         }).then(res => {
-                            this.withdraws.money = '';
-                            this.withdraws.tradePassword = '';
                             this.withdrawShow = false;
                             this.$toast.success('已提交提现申请');
                         });
