@@ -5,7 +5,7 @@
             <van-cell title="手机号" class="account-item-kind" @click="bind(1)" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text" v-if="!isBindPhone">未绑定</span>
-                    <span class="account-item-kind-text" v-else>已绑定</span>
+                    <span class="account-item-kind-text" v-else>{{phone}}</span>
                     <div class="account-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>
@@ -14,7 +14,7 @@
             <van-cell title="邮箱" class="account-item-kind" @click="bind(2)" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text" v-if="!existEmail">未绑定</span>
-                    <span class="account-item-kind-text" v-else>已绑定</span>
+                    <span class="account-item-kind-text" v-else>{{email}}</span>
                     <div class="account-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>
@@ -77,6 +77,8 @@
                 existPassword: false,
                 isBindPhone: false,
                 isBindtWalletAddress: false,
+                email: '',
+                phone: '',
             };
         },
         mounted() {
@@ -89,12 +91,24 @@
                     type: 'get',
                 }).then(res => {
                     // console.log(res.data);
-                    this.authStatus = res.data.authStatus;
-                    this.existEmail = res.data.existEmail;
-                    this.existTradePassword = res.data.existTradePassword;
-                    this.existPassword = res.data.existPassword;
-                    this.isBindPhone = res.data.isBindPhone;
-                    this.isBindtWalletAddress = res.data.isBindtWalletAddress;
+                    const {
+                        Email,
+                        phone,
+                        authStatus,
+                        existEmail,
+                        existTradePassword,
+                        existPassword,
+                        isBindPhone,
+                        isBindtWalletAddress,
+                    } = res.data;
+                    this.phone = phone.substr(0, 3) + '****' + phone.substr(7);
+                    this.email = Email.substr(0, 2) + '****' + '@' + Email.split('@')[1];
+                    this.authStatus = authStatus;
+                    this.existEmail = existEmail;
+                    this.existTradePassword = existTradePassword;
+                    this.existPassword = existPassword;
+                    this.isBindPhone = isBindPhone;
+                    this.isBindtWalletAddress = isBindtWalletAddress;
                 });
             },
             bind(value) {
