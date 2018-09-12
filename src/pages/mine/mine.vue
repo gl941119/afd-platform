@@ -200,7 +200,7 @@
                     return;
                 }
                 if (this.authStatus !==
-            1 || this.existTradePassword || this.isBindtWalletAddress) {
+            1 || !this.existTradePassword || !this.isBindtWalletAddress) {
                     this.show = !this.show;
                     return;
                 }
