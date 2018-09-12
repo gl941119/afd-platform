@@ -61,7 +61,7 @@ export default {
                 type: 'get',
                 flag: true,
             }).then(res => {
-                this.balance = res.data.balance;
+                this.balance = res.data;
             });
         },
     },

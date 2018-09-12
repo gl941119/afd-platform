@@ -1,6 +1,6 @@
 const protocol = window.location.protocol;
 const url = {
-    localTestUrl: 'http://192.168.1.188:8080/',
+    localTestUrl: 'http://192.168.1.254:8080/',
     // localTestUrl: 'http://192.168.1.188:8080/',
     productUrl: protocol === 'http:' ? 'http://192.168.1.254:8080/' : 'https://192.168.1.254:8090/',
     // productUrl: protocol === 'http:' ? 'http://api.afdchain.com/' : 'https://api.afdchain.com/',

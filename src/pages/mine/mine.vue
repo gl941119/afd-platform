@@ -199,7 +199,8 @@
                     this.balanceShow = !this.balanceShow;
                     return;
                 }
-                if (this.authStatus === 0 || this.existTradePassword || this.existPassword || this.isBindPhone || this.isBindtWalletAddress) {
+                if (this.authStatus !==
+            1 || this.existTradePassword || this.isBindtWalletAddress) {
                     this.show = !this.show;
                     return;
                 }
@@ -361,7 +362,9 @@
                 }
                 span{
                     height: pxTorem(24px);
+                    display: inline-block;
                     line-height: 24px;
+                    vertical-align: middle;
                 }
             }
         }
