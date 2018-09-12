@@ -234,7 +234,7 @@
         }
         &-out{
             background: #ffffff;
-            height: 100%;
+            // height: 100%;
             text-align: center;
             @include remCalc(padding, 32px, 40px, 0, 40px);
             &-button{
