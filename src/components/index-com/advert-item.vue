@@ -114,10 +114,11 @@
                     // modal
                     // console.log(res);
                     if (res.data) {
-                        const _trade = {
+                        let _trade = {
                             id: this.advertDatas.id,
                             tradeNum: res.data,
                         };
+                        _trade = JSON.stringify(_trade);
                         this.$store.commit('setTradeSuc', _trade);
                         Cache.setSession('trade_suc', _trade);
                     }
@@ -171,7 +172,7 @@
                 if (index === -1) {
                     adId.push({ id });
                 }
-                return adId;
+                return JSON.stringify(adId);
             },
         },
     };
