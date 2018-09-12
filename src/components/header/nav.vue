@@ -39,6 +39,7 @@
         top: 0;
         right: 0;
         width: 100%;
+        z-index: 2;
 
         &-link {
             height: 100%;

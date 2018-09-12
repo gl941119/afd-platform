@@ -85,11 +85,7 @@
             // console.log('trade adId->', this.tradeAdId, this.advertDatas.id);
             this.isVisited = this.tradeAdId.some(item => item.id === this.advertDatas.id);
             // trade success
-            const { id, tradeNum } = this.tradeObj;
-            if (this.advertDatas.id === id) {
-                this.success = true;
-                this.tradeNum = tradeNum;
-            }
+            this.tradeSucHandle();
         },
         methods: {
             handleOptions() {
@@ -128,6 +124,13 @@
                     this.$emit('update-data');
                 });
                 this.tradeVisible = false;
+            },
+            tradeSucHandle() {
+                const { id, tradeNum } = this.tradeObj;
+                if (this.advertDatas.id === id) {
+                    this.success = true;
+                    this.tradeNum = tradeNum;
+                }
             },
             closeTradeSuc() {
                 this.success = false;

@@ -12,7 +12,7 @@
             </div>
             <div class="login_info_box verify-code">
                 <input class="login_info_box_kind" autocomplete="off" placeholder="请输入验证码" v-model="verify" />
-                <img class="verify-code-img" width="84" height="40" :src="'data:image/png;base64, ' + base64Str">
+                <img v-if="base64Str" class="verify-code-img" width="84" height="40" :src="'data:image/png;base64, ' + base64Str">
                 <div class="verify-code-text" @click="getCode"><span>看不清,换一张</span></div>
             </div>
             <div class="login_buttonBox">

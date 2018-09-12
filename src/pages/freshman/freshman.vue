@@ -9,11 +9,11 @@
                 <span>领好礼</span>
             </freshman-title>
             <div class="freshman-problem-gift">
-                <div class="freshman-problem-gift-get">
+                <!-- <div class="freshman-problem-gift-get">
                     <img src="../../assets/imgs/img/freshman-gift.png" >
                     <span>填写邀请码注册获取66个AFDT见面礼</span>
                     <van-button class="freshman-problem-gift-get-btn" size="mini" type="warning">一键领取</van-button>
-                </div>
+                </div> -->
                 <div class="freshman-problem-gift-get">
                     <img src="../../assets/imgs/img/freshman-msg.png" >
                     <span>每次邀请好友注册成功就送33个AFDT</span>
