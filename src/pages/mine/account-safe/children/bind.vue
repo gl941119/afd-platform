@@ -73,6 +73,15 @@ export default {
                     codeType: type,
                 },
             }).then(res => {
+                const timerEmail = setInterval(() => {
+                    this.codeShow = true;
+                    this.num--;
+                    if (this.num < 1) {
+                        clearInterval(timerEmail);
+                        this.codeShow = false;
+                        this.num = 60;
+                    }
+                }, 1000);
                 this.$toast.success('验证码发送成功');
             });
         },

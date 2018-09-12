@@ -12,7 +12,7 @@
             </div>
             <div class="purse-info-item">
                 <span class="purse-info-item-title">钱包余额</span>
-                <div class="purse-info-item-content">{{balance}}</div>
+                <div class="purse-info-item-content">{{balance}}AFDT</div>
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@ export default {
                 type: 'get',
                 flag: true,
             }).then(res => {
-                this.balance = res.data.balance;
+                this.balance = res.data;
             });
         },
     },

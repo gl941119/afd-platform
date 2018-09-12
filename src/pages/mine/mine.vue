@@ -82,7 +82,7 @@
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label heighter">提现金额</label>
-                <input class="mine-withdraw-info-input" name="money" placeholder="提现金额" v-validate="'required|numeric'" autoComplete="off">
+                <input class="mine-withdraw-info-input" v-model="withdraws.money" name="money" placeholder="提现金额" v-validate="'required|numeric'" autoComplete="off">
                 <span class="is-danger" v-show="errors.has('money')">{{errors.first('money')}}</span>
             </div>
             <div class="mine-withdraw-info">
@@ -199,10 +199,13 @@
                     this.balanceShow = !this.balanceShow;
                     return;
                 }
-                if (this.authStatus === 0 || this.existTradePassword || this.existPassword || this.isBindPhone || this.isBindtWalletAddress) {
+                if (this.authStatus !==
+            1 || !this.existTradePassword || !this.isBindtWalletAddress) {
                     this.show = !this.show;
                     return;
                 }
+                this.withdraws.money = '';
+                this.withdraws.tradePassword = '';
                 this.withdrawShow = !this.withdrawShow;
             },
             balanceInfo() {
@@ -219,18 +222,17 @@
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         const { money, tradePassword } = this.withdraws;
+                        const free = this.handlingFee.toString();
                         Request({
                             url: 'PostWithdraw',
                             data: {
                                 accountId: this.accountId,
                                 amount: money,
-                                cost: this.handlingFee,
+                                cost: free,
                                 password: validateFun.encrypt(tradePassword),
                             },
                             flag: true,
                         }).then(res => {
-                            this.withdraws.money = '';
-                            this.withdraws.tradePassword = '';
                             this.withdrawShow = false;
                             this.$toast.success('已提交提现申请');
                         });
@@ -361,7 +363,9 @@
                 }
                 span{
                     height: pxTorem(24px);
+                    display: inline-block;
                     line-height: 24px;
+                    vertical-align: middle;
                 }
             }
         }
@@ -447,8 +451,8 @@
             width:pxTorem(274px);
             &-info{
                 &-label{
-                    width:pxTorem(56px);
-                    margin-right: 25px;
+                    width:pxTorem(66px);
+                    margin-right: pxTorem(10px);
                     height: pxTorem(36px);
                     line-height: pxTorem(36px);
                     display: inline-block;

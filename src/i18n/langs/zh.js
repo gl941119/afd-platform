@@ -1,4 +1,4 @@
-﻿import zhLocale from './zh-CN'
+﻿import zhLocale from './zh-CN';
 const zh = {
     header: {
         home: '首页',
@@ -13,7 +13,7 @@ const zh = {
         tipMsg: '电报群需翻墙',
         got: '我知道了',
         info: '系统维护 暂停提币',
-        more: '更多'
+        more: '更多',
     },
     login: {
         login: '登 录',
@@ -57,7 +57,7 @@ const zh = {
         enterOncePassword: '请输入确认密码',
         registerInviteCode: '请输入邀请码，可选',
         disclaimer: 'AFDCHAIN用户协议',
-        agree: '同意并注册'
+        agree: '同意并注册',
     },
     passwordNotic: {
         one: '1、密码长度必须介于8到16个字符之间。',
@@ -118,7 +118,7 @@ const zh = {
         shareTiltle: '分享',
         shareOne: '被割了吗？来阿凡达，我养你啊！送上熊市屯币攻略，邀你注册瓜分99999个AFDT，邀请人得33AFDT 被邀请人得66AFDT，每日挖币，再享分红！',
         shareCopy: '点我复制',
-        warning: '您还没有登录阿凡达星球，为保证您能获得更多收益，请登录以后再分享'
+        warning: '您还没有登录阿凡达星球，为保证您能获得更多收益，请登录以后再分享',
     },
     crowdFunding: {
         all: '全部阶段',
@@ -190,7 +190,7 @@ const zh = {
         getAfd: '获取AFD',
         inviteInfo: '嘿 韭菜们，被割了吗？我养你啊！输入我的邀请码即得99AFDT，速度上车注册。',
     },
-    setting: { //账号设置
+    setting: { // 账号设置
         setInfo: '设置信息',
         headUrl: '头像',
         nickname: '昵称',
@@ -234,7 +234,7 @@ const zh = {
         nopass: '身份认证未通过审核，请知悉',
         pass: '身份认证提交资料已成功通过审核',
     },
-    passwordInfo: { //更改密码、交易密码
+    passwordInfo: { // 更改密码、交易密码
         passwords: '密码',
         oldPassword: '原密码',
         newPassword: '新密码',
@@ -256,7 +256,7 @@ const zh = {
         changeTradePassword: '更改交易密码',
         enterTradePassword: '请输入交易密码',
     },
-    personal: { //个人中心
+    personal: { // 个人中心
         purse: '钱包',
         revenue: '广告收益账户',
         main: '广告主账户',
@@ -273,7 +273,7 @@ const zh = {
         medium: '媒体',
         loginOut: '退出登录',
     },
-    purse: { //钱包
+    purse: { // 钱包
         wallet: '钱包',
         balance: '余额',
         bindWalletAddress: '绑定您的钱包地址，用于提现在平台获得的广告收益、核对作为广告主的充值记录、检查您的账户余额。',
@@ -299,7 +299,7 @@ const zh = {
         finish: '完成',
         ok: '好的',
     },
-    initiated: { //我发起的众筹
+    initiated: { // 我发起的众筹
         iInitiated: '我发起的众筹',
         token: 'Token名称',
         desc: '描述',
@@ -312,7 +312,7 @@ const zh = {
         refuse: '审核未通过',
         statusUpdate: '状态更新时间',
     },
-    project: { //广告收益账户以及主账户
+    project: { // 广告收益账户以及主账户
         balance: '余额',
         ethWalletAddress: 'ETH钱包地址',
         withdraw: '提现',
@@ -496,49 +496,14 @@ const zh = {
         enterEnglishName: '请输入站点英文名称',
         enterAddress: '请输入站点地址',
     },
-    messageCode: {
-        exceptions: '系统异常',
-        success: '操作成功',
-        failure: '操作失败',
-        registered: '注册成功',
-        userNotExist: '用户不存在，无法登录',
-        notRegister: '用户已经存在，无法注册',
-        tooManyUsers: '用户存在过多，无法登录',
-        disabled: '该用户已禁用，无法登录',
-        alreadyBound: '当前用户已经绑定邮箱，无法重新绑定',
-        wrongPassword: '密码错误，无法登录',
-        originalPassword: '原密码错误，请重新输入',
-        transactionPassword: '原交易密码错误，请重新输入',
-        verificationCode: '验证码错误',
-        codeSendSuccess: '验证码发送成功',
-        codeSendFaild: '验证码发送失败',
-        codeSentTooFrequently: '验证码发送过于频繁，请稍后再试',
-        codeNotExist: '邀请码不存在',
-        bindedTelegram: '该telegram账号已经注册平台账号，无法绑定',
-        onShelves: '众筹信息已经上架，无法修改',
-        underReview: '众筹信息审核中，无法修改',
-        notApplyAgain: '您已经存在广告，无法再次申请',
-        onceLogin: '登录失效，请重新登录',
-        noBindEmail: '该账户未绑定邮箱',
-        illegal: '广告非法',
-        remove: '广告已下架',
-        invalid: '点击挖矿无效',
-        exist: '众筹不存在',
-        existed: '交易密码已经存在',
-        passwordExisted: '密码已经存在',
-        unableBind: '钱包地址已经被使用，无法继续绑定',
-        itemNoExist: '广告项目不存在',
-        noSetConcept: '广告项目还未设置概念',
-    },
     footer: {
         partner: '合作伙伴',
         Wechat: '微信公众号',
         Cooperation: '商务合作',
         AFD: 'AFD基金会',
-        LTD: '版权所有'
-
+        LTD: '版权所有',
 
     },
     ...zhLocale,
 };
-export default zh
+export default zh;

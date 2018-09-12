@@ -112,6 +112,7 @@
                     this.$store.commit('setTradeAdId', adId);
                     Cache.setSession('trade_group', adId);
                     // modal
+                    // console.log(res);
                     if (res.data) {
                         const _trade = {
                             id: this.advertDatas.id,
