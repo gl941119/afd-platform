@@ -85,6 +85,16 @@ const en = {
         account: '请输入邮箱或手机号',
         setPassword: '请设置支付密码',
         oncePassword: '请确认支付密码',
+        tradeNotice: '请设置6位数字或字母',
+        changeTrade: '修改支付密码',
+        oldTrade: '原支付密码',
+        newTrade: '新支付密码',
+        onceTrade: '确认新支付密码',
+        changeLogin: '修改登录密码',
+        olePassword: '原密码',
+        newPassword: '新密码',
+        onceNew: '确认新密码',
+        passwordNotice: '密码为8~16位数字、字母组合',
     },
 
 };
