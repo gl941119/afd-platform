@@ -454,7 +454,9 @@
             color:rgba(144,147,153,1);
             border-radius:7px;
             width:pxTorem(274px);
+            overflow: hidden;
             &-info{
+                width: 100%;
                 &-label{
                     width:pxTorem(66px);
                     margin-right: pxTorem(10px);
