@@ -16,13 +16,7 @@
                         <div class="revenue-titleBox-title-info">
                             {{item.createTime}}
                         </div>
-                        <div class="revenue-titleBox-title-info">{{item.desc}}</div>
-                        <div class="revenue-titleBox-title-info">
-                            <span v-if="item.status==1">转账成功</span>
-                            <span v-if="item.status==2">待转账（审核通过）</span>
-                            <span v-if="item.status==3">待审核</span>
-                            <span v-if="item.status==4">审核不通过</span>
-                        </div>
+                        <div class="revenue-titleBox-title-info">{{item.money}}</div>
                     </div>
                 </van-list>
             </div>
