@@ -113,3 +113,6 @@ $base-size: 37.5;
 .van-dialog__confirm:active {
     color: #108EE9 !important;
 }
+.van-dialog__message--has-title {
+    text-align: center;
+}

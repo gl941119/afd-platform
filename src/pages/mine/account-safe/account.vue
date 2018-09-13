@@ -42,7 +42,7 @@
             <van-cell title="支付密码" class="account-item-kind" @click="trade()" is-link>
                 <van-icon slot="right-icon">
                     <span class="account-item-kind-text" v-if="!existTradePassword">未设置</span>
-                    <span class="account-item-kind-text" v-else>已设置</span>
+                    <span class="account-item-kind-text" v-else>修改</span>
                     <div class="account-item-kind-fontBox">
                         <i class="custom-vant-icon-right"></i>
                     </div>
