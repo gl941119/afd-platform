@@ -14,12 +14,15 @@
             </div>
             <div v-else>
                 <div class="input-info-item">
-                    <input type="password" v-model="password" placeholder="支付密码"/>
+                    <input type="password" v-model="password" @blur="passwordFun()" placeholder="支付密码"/>
                 </div>
                 <div class="input-info-item">
                     <input type="password" v-model="oncePassword" placeholder="确认支付密码"/>
                 </div>
             </div>
+        </div>
+        <div v-if="forgetShow" class="input-password">
+            请设置6位数字或字母
         </div>
         <div class="input-confirm">
             <button v-if="!forgetShow" class="input-confirm-button" @click="next()" :disabled="!nextShow" :class="{'active':nextShow}">下一步</button>
@@ -41,6 +44,7 @@ export default {
             password: '',
             oncePassword: '',
             forgetShow: false,
+            passwordShow: false,
         };
     },
     computed: {
@@ -51,7 +55,7 @@ export default {
             return false;
         },
         style() {
-            if (this.password && this.oncePassword) {
+            if (this.password && this.oncePassword && !this.passwordShow) {
                 return true;
             }
             return false;
@@ -101,6 +105,16 @@ export default {
             }).then(res => {
                 this.forgetShow = !this.forgetShow;
             });
+        },
+        passwordFun() {
+            var str = this.password;
+            var value = /^[a-zA-Z0-9]{6}$/.test(str);
+            if (!value) {
+                this.$toast.fail('支付密码格式不对');
+                this.passwordShow = true;
+            } else {
+                this.passwordShow = false;
+            }
         },
         confirm() {
             if (this.password !== this.oncePassword) {
