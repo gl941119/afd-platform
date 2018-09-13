@@ -24,7 +24,9 @@ const Freshman = () =>
     import('@/pages/freshman/freshman');
 const WorkFlow = () =>
     import('@/pages/freshman/flow');
-
+// activity
+const Activity = () =>
+    import('@/pages/activity/activity');
 // mine
 const Mine = () =>
     import('@/pages/mine/mine');
@@ -117,6 +119,11 @@ export default new Router({
             path: '/freshman',
             name: 'freshman',
             component: Freshman,
+        },
+        {
+            path: '/activity',
+            name: 'activity',
+            component: Activity,
         },
         {
             path: '/workflow',

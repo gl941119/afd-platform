@@ -70,15 +70,16 @@
         <van-popup class="mine-withdraw" v-model="withdrawShow">
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">可用金额</label>
-                <span class="mine-withdraw-info-span">{{balance}}</span>
+                <span class="mine-withdraw-info-span">{{balance}} AFDT</span>
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">手续费</label>
-                <input class="mine-withdraw-info-span" disabled v-model="handlingFee"/>
+                <span class="mine-withdraw-info-span">{{handlingFee}} AFDT</span>
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">到账金额</label>
-                <input class="mine-withdraw-info-span" disabled v-model="arrival"/>
+                <span class="mine-withdraw-info-span">{{arrival}} AFDT</span>
+
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label heighter">提现金额</label>
@@ -475,6 +476,7 @@
                     width: pxTorem(128px);
                     @include remCalc(padding, 0, 10px);
                     background: transparent;
+                    color: #909399;
                 }
                 &-input{
                     width: pxTorem(128px);
