@@ -128,6 +128,7 @@
         background: #FAFAFA;
         padding-bottom: 50px;
         margin-top: 50px;
+        min-height: calc(100vh - 50px);
         overflow: auto;
         &-header {
             position: fixed;
