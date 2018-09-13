@@ -17,7 +17,7 @@
                 {{notic}}
             </div>
             <div v-if="value==='2'" class="input-password-forget" @click="forget()">
-                忘记交易密码
+                忘记支付密码
             </div>
         </div>
         <div class="input-confirm">
