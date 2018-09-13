@@ -101,8 +101,12 @@
                         isBindPhone,
                         isBindtWalletAddress,
                     } = res.data;
-                    this.phone = phone.substr(0, 3) + '****' + phone.substr(7);
-                    this.email = Email.substr(0, 2) + '****' + '@' + Email.split('@')[1];
+                    if (phone) {
+                        this.phone = phone.substr(0, 3) + '****' + phone.substr(7);
+                    }
+                    if (Email) {
+                        this.email = Email.substr(0, 2) + '****' + '@' + Email.split('@')[1];
+                    }
                     this.authStatus = authStatus;
                     this.existEmail = existEmail;
                     this.existTradePassword = existTradePassword;
