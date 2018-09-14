@@ -11,6 +11,9 @@ import {
     Toast,
     List,
     Uploader,
+    Tab,
+    Tabs,
+    Circle
 } from 'vant';
 import 'vant/packages/vant-css/src/button.css';
 
@@ -23,4 +26,6 @@ Vue.use(Picker);
 Vue.use(Popup);
 Vue.use(List);
 Vue.use(Uploader);
+Vue.use(Tab).use(Tabs);
+Vue.use(Circle);
 Vue.prototype.$toast = Toast;

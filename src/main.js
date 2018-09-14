@@ -47,7 +47,6 @@ if ('addEventListener' in document) {
 
 router.beforeEach((to, from, next) => {
     const token = store.state.token;
-
     if (to.matched.some(record => record.meta.showFooter)) {
         Cache.setSession('show_footer', '1');
         store.commit('setShowFooter', '1');

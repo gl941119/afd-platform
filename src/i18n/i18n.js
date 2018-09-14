@@ -7,6 +7,7 @@ var lang = Cache.getLocal('bier_langChange');
 if (lang == 'en') {
     lang = lang.toUpperCase();
 }
+
 const i18n = new VueI18n({
     locale: lang || 'zh',
     messages,

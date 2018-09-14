@@ -32,6 +32,7 @@
     @import '../../assets/css/global.scss';
 
     .nav {
+        z-index: 100;
         height: pxTorem(45px);
         @include remCalc(padding, 0, 14px);
         @include content-flex();

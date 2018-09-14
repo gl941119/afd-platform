@@ -112,6 +112,14 @@
                     <span class="van-cell-text">挖矿收益</span>
                 </template>
             </van-cell>
+            <!--<van-cell class="mine-item-kind common last" is-link to="/exchange">-->
+                <!--<van-icon slot="icon">-->
+                    <!--<i class="custom-vant-icon-ziyuan fonts orange"></i>-->
+                <!--</van-icon>-->
+                <!--<template slot="title">-->
+                    <!--<span class="van-cell-text">兑换</span>-->
+                <!--</template>-->
+            <!--</van-cell>-->
         </div>
         <van-cell class="mine_last" icon="shop" is-link to="/account">
             <van-icon slot="icon">

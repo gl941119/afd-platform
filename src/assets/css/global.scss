@@ -22,7 +22,6 @@ $base-size: 37.5;
     @for $i from 1 through $max {
         $value: strip-units(nth($values, $i));
         $remValues: #{$remValues + $value}rem;
-
         @if $i < $max {
             $remValues: #{$remValues + " "};
         }

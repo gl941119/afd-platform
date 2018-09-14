@@ -48,6 +48,9 @@ const Records = () =>
 // Mining
 const Mining = () =>
     import('@/pages/mine/mining/mining');
+const Exchange = () =>
+    import('@/pages/mine/exchange/exchange');
+
 // Account-safe
 const Account = () =>
     import('@/pages/mine/account-safe/account');
@@ -193,6 +196,11 @@ export default new Router({
             path: '/mining',
             name: 'mining',
             component: Mining,
+        },
+        {//个人中心，兑换
+            path: '/exchange',
+            name: 'exchange',
+            component: Exchange,
         },
         {
             path: '/account',
