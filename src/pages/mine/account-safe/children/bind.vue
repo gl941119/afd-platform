@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <header-nav linkName="mine" isBlue=true class="input-header" :title="title"></header-nav>
+        <header-nav linkName="account" isBlue=true class="input-header" :title="title"></header-nav>
         <div class="input-info">
             <div class="input-info-item">
                 <input v-model="account" name="oldPassword" :placeholder="placeholder"/>
@@ -73,6 +73,15 @@ export default {
                     codeType: type,
                 },
             }).then(res => {
+                const timerEmail = setInterval(() => {
+                    this.codeShow = true;
+                    this.num--;
+                    if (this.num < 1) {
+                        clearInterval(timerEmail);
+                        this.codeShow = false;
+                        this.num = 60;
+                    }
+                }, 1000);
                 this.$toast.success('验证码发送成功');
             });
         },

@@ -1,10 +1,10 @@
 <template>
     <div class="purse">
-        <header-nav linkName="account" title="钱包地址"></header-nav>
+        <header-nav isBlue=true title="钱包地址"></header-nav>
         <div class="purse-info">
             <p class="purse-info-title">ETH钱包地址：</p>
             <input class="purse-info-input" :disabled="show" v-model="purseAddress"/>
-            <van-button class="purse-info-button" :disabled="disabled" @click="bind()" v-if="!show" :class="{'active':disabled}" type="primary">绑定</van-button>
+            <van-button class="purse-info-button" :disabled="show" @click="bind()" v-if="!show" :class="{'active':disabled}" type="primary">绑定</van-button>
             <van-button class="purse-info-button" v-if="show" disabled type="primary">已绑定</van-button>
         </div>
         <div class="purse-notic">

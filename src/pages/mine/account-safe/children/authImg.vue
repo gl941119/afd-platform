@@ -13,7 +13,7 @@
                 </van-uploader>
             </div>
             <div class="authImg-info-item">
-                <van-uploader :after-read="getHandheld">
+                <van-uploader class="authImg-info-item-max" :after-read="getHandheld">
                     <img v-if="!imageHandheld" src="http://imgs.afdchain.com/web-upload/picture/d9c5275b29c842dd974e1a31ee1bf41b.png"/>
                     <img v-else :src="imageHandheld"/>
                 </van-uploader>
@@ -186,6 +186,13 @@
                     float: left;
                     border-radius: 8px;
                     margin-bottom: pxTorem(10px);
+                    img{
+                        height: 100%;
+                    }
+                }
+                &-max{
+                    width:pxTorem(175px);
+                    height:pxTorem(229px);
                     img{
                         height: 100%;
                     }

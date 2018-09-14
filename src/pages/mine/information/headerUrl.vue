@@ -8,18 +8,6 @@
             <van-uploader class="btn_text" :after-read="onRead">
                 点击上传
             </van-uploader>
-            <!-- <div class="avatar-edit" v-show="files && edit">
-                <div class="avatar-edit-image" v-if="files">
-                    <img ref="editImage" :src="files[0].url" />
-                </div>
-                <div class="avatar-edit-btn">
-                    <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">取消</button>
-                    <button type="submit" class="btn btn-primary" @click.prevent="editSave">保存</button>
-                </div>
-            </div> -->
-             <!-- <file-upload extensions="gif,jpg,jpeg,png,webp" accept="image/*" v-model="files" name="avatar" class="btn btn-primary" :drop="!edit" @input-filter="inputFilter" @input-file="inputFile" ref="upload">
-                <div class="btn_text">点击上传</div>
-            </file-upload> -->
             <div class="avatar-edit" v-show="files.length && edit">
                 <div class="avatar-edit-image" v-if="files.length">
                     <img ref="editImage" :src="files[0].content" />
@@ -51,8 +39,13 @@
             };
         },
         computed: {
-            heardUrl() {
-                return this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
+            heardUrl: {
+                get() {
+                    return this.$store.state.heardUrl || 'https://s3-us-west-2.amazonaws.com/static-afd/upload-folder/picture/0ce0fa3b61824c05a3b797adc921150b.png';
+                },
+                set() {
+
+                },
             },
         },
         watch: {

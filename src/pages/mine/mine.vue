@@ -60,7 +60,7 @@
             <div class="mine-poup-title">提现提示</div>
             <div class="mine-poup-info">
                 <div class="mine-poup-info-item last">
-                    最小提现金额为10000AFDT，您当前还不能提现
+                    最小提现金额为{{minValue}}AFDT，您当前还不能提现
                 </div>
             </div>
             <div class="mine-poup-perfect">
@@ -70,19 +70,20 @@
         <van-popup class="mine-withdraw" v-model="withdrawShow">
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">可用金额</label>
-                <span class="mine-withdraw-info-span">{{balance}}</span>
+                <span class="mine-withdraw-info-span">{{balance}} AFDT</span>
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">手续费</label>
-                <input class="mine-withdraw-info-span" disabled v-model="handlingFee"/>
+                <span class="mine-withdraw-info-span">{{handlingFee}} AFDT</span>
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label">到账金额</label>
-                <input class="mine-withdraw-info-span" disabled v-model="arrival"/>
+                <span class="mine-withdraw-info-span">{{arrival}} AFDT</span>
+
             </div>
             <div class="mine-withdraw-info">
                 <label class="mine-withdraw-info-label heighter">提现金额</label>
-                <input class="mine-withdraw-info-input" name="money" placeholder="提现金额" v-validate="'required|numeric'" autoComplete="off">
+                <input class="mine-withdraw-info-input" v-model="withdraws.money" name="money" placeholder="提现金额" v-validate="'required|numeric'" autoComplete="off">
                 <span class="is-danger" v-show="errors.has('money')">{{errors.first('money')}}</span>
             </div>
             <div class="mine-withdraw-info">
@@ -92,11 +93,19 @@
                 <span class="is-danger" v-show="errors.has('tradePassword')">{{errors.first('tradePassword')}}</span>
             </div>
             <div class="mine-withdraw-buttonBox">
-                <button class="mine-withdraw-buttonBox-button" :class="{'active':style}" @click="rightNow()">立即提现</button>
+                <button class="mine-withdraw-buttonBox-button" :disabled="!style" :class="{'active':style}" @click="rightNow()">立即提现</button>
             </div>
         </van-popup>
         <div class="mine-item">
-            <van-cell class="mine-item-kind common first" is-link to="/revenue">
+            <van-cell class="mine-item-kind common first" is-link to="/purse">
+                <van-icon slot="icon">
+                    <i class="custom-vant-icon-wallet fonts blue"></i>
+                </van-icon>
+                <template slot="title">
+                    <span class="van-cell-text">钱包</span>
+                </template>
+            </van-cell>
+            <van-cell class="mine-item-kind common two" is-link to="/revenue">
                 <van-icon slot="icon">
                     <i class="custom-vant-icon-qianbao fonts red"></i>
                 </van-icon>
@@ -159,7 +168,12 @@
                     money: '',
                     tradePassword: '',
                 },
+                minValue: '',
+                rate: '',
             };
+        },
+        created() {
+            this.balanceInfo();
         },
         mounted() {
             this.basicInformation();
@@ -175,7 +189,7 @@
             },
             handlingFee: {// 手续费
                 get() {
-                    return this.withdraws.money * 2 / 1000;
+                    return this.withdraws.money * this.rate;
                 },
                 set() {
                     return 0;
@@ -190,33 +204,50 @@
         },
         methods: {
             withdraw() {
-                if (this.balance < 10000) {
+                if (this.balance < this.minValue) {
                     this.balanceShow = !this.balanceShow;
                     return;
                 }
-                if (this.authStatus === 0 || this.existTradePassword || this.existPassword || this.isBindPhone || this.isBindtWalletAddress) {
+                if (this.authStatus !==
+            1 || !this.existTradePassword || !this.isBindtWalletAddress) {
                     this.show = !this.show;
                     return;
                 }
+                this.withdraws.money = '';
+                this.withdraws.tradePassword = '';
                 this.withdrawShow = !this.withdrawShow;
+            },
+            balanceInfo() {
+                Request({
+                    url: 'QueryWithdrawInfo',
+                    type: 'get',
+                }).then(res => {
+                    // console.log(res);
+                    this.minValue = res.data.miniValue;
+                    this.rate = res.data.rate;
+                });
             },
             rightNow() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         const { money, tradePassword } = this.withdraws;
+                        const free = this.handlingFee.toString();
+                        if (money < this.minValue) {
+                            this.balanceShow = !this.balanceShow;
+                            return;
+                        }
                         Request({
                             url: 'PostWithdraw',
                             data: {
                                 accountId: this.accountId,
                                 amount: money,
-                                cost: this.handlingFee,
+                                cost: free,
                                 password: validateFun.encrypt(tradePassword),
                             },
                             flag: true,
                         }).then(res => {
-                            this.withdraws.money = '';
-                            this.withdraws.tradePassword = '';
                             this.withdrawShow = false;
+                            this.basicInformation();
                             this.$toast.success('已提交提现申请');
                         });
                     }
@@ -346,7 +377,9 @@
                 }
                 span{
                     height: pxTorem(24px);
+                    display: inline-block;
                     line-height: 24px;
+                    vertical-align: middle;
                 }
             }
         }
@@ -416,6 +449,7 @@
                 text-align: center;
                 border-top: 1px solid rgba(242,242,242,1);
                 button{
+                    width: 100%;
                     font-size:18px;
                     color:rgba(16,142,233,1);
                     border: 0;
@@ -429,10 +463,12 @@
             color:rgba(144,147,153,1);
             border-radius:7px;
             width:pxTorem(274px);
+            overflow: hidden;
             &-info{
+                width: 100%;
                 &-label{
-                    width:pxTorem(56px);
-                    margin-right: 25px;
+                    width:pxTorem(66px);
+                    margin-right: pxTorem(10px);
                     height: pxTorem(36px);
                     line-height: pxTorem(36px);
                     display: inline-block;
@@ -448,6 +484,7 @@
                     width: pxTorem(128px);
                     @include remCalc(padding, 0, 10px);
                     background: transparent;
+                    color: #909399;
                 }
                 &-input{
                     width: pxTorem(128px);
@@ -490,6 +527,12 @@
                 }
 
                 &.first {
+                    border-top: 1px solid #e5e5e5;
+                    border-bottom: 1px solid #e5e5e5;
+                    margin-bottom: pxTorem(10px);
+                }
+
+                &.two{
                     border-top: 1px solid #e5e5e5;
                 }
 

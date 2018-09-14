@@ -7,8 +7,7 @@
         <top-nav></top-nav>
         <before-earn></before-earn>
         <van-list v-model="loading" :finished="finished" @load="loadMore">
-            <advert-item v-for="(advert, _i) in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert"
-                         :item-index="_i" @update-data="updateData"></advert-item>
+            <advert-item v-for="advert in totalAdvertItemDatas" :key="advert.id" :advert-datas="advert" @update-data="updateData"></advert-item>
         </van-list>
     </div>
 </template>
@@ -20,7 +19,6 @@
     import Request from '../../utils/require.js';
     import Config from '../../utils/config.js';
     import Cache from '../../utils/cache';
-
     export default {
         name: 'Index',
         data() {
@@ -52,13 +50,13 @@
                 if (code) {
                     this.$store.commit('setRegisterCode', code);
                     Cache.setSession('bier_register_code', code);
-                    this.$router.push({name: 'register'});
+                    this.$router.push({ name: 'register' });
                 }
             },
             queryCode(value) {
                 Request({
                     url: 'QueryInviteCode',
-                    data: {accountId: value},
+                    data: { accountId: value },
                     type: 'get',
                 }).then(res => {
                     this.$store.commit('setInviteCode', res.data.inviteCode);
@@ -66,7 +64,7 @@
                 });
             },
             handleLoginSucc(data) {
-                const {id, email, nickname, token, heardUrl} = data;
+                const { id, email, nickname, token, heardUrl } = data;
                 this.$store.commit('setUserId', id);
                 this.$store.commit('setUserName', email);
                 this.$store.commit('setUserNickName', nickname); // cookie 中不保存 token
@@ -81,7 +79,7 @@
                 nickname && Cache.setSession('bier_usernickname', nickname);
                 token && Cache.setSession('bier_token', token);
                 heardUrl && Cache.setSession('bier_heardUrl', heardUrl);
-                this.$router.push({name: 'index'});
+                this.$router.push({ name: 'index' });
             },
             getUserInfo() {
                 var id = Cache.getCookie('login_identify');
@@ -89,7 +87,7 @@
                 token && id && Request({
                     url: 'GetUserInfoById',
                     type: 'get',
-                    data: {id},
+                    data: { id },
                 }).then(res => {
                     console.log('GetUserInfoById_>', res);
                     this.handleLoginSucc(res.data);
@@ -134,7 +132,7 @@
                 return new Promise((resolve, reject) => {
                     Request({
                         url: 'FindAdvertisement',
-                        data: {advertType: '1'},
+                        data: { advertType: '1' },
                         type: 'get',
                     }).then(res => {
                         this.swiperImgs = this.handleCarouselData(res.data);
@@ -162,6 +160,7 @@
         background: #FAFAFA;
         padding-bottom: 50px;
         overflow: auto;
+
         &-bottom {
             @extend %load-more;
         }

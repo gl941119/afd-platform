@@ -1,4 +1,4 @@
-﻿import enLocale from './enE'
+﻿import enLocale from './enE';
 const en = {
     header: {
         home: 'Home',
@@ -13,7 +13,7 @@ const en = {
         tipMsg: 'Telegram need VPN',
         got: 'I got it',
         info: 'system maintenance，suspended withdrawals',
-        more: 'more'
+        more: 'more',
     },
     login: {
         login: 'Login',
@@ -57,7 +57,7 @@ const en = {
         enterOncePassword: 'ConfirmPassword',
         registerInviteCode: 'InviteCode',
         disclaimer: 'AFDCHAIN Terms of User',
-        agree: 'Agree & Register'
+        agree: 'Agree & Register',
     },
     passwordNotic: {
         one: '1. Password length must be between 8 and 16 characters.',
@@ -118,7 +118,7 @@ const en = {
         shareTiltle: 'Share',
         shareOne: 'Hey investor,have you suffered a loss?Come to AFD Chain ,I will feed you!Send a bear market strategy to you，invite you to register and divide 99999 AFDT.Invite others to get 33AFDT, invitee to get 66AFDT。Mining every day and enjoy bonuses!',
         shareCopy: 'copy',
-        warning: 'You have not logged in AFD Planet yet. To ensure that you can get more revenue, please log in and share later.'
+        warning: 'You have not logged in AFD Planet yet. To ensure that you can get more revenue, please log in and share later.',
     },
     crowdFunding: {
         all: ' All stages',
@@ -190,7 +190,7 @@ const en = {
         getAfd: 'Get AFD',
         inviteInfo: 'Hey investor,have you suffered a loss?I will feed you! Enter my invitation code and register quickly to get 99AFDT.',
     },
-    setting: { //账号设置
+    setting: { // 账号设置
         setInfo: 'Set',
         headUrl: 'Profile Pic.',
         nickname: 'Nickname',
@@ -236,7 +236,7 @@ const en = {
         nopass: 'The authentication application was not passed，please be noted',
         pass: 'The authentication was passed successfully',
     },
-    passwordInfo: { //更改密码、交易密码
+    passwordInfo: { // 更改密码、交易密码
         passwords: 'password',
         oldPassword: 'The original password ',
         newPassword: 'The new password ',
@@ -258,7 +258,7 @@ const en = {
         changeTradePassword: 'Change transaction password ',
         enterTradePassword: 'Please enter your transaction password ',
     },
-    personal: { //个人中心
+    personal: { // 个人中心
         purse: 'Wallet',
         revenue: 'Advertising revenue account ',
         main: "Advertiser's account ",
@@ -314,7 +314,7 @@ const en = {
         refuse: 'Review failed',
         statusUpdate: 'Status update time',
     },
-    project: { //广告收益账户以及主账户
+    project: { // 广告收益账户以及主账户
         balance: 'Balance',
         ethWalletAddress: 'ETH wallet address',
         withdraw: 'Withdrawal',
@@ -416,7 +416,7 @@ const en = {
         enterTechnology1: 'Please enter technology 1',
         enterTechnology2: 'Please enter technology 2',
         emptyProjectName: 'Project name cannot be empty (limited to 64 characters)',
-        emptyProjectDesc: 'Project description cannot be empty (limited to 512 characters)'
+        emptyProjectDesc: 'Project description cannot be empty (limited to 512 characters)',
     },
     tokenInfo: {
         token: 'Token issue',
@@ -498,47 +498,14 @@ const en = {
         enterEnglishName: 'Please enter the English name of the site',
         enterAddress: 'Please enter the site address',
     },
-    messageCode: { //后台返回数据
-        exceptions: ' System exception',
-        success: 'Successful operation',
-        failure: 'Operation failed ',
-        registered: 'Registered successfully ',
-        userNotExist: ' User does not exist, can not log in ',
-        notRegister: ' User already exists and cannot register',
-        tooManyUsers: ' There are too many users to log in',
-        disabled: ' The user is disabled and cannot log in',
-        alreadyBound: ' The user has been bound to the mailbox and cannot be re-bound',
-        wrongPassword: ' Password error, unable to log in ',
-        originalPassword: ' The original password is incorrect, please re-enter',
-        transactionPassword: ' The original transaction password is incorrect, please re-enter',
-        verificationCode: ' Verification code error',
-        codeSendSuccess: ' The verification code was sent successfully',
-        codeSendFaild: ' Verification code sending failed ',
-        codeSentTooFrequently: ' The verification code is sent too frequently. Please try again later',
-        codeNotExist: ' Invitation code does not exist ',
-        bindedTelegram: ' The telegram account has already registered the platform account and cannot be bound',
-        onShelves: ' Crowdfunding information is on the shelves and cannot be modified',
-        underReview: ' Cannot be modified in crowdfunding information review ',
-        notApplyAgain: ' Your ad already exists and can not re-apply',
-        loginInvalid: ' Login failed, please login again ',
-        noBindEmail: 'this account has not bind the email',
-        illegal: 'illegal advertisement',
-        remove: 'Advertisement offline',
-        invalid: 'Invalid Mining',
-        exist: 'The crowdfunding is not existing',
-        existed: 'The transaction code is already existed',
-        passwordExisted: 'The password is already existed',
-        unableBind: 'The wallet address was binding ，cannot contiue',
-        itemNoExist: 'the advertisement project is not existed',
-        noSetConcept: 'the advertisement has not been defined',
-    },
     footer: {
         partner: 'cooperative partner',
         Wechat: 'Wechat public number',
         Cooperation: 'Cooperation',
         AFD: 'AFD CHAIN FOUNDATION',
-        LTD: 'LTD'
+        LTD: 'LTD',
     },
     ...enLocale,
 };
 export default en
+;

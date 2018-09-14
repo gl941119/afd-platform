@@ -33,6 +33,13 @@
                     </a>
                 </div>
             </div>
+            <div class="advert-item-trade" v-if="success">
+                <div class="advert-item-trade-relative">
+                    <i @click="closeTradeSuc" class="advert-item-trade-relative-icon custom-vant-icon-close"></i>
+                    <img src="../../assets/imgs/img/mining.png">
+                    <span>获得{{tradeNum}}个AFDT</span>
+                </div>
+            </div>
             <van-popup v-model="tradeVisible" position="bottom">
                 <van-picker
                     show-toolbar
@@ -60,6 +67,8 @@
                 path: this.$route.name,
                 utils: new Utils(),
                 isVisited: false,
+                success: false,
+                tradeNum: 0,
             };
         },
         computed: {
@@ -67,10 +76,16 @@
                 const _tradeGroup = this.$store.state.tradeAdId;
                 return _tradeGroup && JSON.parse(_tradeGroup) || [];
             },
+            tradeObj() {
+                const _tradeSuc = this.$store.state.tradeSuc;
+                return _tradeSuc && JSON.parse(_tradeSuc) || {};
+            },
         },
         mounted() {
             // console.log('trade adId->', this.tradeAdId, this.advertDatas.id);
             this.isVisited = this.tradeAdId.some(item => item.id === this.advertDatas.id);
+            // trade success
+            this.tradeSucHandle();
         },
         methods: {
             handleOptions() {
@@ -96,11 +111,33 @@
                     const adId = this.pushAdId(this.tradeAdId, this.advertDatas.id);
                     this.$store.commit('setTradeAdId', adId);
                     Cache.setSession('trade_group', adId);
-                    this.$emit('after-trade');
+                    // modal
+                    // console.log(res);
+                    if (res.data) {
+                        let _trade = {
+                            id: this.advertDatas.id,
+                            tradeNum: res.data,
+                        };
+                        _trade = JSON.stringify(_trade);
+                        this.$store.commit('setTradeSuc', _trade);
+                        Cache.setSession('trade_suc', _trade);
+                    }
                 }).catch(msg => {
                     this.$emit('update-data');
                 });
                 this.tradeVisible = false;
+            },
+            tradeSucHandle() {
+                const { id, tradeNum } = this.tradeObj;
+                if (this.advertDatas.id === id) {
+                    this.success = true;
+                    this.tradeNum = tradeNum;
+                }
+            },
+            closeTradeSuc() {
+                this.success = false;
+                Cache.removeSession('trade_suc');
+                this.$store.commit('setTradeSuc', null);
             },
             goTrade() {
                 if (!(this.$store.state.token || Cache.getSession('bier_token'))) {
@@ -135,7 +172,7 @@
                 if (index === -1) {
                     adId.push({ id });
                 }
-                return adId;
+                return JSON.stringify(adId);
             },
         },
     };
@@ -208,6 +245,40 @@
                     &:last-child {
                         margin-left: 16px;
                     }
+                }
+            }
+        }
+        &-trade {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            background: rgba(0, 0, 0, .5);
+            @include content-flex;
+            &-relative {
+                position: relative;
+                &-icon {
+                    position: absolute;
+                    top: 0;
+                    right: pxTorem(40px);
+                    color: #C8C8C8;
+                    background: #fff;
+                    border-radius: 50%;
+                    line-height: pxTorem(44px);
+                    font-size: pxTorem(44px);
+                }
+                img {
+                    width: 100%;
+                }
+                span {
+                    position: absolute;
+                    bottom: pxTorem(118px);
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: pxTorem(18px);
+                    color: #ffe800;
                 }
             }
         }

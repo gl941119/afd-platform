@@ -66,6 +66,7 @@
                         this.$dialog.confirm({
                             title: '提示',
                             message: '该账户不存在，请先注册',
+                            className: 'dialog',
                         }).then(() => {
                             this.goToRegister();
                         }).catch(console.log);
@@ -199,4 +200,5 @@
             border-color: #ccc;
         }
     }
+
 </style>

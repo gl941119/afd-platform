@@ -1,6 +1,6 @@
 <template>
     <div class="input">
-        <header-nav linkName="information" title="实名认证" isBlue=true class="auth_header"></header-nav>
+        <header-nav linkName="account" title="实名认证" isBlue=true class="auth_header"></header-nav>
         <div class="input-info">
             <div class="input-info-item">
                 <input :disableClear=true @blur="ralname()" placeholder="姓名" v-model="name" />

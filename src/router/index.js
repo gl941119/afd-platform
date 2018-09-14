@@ -22,10 +22,16 @@ const Crowdfunding = () =>
 // freshman
 const Freshman = () =>
     import('@/pages/freshman/freshman');
-
+const WorkFlow = () =>
+    import('@/pages/freshman/flow');
+// activity
+const Activity = () =>
+    import('@/pages/activity/activity');
 // mine
 const Mine = () =>
     import('@/pages/mine/mine');
+const Purse = () =>
+    import('@/pages/mine/purse/purse');
 // Transaction
 const Transaction = () =>
     import('@/pages/mine/transaction/records');
@@ -118,6 +124,16 @@ export default new Router({
             component: Freshman,
         },
         {
+            path: '/activity',
+            name: 'activity',
+            component: Activity,
+        },
+        {
+            path: '/workflow',
+            name: 'workflow',
+            component: WorkFlow,
+        },
+        {
             path: '/project',
             name: 'project',
             meta: { showFooter: true }, // 显示footer
@@ -135,6 +151,11 @@ export default new Router({
             meta: { showFooter: true }, // 显示footer
             component: Mine,
 
+        },
+        {
+            path: '/purse',
+            name: 'purse',
+            component: Purse,
         },
         {
             path: '/information',

@@ -16,7 +16,6 @@
                         <div class="revenue-titleBox-title-info">
                             {{item.createTime}}
                         </div>
-                        <div class="revenue-titleBox-title-info">{{item.desc}}</div>
                         <div class="revenue-titleBox-title-info">
                             {{item.money}}
                         </div>

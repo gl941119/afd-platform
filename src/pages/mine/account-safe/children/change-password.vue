@@ -17,7 +17,7 @@
                 {{notic}}
             </div>
             <div v-if="value==='2'" class="input-password-forget" @click="forget()">
-                忘记交易密码
+                忘记支付密码
             </div>
         </div>
         <div class="input-confirm">
@@ -76,7 +76,7 @@ export default {
         },
         passwordRule() {
             var str = this.password;
-            const reg = (this.value === '1') ? /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!+-^%*#?&]{8,16}$/ : /^[a-zA-Z]{6}|[0-9]{6}$/;
+            const reg = (this.value === '1') ? /^([A-Za-z]|\d){8,16}$/ : /^[a-zA-Z0-9]{6}$/;
             var value = reg.test(str);
             if (!value) {
                 this.$toast.fail('密码格式不对');
